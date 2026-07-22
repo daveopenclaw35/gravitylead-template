@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GravityLead — AI Lead-Capture Website Template</title>
+  <meta name="description" content="Demo of a GravityLead AI lead-capture website. Powered by getgravitylead.com." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Demo banner: remove/hide in production by setting DEMO_MODE=false in app.js -->
+  <div class="demo-banner" id="demoBanner">
+    🔴 LIVE DEMO — This is a GravityLead reference site. Try the chat widget bottom-right. · getgravitylead.com
+  </div>
+
+  <header>
+    <div class="container nav">
+      <div class="logo"><span class="dot"></span><span id="bizName">Business</span></div>
+      <div style="display:flex;align-items:center;">
+        <a class="nav-phone" id="navPhone" href="#">(555) 000-0000</a>
+        <a class="nav-cta" href="#book" id="navCta">Book Now</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow" id="heroEyebrow"></div>
+          <h1 id="heroHead"></h1>
+          <p id="heroSub"></p>
+          <div class="btn-row">
+            <button class="btn btn-primary" data-open-chat id="heroCta"></button>
+            <button class="btn btn-ghost" data-open-chat id="heroCta2"></button>
+          </div>
+          <div class="trust" id="trustStrip"></div>
+        </div>
+        <div style="text-align:center;">
+          <div class="hero-emoji" id="heroEmoji"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="container">
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-sub">Everything handled by licensed pros — book any of these in seconds.</p>
+        <div class="cards" id="serviceCards"></div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="container">
+        <h2 class="section-title">Frequently Asked</h2>
+        <p class="section-sub">Quick answers — or just ask our AI assistant anything.</p>
+        <div class="faq" id="faqList"></div>
+      </div>
+    </section>
+
+    <!-- CTA BAND -->
+    <section id="book">
+      <div class="container">
+        <div class="cta-band">
+          <h2>Ready when you are.</h2>
+          <p id="ctaBandSub">Our AI assistant captures your details 24/7 and a real person texts you back fast.</p>
+          <button class="btn btn-primary" data-open-chat>Chat With Us Now</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <strong id="footBiz"></strong><br />
+        <span id="footMeta"></span>
+      </div>
+      <div class="powered">
+        <span id="footHours"></span><br />
+        <a href="https://getgravitylead.com" id="poweredBy">Powered by GravityLead</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CHAT WIDGET -->
+  <button class="chat-launcher" id="chatLauncher" aria-label="Open chat">
+    <span class="pulse"></span>💬
+  </button>
+  <div class="chat-window" id="chatWindow" role="dialog" aria-label="AI assistant">
+    <div class="chat-head">
+      <div class="av">🤖</div>
+      <div class="meta">
+        <b id="chatBizName">Assistant</b>
+        <small>Typically replies instantly</small>
+      </div>
+      <span class="demo-tag" id="chatDemoTag">Demo</span>
+    </div>
+    <div class="chat-body" id="chatBody"></div>
+    <div class="quick" id="chatQuick"></div>
+    <div class="chat-input">
+      <input type="text" id="chatText" placeholder="Type your message…" autocomplete="off" />
+      <button id="chatSend" aria-label="Send">➤</button>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
