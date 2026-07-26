@@ -205,7 +205,7 @@
   /* ---------- 4. GravityLead lead-capture form ---------- */
   /* Set FORM_ENDPOINT to a real URL (Formspree, Cloudflare Worker, etc.) to
      POST captured leads. When empty, leads log to console only. */
-  const FORM_ENDPOINT = "";
+  const FORM_ENDPOINT = "https://formspree.io/f/xdaqyezr";
 
   const glForm = document.getElementById("glLeadForm");
   const glSuccess = document.getElementById("glFormSuccess");
