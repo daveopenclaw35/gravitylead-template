@@ -168,8 +168,93 @@ footer { border-top: 1px solid rgba(255,255,255,.07); padding: 30px 0; color: va
 .chat-input input:focus { border-color: var(--primary); }
 .chat-input button { background: var(--primary); border: none; color: #fff; width: 42px; border-radius: 50%; cursor: pointer; font-size: 17px; }
 
+/* ---- GravityLead Sales Sections ---- */
+.gl-sales { padding: 56px 0; }
+
+.gl-divider { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; }
+.gl-divider-line { flex: 1; height: 1px; background: rgba(255,255,255,.1); }
+.gl-divider-text { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
+
+.gl-intro { text-align: center; max-width: 720px; margin: 0 auto 48px; }
+.gl-headline { font-size: clamp(24px, 4vw, 36px); line-height: 1.2; margin-bottom: 16px; }
+.gl-headline .highlight { color: var(--accent); }
+.gl-sub { color: var(--muted); font-size: 18px; line-height: 1.5; }
+
+.gl-features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+.gl-feature {
+  background: var(--surface); border: 1px solid rgba(255,255,255,.06);
+  border-radius: var(--radius); padding: 28px 22px; text-align: center;
+  transition: transform .18s, border-color .18s;
+}
+.gl-feature:hover { transform: translateY(-4px); border-color: var(--accent); }
+.gl-feature-icon { font-size: 36px; display: block; margin-bottom: 12px; }
+.gl-feature h3 { font-size: 17px; margin-bottom: 8px; }
+.gl-feature p { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+
+/* ---- Pricing ---- */
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
+.price-card {
+  background: var(--surface); border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--radius); padding: 32px 24px; text-align: center; position: relative;
+  transition: transform .18s;
+}
+.price-card:hover { transform: translateY(-4px); }
+.price-card.featured {
+  border-color: var(--primary);
+  box-shadow: 0 0 40px color-mix(in srgb, var(--primary) 20%, transparent);
+  transform: scale(1.04);
+}
+.price-card.featured:hover { transform: scale(1.06); }
+.price-badge {
+  position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+  background: var(--primary); color: #fff; font-size: 12px; font-weight: 800;
+  padding: 5px 16px; border-radius: 999px; white-space: nowrap;
+}
+.price-tier { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 12px; }
+.price-amount { font-size: 48px; font-weight: 900; line-height: 1; }
+.price-amount sup { font-size: 24px; vertical-align: super; }
+.price-recur { color: var(--muted); font-size: 15px; margin-top: 4px; margin-bottom: 24px; }
+.price-list { list-style: none; text-align: left; margin-bottom: 28px; }
+.price-list li { padding: 7px 0; font-size: 14.5px; color: var(--text); border-bottom: 1px solid rgba(255,255,255,.04); }
+.price-list li:last-child { border-bottom: none; }
+.price-cta { width: 100%; text-align: center; display: block; }
+
+/* ---- Lead Form ---- */
+.gl-form-wrap {
+  max-width: 520px; margin: 0 auto; text-align: center;
+  background: var(--surface); border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--radius); padding: 40px 32px;
+}
+.gl-form-wrap h2 { font-size: 28px; margin-bottom: 8px; }
+.gl-form-wrap > p { color: var(--muted); margin-bottom: 28px; }
+
+.gl-form { text-align: left; }
+.gl-field { margin-bottom: 18px; }
+.gl-field label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+.gl-field input,
+.gl-field select {
+  width: 100%; padding: 12px 15px; font-size: 15px; border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.12); background: var(--bg); color: var(--text);
+  outline: none; transition: border-color .15s; font-family: inherit;
+}
+.gl-field input:focus,
+.gl-field select:focus { border-color: var(--primary); }
+.gl-field select { appearance: none; cursor: pointer; }
+
+.gl-submit { width: 100%; margin-top: 8px; font-size: 16px; padding: 15px; }
+
+.gl-form-success { display: none; padding: 20px 0; }
+.gl-form-success.show { display: block; }
+.gl-success-icon { font-size: 48px; margin-bottom: 12px; }
+.gl-form-success h3 { font-size: 24px; margin-bottom: 8px; }
+.gl-form-success p { color: var(--muted); }
+
 @media (max-width: 760px) {
   .hero-grid { grid-template-columns: 1fr; }
   .hero-emoji { display: none; }
   .nav-phone { display: none; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 380px; margin: 0 auto; }
+  .price-card.featured { transform: none; }
+  .price-card.featured:hover { transform: translateY(-4px); }
+  .gl-form-wrap { padding: 28px 20px; }
 }

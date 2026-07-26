@@ -201,4 +201,40 @@
 
   $("chatSend").addEventListener("click", () => handleUser(input.value));
   input.addEventListener("keydown", (e) => { if (e.key === "Enter") handleUser(input.value); });
+
+  /* ---------- 4. GravityLead lead-capture form ---------- */
+  /* Set FORM_ENDPOINT to a real URL (Formspree, Cloudflare Worker, etc.) to
+     POST captured leads. When empty, leads log to console only. */
+  const FORM_ENDPOINT = "";
+
+  const glForm = document.getElementById("glLeadForm");
+  const glSuccess = document.getElementById("glFormSuccess");
+  if (glForm) {
+    glForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const data = {
+        name: document.getElementById("glName").value.trim(),
+        business: document.getElementById("glBiz").value.trim(),
+        trade: document.getElementById("glTrade").value,
+        phone: document.getElementById("glPhone").value.trim(),
+        submitted: new Date().toISOString(),
+        source: window.location.href,
+      };
+      if (FORM_ENDPOINT) {
+        try {
+          await fetch(FORM_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+        } catch (err) {
+          console.warn("[GravityLead] Form POST failed, lead captured locally:", err);
+        }
+      }
+      console.log("[GravityLead] Lead captured:", data);
+      glForm.style.display = "none";
+      glSuccess.classList.add("show");
+      glSuccess.style.display = "block";
+    });
+  }
 })();

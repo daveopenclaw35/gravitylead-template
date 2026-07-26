@@ -10,7 +10,7 @@
 <body>
   <!-- Demo banner: remove/hide in production by setting DEMO_MODE=false in app.js -->
   <div class="demo-banner" id="demoBanner">
-    🔴 LIVE DEMO — This is a GravityLead reference site. Try the chat widget bottom-right. · getgravitylead.com
+    🔴 LIVE DEMO — You're viewing a sample AI website. Try the chat ↘ then scroll down to get yours. · getgravitylead.com
   </div>
 
   <header>
@@ -18,7 +18,7 @@
       <div class="logo"><span class="dot"></span><span id="bizName">Business</span></div>
       <div style="display:flex;align-items:center;">
         <a class="nav-phone" id="navPhone" href="#">(555) 000-0000</a>
-        <a class="nav-cta" href="#book" id="navCta">Book Now</a>
+        <a class="nav-cta" href="#get-started" id="navCta">Book Now</a>
       </div>
     </div>
   </header>
@@ -61,13 +61,135 @@
       </div>
     </section>
 
-    <!-- CTA BAND -->
-    <section id="book">
+    <!-- GRAVITYLEAD — SALES TRANSITION -->
+    <section id="gravitylead" class="gl-sales">
       <div class="container">
-        <div class="cta-band">
-          <h2>Ready when you are.</h2>
-          <p id="ctaBandSub">Our AI assistant captures your details 24/7 and a real person texts you back fast.</p>
-          <button class="btn btn-primary" data-open-chat>Chat With Us Now</button>
+        <div class="gl-divider">
+          <div class="gl-divider-line"></div>
+          <span class="gl-divider-text">powered by</span>
+          <div class="gl-divider-line"></div>
+        </div>
+        <div class="gl-intro">
+          <h2 class="gl-headline">👆 Everything above? That's a <span class="highlight">GravityLead</span> AI website.</h2>
+          <p class="gl-sub">Your customers see a professional site with an AI receptionist that captures their info 24/7 — even when you're on a job. You get the leads texted straight to your phone.</p>
+        </div>
+        <div class="gl-features-grid">
+          <div class="gl-feature">
+            <span class="gl-feature-icon">🤖</span>
+            <h3>AI Chat That Books Jobs</h3>
+            <p>Your AI receptionist qualifies leads, answers questions, and captures phone numbers — automatically, 24/7.</p>
+          </div>
+          <div class="gl-feature">
+            <span class="gl-feature-icon">⚡</span>
+            <h3>Speed-to-Lead</h3>
+            <p>Respond to every inquiry in seconds, not hours. The business that replies first wins the job.</p>
+          </div>
+          <div class="gl-feature">
+            <span class="gl-feature-icon">🔧</span>
+            <h3>Built For Your Trade</h3>
+            <p>Not a generic template. Pre-built for HVAC, roofing, plumbing, electrical, and more.</p>
+          </div>
+          <div class="gl-feature">
+            <span class="gl-feature-icon">📱</span>
+            <h3>Fast, Mobile, Secure</h3>
+            <p>Loads in under 2 seconds on any device. SSL included. No tech skills needed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="gl-sales">
+      <div class="container">
+        <h2 class="section-title" style="text-align:center;">Simple, Transparent Pricing</h2>
+        <p class="section-sub" style="text-align:center;">Every plan includes your AI website + chat agent. No hidden fees.</p>
+        <div class="pricing-grid">
+          <div class="price-card">
+            <div class="price-tier">Self-Serve</div>
+            <div class="price-amount"><sup>$</sup>997</div>
+            <div class="price-recur">+ $149/mo</div>
+            <ul class="price-list">
+              <li>✓ AI website for your trade</li>
+              <li>✓ AI chat lead capture</li>
+              <li>✓ Your branding &amp; colors</li>
+              <li>✓ Self-setup guide</li>
+              <li>✓ Email support</li>
+            </ul>
+            <a href="#get-started" class="btn btn-ghost price-cta">Get Started</a>
+          </div>
+          <div class="price-card featured">
+            <div class="price-badge">⭐ Most Popular</div>
+            <div class="price-tier">Done-For-You</div>
+            <div class="price-amount"><sup>$</sup>1,997</div>
+            <div class="price-recur">+ $149/mo</div>
+            <ul class="price-list">
+              <li>✓ Everything in Self-Serve</li>
+              <li>✓ We build it for you</li>
+              <li>✓ Custom copy &amp; branding</li>
+              <li>✓ Domain setup included</li>
+              <li>✓ Live in 48 hours</li>
+              <li>✓ Priority support</li>
+            </ul>
+            <a href="#get-started" class="btn btn-primary price-cta">Get Started</a>
+          </div>
+          <div class="price-card">
+            <div class="price-tier">Managed</div>
+            <div class="price-amount"><sup>$</sup>2,997</div>
+            <div class="price-recur">+ $299/mo</div>
+            <ul class="price-list">
+              <li>✓ Everything in Done-For-You</li>
+              <li>✓ Ongoing content updates</li>
+              <li>✓ Monthly performance reports</li>
+              <li>✓ SEO optimization</li>
+              <li>✓ Dedicated account manager</li>
+              <li>✓ Priority phone support</li>
+            </ul>
+            <a href="#get-started" class="btn btn-ghost price-cta">Get Started</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GET STARTED FORM -->
+    <section id="get-started" class="gl-sales">
+      <div class="container">
+        <div class="gl-form-wrap">
+          <h2>Get This For My Business</h2>
+          <p>Tell us about your business and we'll reach out to get you set up.</p>
+          <form id="glLeadForm" class="gl-form">
+            <div class="gl-field">
+              <label for="glName">Your Name</label>
+              <input type="text" id="glName" name="name" required placeholder="John Smith" />
+            </div>
+            <div class="gl-field">
+              <label for="glBiz">Business Name</label>
+              <input type="text" id="glBiz" name="business" required placeholder="Smith's HVAC" />
+            </div>
+            <div class="gl-field">
+              <label for="glTrade">Your Trade</label>
+              <select id="glTrade" name="trade" required>
+                <option value="">Select your trade…</option>
+                <option value="hvac">HVAC</option>
+                <option value="roofing">Roofing</option>
+                <option value="plumbing">Plumbing</option>
+                <option value="electrical">Electrical</option>
+                <option value="landscaping">Landscaping</option>
+                <option value="painting">Painting</option>
+                <option value="general">General Contractor</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="gl-field">
+              <label for="glPhone">Phone Number</label>
+              <input type="tel" id="glPhone" name="phone" required placeholder="(555) 123-4567" />
+            </div>
+            <button type="submit" class="btn btn-primary gl-submit">Get My AI Website →</button>
+          </form>
+          <div class="gl-form-success" id="glFormSuccess">
+            <div class="gl-success-icon">✅</div>
+            <h3>You're In!</h3>
+            <p>We've got your info. Someone from our team will reach out within 24 hours to get you set up.</p>
+          </div>
         </div>
       </div>
     </section>
