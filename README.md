@@ -28,6 +28,7 @@ Save, reload. Copy, colors, services, FAQs, and the chat flow all change.
 | `styles.css` | Theme via CSS variables set from the skin |
 | `config.js` | **Trade-skin engine** — brand + HVAC/roofing/plumbing skins |
 | `app.js` | Renders skin + runs demo-mode chat widget |
+| `server/` | **Twilio missed-call text-back + SMS follow-up engine** |
 | `sales/one-pager.md` | Sales pitch one-pager |
 | `sales/demo-script.md` | Cold/demo call script for the salesperson |
 
@@ -41,5 +42,15 @@ Save, reload. Copy, colors, services, FAQs, and the chat flow all change.
 2. Override `business.*` in that skin (name, phone, city, license).
 3. Optionally tweak `theme.*` colors to match their brand.
 4. Set `DEMO_MODE = false` and point `/api/chat` at the live agent.
+
+## Missed-Call Text-Back + SMS Follow-Ups
+The `server/` directory contains a Node.js backend that handles:
+- **Missed-call text-back** — auto-SMS within seconds when a call goes unanswered
+- **Follow-up sequences** — automated SMS at day 3, 7, and 30
+- **STOP opt-out** — legally compliant, cancels pending follow-ups
+- **Reply forwarding** — customer replies go straight to the business owner
+- **Lead tracking** — SQLite database with stats API
+
+See [`server/README.md`](server/README.md) for setup instructions.
 
 *Powered by GravityLead · getgravitylead.com*

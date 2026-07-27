@@ -1,0 +1,12 @@
+{
+  "_comment": "Map each Twilio number to a client. Keys are E.164 phone numbers.",
+  "_example": {
+    "+16075551234": {
+      "business_name": "Summit Air & Heating",
+      "owner_phone": "+16075559999",
+      "trade": "hvac",
+      "owner_name": "John",
+      "ring_timeout": 20
+    }
+  }
+}

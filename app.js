@@ -206,6 +206,10 @@
   /* Set FORM_ENDPOINT to a real URL (Formspree, Cloudflare Worker, etc.) to
      POST captured leads. When empty, leads log to console only. */
   const FORM_ENDPOINT = "https://formspree.io/f/xdaqyezr";
+  /* Optional: GravityLead server endpoint for lead tracking + SMS follow-ups.
+     Set to your server URL (e.g., "https://your-server.com/api/lead") to enroll
+     form leads in the 3/7/30-day follow-up sequence. */
+  const LEAD_SERVER_ENDPOINT = "";  // e.g., "https://your-server.com/api/lead"
 
   const glForm = document.getElementById("glLeadForm");
   const glSuccess = document.getElementById("glFormSuccess");
@@ -229,6 +233,25 @@
           });
         } catch (err) {
           console.warn("[GravityLead] Form POST failed, lead captured locally:", err);
+        }
+      }
+      /* Enroll in SMS follow-up sequence via GravityLead server */
+      if (LEAD_SERVER_ENDPOINT) {
+        try {
+          await fetch(LEAD_SERVER_ENDPOINT, {
+            method: "POST",
+            headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            body: JSON.stringify({
+              phone: data.phone,
+              name: data.name,
+              business: data.business,
+              trade: data.trade,
+              twilio_number: S.business.twilio || "",
+              source: "form",
+            }),
+          });
+        } catch (err) {
+          console.warn("[GravityLead] Lead server POST failed:", err);
         }
       }
       console.log("[GravityLead] Lead captured:", data);

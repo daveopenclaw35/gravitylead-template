@@ -1,3 +1,7 @@
 node_modules/
 .DS_Store
 *.log
+server/.env
+server/gravitylead.db
+server/gravitylead.db-wal
+server/gravitylead.db-shm

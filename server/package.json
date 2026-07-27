@@ -1,0 +1,16 @@
+{
+  "name": "gravitylead-server",
+  "version": "1.0.0",
+  "description": "GravityLead missed-call text-back + SMS follow-up engine",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.0",
+    "express": "^4.21.0",
+    "node-cron": "^3.0.3",
+    "twilio": "^5.4.0"
+  }
+}
