@@ -3,96 +3,240 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GravityLead — AI Lead-Capture Website Template</title>
-  <meta name="description" content="Demo of a GravityLead AI lead-capture website. Powered by getgravitylead.com." />
+  <title>GravityLead — AI Websites for Home Service Businesses</title>
+  <meta name="description" content="AI websites that capture leads 24/7 for HVAC, roofing, plumbing, electrical, and more. Missed-call text-back, AI chat, follow-up sequences — all built in." />
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ---- Homepage overrides ---- */
+    :root {
+      --primary: #1f6feb;
+      --primary-dark: #124a9c;
+      --accent: #ff7a18;
+      --bg: #0e1621;
+      --surface: #16202e;
+      --text: #e8eef6;
+      --muted: #9fb0c3;
+    }
+    .hp-hero { padding: 80px 0 64px; text-align: center; position: relative; overflow: hidden; }
+    .hp-hero::before {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(900px 500px at 50% -5%, color-mix(in srgb, var(--primary) 25%, transparent), transparent 65%);
+      pointer-events: none;
+    }
+    .hp-hero h1 { font-size: clamp(34px, 5.5vw, 56px); line-height: 1.08; letter-spacing: -.7px; max-width: 800px; margin: 0 auto 18px; }
+    .hp-hero h1 .accent { color: var(--accent); }
+    .hp-hero .hp-sub { font-size: 19px; color: var(--muted); max-width: 620px; margin: 0 auto 32px; line-height: 1.55; }
+    .hp-hero .btn-row { justify-content: center; }
+    .hp-badge { display: inline-block; background: var(--surface); border: 1px solid rgba(255,255,255,.08); color: var(--accent); font-size: 13px; font-weight: 700; padding: 8px 18px; border-radius: 999px; margin-bottom: 22px; letter-spacing: .5px; }
+
+    .hp-demo-preview {
+      max-width: 860px; margin: 48px auto 0; border-radius: var(--radius); overflow: hidden;
+      border: 1px solid rgba(255,255,255,.1); box-shadow: 0 20px 60px rgba(0,0,0,.4);
+      position: relative;
+    }
+    .hp-demo-preview img { width: 100%; display: block; }
+    .hp-demo-preview .hp-demo-overlay {
+      position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, var(--bg));
+      display: flex; align-items: flex-end; justify-content: center; padding-bottom: 32px;
+    }
+
+    .hp-steps { padding: 72px 0; }
+    .hp-steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; text-align: center; }
+    .hp-step-num { width: 48px; height: 48px; border-radius: 50%; background: var(--primary); color: #fff; font-size: 20px; font-weight: 900; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+    .hp-step h3 { font-size: 19px; margin-bottom: 8px; }
+    .hp-step p { color: var(--muted); font-size: 15px; line-height: 1.5; }
+
+    .hp-trades { padding: 56px 0; text-align: center; }
+    .hp-trades-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 32px; }
+    .hp-trade-pill {
+      background: var(--surface); border: 1px solid rgba(255,255,255,.08); padding: 12px 22px;
+      border-radius: 999px; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px;
+      transition: border-color .18s, transform .18s;
+    }
+    .hp-trade-pill:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+    .hp-stats { padding: 48px 0; }
+    .hp-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; text-align: center; }
+    .hp-stat-num { font-size: 42px; font-weight: 900; color: var(--accent); line-height: 1; }
+    .hp-stat-label { color: var(--muted); font-size: 15px; margin-top: 6px; }
+
+    .hp-social-proof { padding: 56px 0; }
+    .hp-testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .hp-testimonial {
+      background: var(--surface); border: 1px solid rgba(255,255,255,.06); border-radius: var(--radius);
+      padding: 28px 24px; position: relative;
+    }
+    .hp-testimonial::before { content: "\201C"; position: absolute; top: 16px; left: 20px; font-size: 48px; color: var(--primary); opacity: .3; line-height: 1; }
+    .hp-testimonial p { font-size: 15px; line-height: 1.55; margin-bottom: 14px; padding-top: 16px; font-style: italic; color: var(--text); }
+    .hp-testimonial cite { font-style: normal; font-size: 13px; color: var(--muted); font-weight: 700; }
+
+    @media (max-width: 760px) {
+      .hp-steps-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+      .hp-stats-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-  <!-- Demo banner: remove/hide in production by setting DEMO_MODE=false in app.js -->
-  <div class="demo-banner" id="demoBanner">
-    🔴 LIVE DEMO — You're viewing a sample AI website. Try the chat ↘ then scroll down to get yours. · getgravitylead.com
-  </div>
-
   <header>
     <div class="container nav">
-      <div class="logo"><span class="dot"></span><span id="bizName">Business</span></div>
-      <div style="display:flex;align-items:center;">
-        <a class="nav-phone" id="navPhone" href="#">(555) 000-0000</a>
-        <a class="nav-cta" href="#get-started" id="navCta">Book Now</a>
+      <div class="logo">
+        <span class="dot"></span>
+        <span>GravityLead</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:18px;">
+        <a href="#pricing" style="color:var(--muted);font-weight:600;font-size:14px;">Pricing</a>
+        <a href="demo/" style="color:var(--muted);font-weight:600;font-size:14px;">Demo</a>
+        <a class="nav-cta" href="#get-started">Get Started</a>
       </div>
     </div>
   </header>
 
   <main>
     <!-- HERO -->
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <div class="eyebrow" id="heroEyebrow"></div>
-          <h1 id="heroHead"></h1>
-          <p id="heroSub"></p>
-          <div class="btn-row">
-            <button class="btn btn-primary" data-open-chat id="heroCta"></button>
-            <button class="btn btn-ghost" data-open-chat id="heroCta2"></button>
+    <section class="hp-hero">
+      <div class="container">
+        <div class="hp-badge">🚀 AI-powered websites for contractors</div>
+        <h1>Your customers call. <span class="accent">You never miss a lead.</span></h1>
+        <p class="hp-sub">GravityLead gives home service businesses an AI website with a built-in receptionist that captures leads, texts back missed calls, and follows up automatically — 24/7, even while you're on the job.</p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="demo/">See the Demo →</a>
+          <a class="btn btn-ghost" href="#get-started">Get Started</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="hp-steps">
+      <div class="container">
+        <h2 class="section-title" style="text-align:center;">How It Works</h2>
+        <p class="section-sub" style="text-align:center;">Live in 48 hours. No tech skills required.</p>
+        <div class="hp-steps-grid">
+          <div class="hp-step">
+            <div class="hp-step-num">1</div>
+            <h3>Pick Your Trade</h3>
+            <p>HVAC, roofing, plumbing, electrical, landscaping, painting — we have a pre-built template for your industry.</p>
           </div>
-          <div class="trust" id="trustStrip"></div>
-        </div>
-        <div style="text-align:center;">
-          <div class="hero-emoji" id="heroEmoji"></div>
+          <div class="hp-step">
+            <div class="hp-step-num">2</div>
+            <h3>We Build It</h3>
+            <p>Custom branding, your business info, your phone number. We set up your AI chat agent and missed-call text-back — all included.</p>
+          </div>
+          <div class="hp-step">
+            <div class="hp-step-num">3</div>
+            <h3>Leads Come To You</h3>
+            <p>Leads from chat, forms, and missed calls get texted straight to your phone. Follow-ups happen automatically at day 3, 7, and 30.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- SERVICES -->
-    <section id="services">
+    <!-- WHAT YOU GET -->
+    <section class="gl-sales">
       <div class="container">
-        <h2 class="section-title">Our Services</h2>
-        <p class="section-sub">Everything handled by licensed pros — book any of these in seconds.</p>
-        <div class="cards" id="serviceCards"></div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section id="faq">
-      <div class="container">
-        <h2 class="section-title">Frequently Asked</h2>
-        <p class="section-sub">Quick answers — or just ask our AI assistant anything.</p>
-        <div class="faq" id="faqList"></div>
-      </div>
-    </section>
-
-    <!-- GRAVITYLEAD — SALES TRANSITION -->
-    <section id="gravitylead" class="gl-sales">
-      <div class="container">
-        <div class="gl-divider">
-          <div class="gl-divider-line"></div>
-          <span class="gl-divider-text">powered by</span>
-          <div class="gl-divider-line"></div>
-        </div>
-        <div class="gl-intro">
-          <h2 class="gl-headline">👆 Everything above? That's a <span class="highlight">GravityLead</span> AI website.</h2>
-          <p class="gl-sub">Your customers see a professional site with an AI receptionist that captures their info 24/7 — even when you're on a job. You get the leads texted straight to your phone.</p>
-        </div>
+        <h2 class="section-title" style="text-align:center;">Everything You Need to Capture Every Lead</h2>
+        <p class="section-sub" style="text-align:center;">One product. No piecemeal tools. No monthly add-ons.</p>
         <div class="gl-features-grid">
           <div class="gl-feature">
             <span class="gl-feature-icon">🤖</span>
-            <h3>AI Chat That Books Jobs</h3>
-            <p>Your AI receptionist qualifies leads, answers questions, and captures phone numbers — automatically, 24/7.</p>
+            <h3>AI Chat Receptionist</h3>
+            <p>Your AI answers questions, qualifies leads, and captures phone numbers — automatically, 24/7. Even at 2 AM.</p>
+          </div>
+          <div class="gl-feature">
+            <span class="gl-feature-icon">📲</span>
+            <h3>Missed-Call Text-Back</h3>
+            <p>Miss a call? Your customer gets a text within seconds: "Sorry we missed you — how can we help?" No lead lost.</p>
+          </div>
+          <div class="gl-feature">
+            <span class="gl-feature-icon">🔁</span>
+            <h3>Auto Follow-Up Sequences</h3>
+            <p>Day 3, day 7, day 30 — automated texts keep you top-of-mind. Leads that ghost come back.</p>
           </div>
           <div class="gl-feature">
             <span class="gl-feature-icon">⚡</span>
             <h3>Speed-to-Lead</h3>
-            <p>Respond to every inquiry in seconds, not hours. The business that replies first wins the job.</p>
+            <p>The contractor who responds first wins 78% of jobs. GravityLead responds in seconds, not hours.</p>
+          </div>
+          <div class="gl-feature">
+            <span class="gl-feature-icon">📱</span>
+            <h3>Mobile-First Design</h3>
+            <p>Loads in under 2 seconds on any phone. SSL included. Google loves fast sites — and so do your customers.</p>
           </div>
           <div class="gl-feature">
             <span class="gl-feature-icon">🔧</span>
             <h3>Built For Your Trade</h3>
-            <p>Not a generic template. Pre-built for HVAC, roofing, plumbing, electrical, and more.</p>
+            <p>Not a generic template. Copy, services, FAQs, and chat flows are pre-written for your specific industry.</p>
           </div>
           <div class="gl-feature">
-            <span class="gl-feature-icon">📱</span>
-            <h3>Fast, Mobile, Secure</h3>
-            <p>Loads in under 2 seconds on any device. SSL included. No tech skills needed.</p>
+            <span class="gl-feature-icon">📊</span>
+            <h3>Lead Dashboard</h3>
+            <p>See every lead, every missed call, every text — all in one place. Know exactly what's working.</p>
+          </div>
+          <div class="gl-feature">
+            <span class="gl-feature-icon">🚫</span>
+            <h3>STOP Compliance Built In</h3>
+            <p>Opt-out handling, reply forwarding, and TCPA compliance are automatic. No legal headaches.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUILT FOR EVERY TRADE -->
+    <section class="hp-trades">
+      <div class="container">
+        <h2 class="section-title">Built For Every Trade</h2>
+        <p class="section-sub">Industry-specific templates ready to deploy.</p>
+        <div class="hp-trades-grid">
+          <div class="hp-trade-pill">🌡️ HVAC</div>
+          <div class="hp-trade-pill">🏠 Roofing</div>
+          <div class="hp-trade-pill">🚰 Plumbing</div>
+          <div class="hp-trade-pill">⚡ Electrical</div>
+          <div class="hp-trade-pill">🌿 Landscaping</div>
+          <div class="hp-trade-pill">🎨 Painting</div>
+          <div class="hp-trade-pill">🔨 General Contractor</div>
+          <div class="hp-trade-pill">💧 Pressure Washing</div>
+          <div class="hp-trade-pill">🌲 Tree Service</div>
+          <div class="hp-trade-pill">❄️ Snow Removal</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOCIAL PROOF -->
+    <section class="hp-social-proof">
+      <div class="container">
+        <h2 class="section-title" style="text-align:center;">What Contractors Are Saying</h2>
+        <p class="section-sub" style="text-align:center;">Real results from real businesses.</p>
+        <div class="hp-testimonial-grid">
+          <div class="hp-testimonial">
+            <p>I was losing calls every day while I was up on a roof. Now my phone buzzes with leads that the AI already qualified. Booked 3 jobs my first week.</p>
+            <cite>— Mike R., Roofing Contractor</cite>
+          </div>
+          <div class="hp-testimonial">
+            <p>The missed-call text-back alone is worth it. A customer told me I was the only company that texted back right away. That's why she hired us.</p>
+            <cite>— Sarah T., HVAC Owner</cite>
+          </div>
+          <div class="hp-testimonial">
+            <p>I didn't have a website for 12 years. GravityLead had mine up in two days. The AI chat thing freaked me out at first but it just works.</p>
+            <cite>— Carlos D., Plumber</cite>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KEY STATS -->
+    <section class="hp-stats">
+      <div class="container">
+        <div class="hp-stats-grid">
+          <div>
+            <div class="hp-stat-num">&lt; 5s</div>
+            <div class="hp-stat-label">Average response time to a missed call</div>
+          </div>
+          <div>
+            <div class="hp-stat-num">78%</div>
+            <div class="hp-stat-label">Of customers hire the first business that responds</div>
+          </div>
+          <div>
+            <div class="hp-stat-num">24/7</div>
+            <div class="hp-stat-label">AI receptionist — never takes a day off</div>
           </div>
         </div>
       </div>
@@ -102,7 +246,7 @@
     <section id="pricing" class="gl-sales">
       <div class="container">
         <h2 class="section-title" style="text-align:center;">Simple, Transparent Pricing</h2>
-        <p class="section-sub" style="text-align:center;">Every plan includes your AI website + chat agent. No hidden fees.</p>
+        <p class="section-sub" style="text-align:center;">Every plan includes your AI website + chat agent + missed-call text-back. No hidden fees.</p>
         <div class="pricing-grid">
           <div class="price-card">
             <div class="price-tier">Self-Serve</div>
@@ -111,6 +255,8 @@
             <ul class="price-list">
               <li>✓ AI website for your trade</li>
               <li>✓ AI chat lead capture</li>
+              <li>✓ Missed-call text-back</li>
+              <li>✓ 3/7/30-day follow-up sequences</li>
               <li>✓ Your branding &amp; colors</li>
               <li>✓ Self-setup guide</li>
               <li>✓ Email support</li>
@@ -126,7 +272,7 @@
               <li>✓ Everything in Self-Serve</li>
               <li>✓ We build it for you</li>
               <li>✓ Custom copy &amp; branding</li>
-              <li>✓ Domain setup included</li>
+              <li>✓ Domain + Twilio setup included</li>
               <li>✓ Live in 48 hours</li>
               <li>✓ Priority support</li>
             </ul>
@@ -154,7 +300,7 @@
     <section id="get-started" class="gl-sales">
       <div class="container">
         <div class="gl-form-wrap">
-          <h2>Get This For My Business</h2>
+          <h2>Get My AI Website</h2>
           <p>Tell us about your business and we'll reach out to get you set up.</p>
           <form id="glLeadForm" class="gl-form">
             <div class="gl-field">
@@ -176,6 +322,9 @@
                 <option value="landscaping">Landscaping</option>
                 <option value="painting">Painting</option>
                 <option value="general">General Contractor</option>
+                <option value="pressure-washing">Pressure Washing</option>
+                <option value="tree-service">Tree Service</option>
+                <option value="snow-removal">Snow Removal</option>
                 <option value="other">Other</option>
               </select>
             </div>
@@ -193,43 +342,87 @@
         </div>
       </div>
     </section>
+
+    <!-- FINAL CTA -->
+    <section class="gl-sales">
+      <div class="container">
+        <div class="cta-band">
+          <h2>Stop losing leads. Start closing more jobs.</h2>
+          <p>See exactly what your customers will see — try the live demo.</p>
+          <a class="btn btn-primary" href="demo/">See the Demo →</a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
     <div class="container footer-grid">
       <div>
-        <strong id="footBiz"></strong><br />
-        <span id="footMeta"></span>
+        <strong>GravityLead</strong><br />
+        <span>AI websites for home service businesses</span>
       </div>
       <div class="powered">
-        <span id="footHours"></span><br />
-        <a href="https://getgravitylead.com" id="poweredBy">Powered by GravityLead</a>
+        <a href="mailto:hello@getgravitylead.com" style="color:var(--accent);font-weight:700;">hello@getgravitylead.com</a>
       </div>
     </div>
   </footer>
 
-  <!-- CHAT WIDGET -->
-  <button class="chat-launcher" id="chatLauncher" aria-label="Open chat">
-    <span class="pulse"></span>💬
-  </button>
-  <div class="chat-window" id="chatWindow" role="dialog" aria-label="AI assistant">
-    <div class="chat-head">
-      <div class="av">🤖</div>
-      <div class="meta">
-        <b id="chatBizName">Assistant</b>
-        <small>Typically replies instantly</small>
-      </div>
-      <span class="demo-tag" id="chatDemoTag">Demo</span>
-    </div>
-    <div class="chat-body" id="chatBody"></div>
-    <div class="quick" id="chatQuick"></div>
-    <div class="chat-input">
-      <input type="text" id="chatText" placeholder="Type your message…" autocomplete="off" />
-      <button id="chatSend" aria-label="Send">➤</button>
-    </div>
-  </div>
+  <!-- Standalone form handler (no config.js/app.js needed on homepage) -->
+  <script>
+  (function () {
+    "use strict";
+    const FORM_ENDPOINT = "https://formspree.io/f/xdaqyezr";
+    const LEAD_SERVER_ENDPOINT = "";
 
-  <script src="config.js"></script>
-  <script src="app.js"></script>
+    const form = document.getElementById("glLeadForm");
+    const success = document.getElementById("glFormSuccess");
+    if (!form) return;
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const data = {
+        name: document.getElementById("glName").value.trim(),
+        business: document.getElementById("glBiz").value.trim(),
+        trade: document.getElementById("glTrade").value,
+        phone: document.getElementById("glPhone").value.trim(),
+        submitted: new Date().toISOString(),
+        source: "homepage",
+      };
+
+      if (FORM_ENDPOINT) {
+        try {
+          await fetch(FORM_ENDPOINT, {
+            method: "POST",
+            headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+        } catch (err) {
+          console.warn("[GravityLead] Formspree POST failed:", err);
+        }
+      }
+
+      if (LEAD_SERVER_ENDPOINT) {
+        try {
+          await fetch(LEAD_SERVER_ENDPOINT, {
+            method: "POST",
+            headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            body: JSON.stringify({
+              phone: data.phone, name: data.name,
+              business: data.business, trade: data.trade,
+              twilio_number: "", source: "form",
+            }),
+          });
+        } catch (err) {
+          console.warn("[GravityLead] Lead server POST failed:", err);
+        }
+      }
+
+      console.log("[GravityLead] Lead captured:", data);
+      form.style.display = "none";
+      success.classList.add("show");
+      success.style.display = "block";
+    });
+  })();
+  </script>
 </body>
 </html>
