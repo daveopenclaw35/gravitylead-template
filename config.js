@@ -15,6 +15,14 @@
 
 const ACTIVE_TRADE = "hvac"; // <-- CHANGE THIS: "hvac" | "roofing" | "plumbing"
 
+/* ---------- Google Analytics 4 ------------------------------------------
+ * Set ANALYTICS_ID to this client's GA4 Measurement ID (format: G-XXXXXXXX).
+ * Create a new GA4 property for each client at analytics.google.com, then
+ * copy the Measurement ID from Admin → Data Streams → your stream.
+ * Leave as "G-XXXXXXXXXX" to disable tracking (safe for local dev / demos).
+ * ----------------------------------------------------------------------- */
+const ANALYTICS_ID = "G-XXXXXXXXXX"; // ← Replace with client's GA4 Measurement ID
+
 const BRAND = {
   name: "GravityLead",
   domain: "getgravitylead.com",

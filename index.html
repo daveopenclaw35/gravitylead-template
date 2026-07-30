@@ -6,6 +6,28 @@
   <title>GravityLead — AI Websites for Home Service Businesses</title>
   <meta name="description" content="AI websites that capture leads 24/7 for HVAC, roofing, plumbing, electrical, and more. Missed-call text-back, AI chat, follow-up sequences — all built in." />
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- ── Google Analytics 4 (GravityLead marketing site) ────────────────────
+       Replace G-XXXXXXXXXX with GravityLead's own GA4 Measurement ID.
+       NOTE: Client sites use a separate per-client ID set via ANALYTICS_ID
+       in config.js — no changes needed here for client deployments.
+  ─────────────────────────────────────────────────────────────────────────── -->
+  <script>
+    (function () {
+      var GA_ID = 'G-XXXXXXXXXX'; // ← Replace with GravityLead's GA4 Measurement ID
+      if (!GA_ID || GA_ID === 'G-XXXXXXXXXX') return;
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', GA_ID, { send_page_view: true });
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+      document.head.appendChild(s);
+    })();
+  </script>
+
   <style>
     /* ---- Homepage overrides ---- */
     :root {

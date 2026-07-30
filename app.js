@@ -260,4 +260,23 @@
       glSuccess.style.display = "block";
     });
   }
+
+  /* ---------- 5. Google Analytics 4 --------------------------------------- */
+  (function () {
+    // ANALYTICS_ID is defined in config.js — set it to the client's GA4 ID.
+    // Skips silently when placeholder value is used (safe for demos / local dev).
+    var id = (typeof ANALYTICS_ID !== "undefined") ? ANALYTICS_ID : "";
+    if (!id || id === "G-XXXXXXXXXX") return;
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag("js", new Date());
+    gtag("config", id, { send_page_view: true });
+    var s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + id;
+    document.head.appendChild(s);
+    console.log("[GravityLead] GA4 initialized:", id);
+  })();
+
 })();
