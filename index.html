@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GravityLead — AI Websites for Home Service Businesses</title>
   <meta name="description" content="AI websites that capture leads 24/7 for HVAC, roofing, plumbing, electrical, and more. Missed-call text-back, AI chat, follow-up sequences — all built in." />
+
+  <!-- Inter font — clean modern typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="styles.css" />
 
   <!-- ── Google Analytics 4 (GravityLead marketing site) ────────────────────
@@ -29,81 +35,362 @@
   </script>
 
   <style>
-    /* ---- Homepage overrides ---- */
-    :root {
-      --primary: #1f6feb;
-      --primary-dark: #124a9c;
-      --accent: #ff7a18;
-      --bg: #0e1621;
-      --surface: #16202e;
-      --text: #e8eef6;
-      --muted: #9fb0c3;
+    /* ═══════════════════════════════════════════════════════════
+       GRAVITYLEAD HOMEPAGE — Deep Space / Purple Brand Theme
+       ═══════════════════════════════════════════════════════════ */
+
+    /* ── Fonts ── */
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
-    .hp-hero { padding: 80px 0 64px; text-align: center; position: relative; overflow: hidden; }
+
+    /* ── Brand palette override ── */
+    :root {
+      --primary:      #6C47FF;
+      --primary-dark: #4C2FD9;
+      --accent:       #9B7BFF;
+      --bg:           #060913;
+      --surface:      #0D1224;
+      --text:         #E8EDFB;
+      --muted:        #8892B0;
+      --radius:       14px;
+    }
+
+    /* ── Deep space body background ── */
+    body {
+      background: var(--bg);
+      background-image:
+        radial-gradient(ellipse 80% 55% at 50% -5%,  rgba(108,71,255,.20) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 35% at 85% 55%, rgba(76,47,217,.10)  0%, transparent 50%),
+        radial-gradient(ellipse 30% 25% at 15% 75%, rgba(108,71,255,.07)  0%, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    /* ── Star field (pure CSS, zero JS, zero weight) ── */
+    .gl-starfield {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background:
+        /* layer 1 — bright small stars */
+        radial-gradient(circle, rgba(255,255,255,.90) 1px, transparent 1px)
+          0px 0px / 211px 219px,
+        /* layer 2 */
+        radial-gradient(circle, rgba(255,255,255,.55) 1px, transparent 1px)
+          71px 87px / 179px 203px,
+        /* layer 3 — dimmer, tighter */
+        radial-gradient(circle, rgba(255,255,255,.40) .5px, transparent .5px)
+          137px 43px / 131px 161px,
+        /* layer 4 */
+        radial-gradient(circle, rgba(255,255,255,.65) .5px, transparent .5px)
+          19px 127px / 97px 117px,
+        /* layer 5 */
+        radial-gradient(circle, rgba(255,255,255,.30) 1px,  transparent 1px)
+          91px 163px / 149px 173px,
+        /* layer 6 */
+        radial-gradient(circle, rgba(255,255,255,.50) .5px, transparent .5px)
+          163px 37px / 223px 187px,
+        /* layer 7 */
+        radial-gradient(circle, rgba(255,255,255,.35) 1px,  transparent 1px)
+          47px 197px / 171px 139px,
+        /* layer 8 — faint purple tint stars */
+        radial-gradient(circle, rgba(185,160,255,.60) 1px,  transparent 1px)
+          117px 71px / 229px 199px,
+        /* layer 9 */
+        radial-gradient(circle, rgba(255,255,255,.45) .5px, transparent .5px)
+          53px 11px / 107px 143px,
+        /* layer 10 */
+        radial-gradient(circle, rgba(185,160,255,.35) 1px,  transparent 1px)
+          189px 151px / 241px 211px;
+    }
+
+    /* ── Particle canvas ── */
+    .gl-particles {
+      position: fixed; inset: 0; pointer-events: none; z-index: 1;
+    }
+
+    /* ── All visible content above background layers ── */
+    header, main, footer { position: relative; z-index: 2; }
+
+    /* ── Logo ── */
+    .logo-gravity { color: #ffffff; }
+    .logo-lead    { color: var(--primary); }
+    .logo .dot    {
+      background: var(--primary);
+      box-shadow: 0 0 0 4px rgba(108,71,255,.22), 0 0 12px rgba(108,71,255,.4);
+    }
+
+    /* ── Nav CTA ── */
+    .nav-cta {
+      background: var(--primary);
+      box-shadow: 0 4px 16px rgba(108,71,255,.35);
+    }
+    .nav-cta:hover { background: var(--primary-dark); }
+
+    /* ── Header glass — slightly deeper surface ── */
+    header {
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      border-bottom: 1px solid rgba(108,71,255,.12);
+    }
+
+    /* ══════════════ HERO ══════════════ */
+    .hp-hero {
+      padding: 96px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
     .hp-hero::before {
-      content: ""; position: absolute; inset: 0;
-      background: radial-gradient(900px 500px at 50% -5%, color-mix(in srgb, var(--primary) 25%, transparent), transparent 65%);
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(900px 500px at 50% -5%, rgba(108,71,255,.22), transparent 65%);
       pointer-events: none;
     }
-    .hp-hero h1 { font-size: clamp(34px, 5.5vw, 56px); line-height: 1.08; letter-spacing: -.7px; max-width: 800px; margin: 0 auto 18px; }
-    .hp-hero h1 .accent { color: var(--accent); }
-    .hp-hero .hp-sub { font-size: 19px; color: var(--muted); max-width: 620px; margin: 0 auto 32px; line-height: 1.55; }
-    .hp-hero .btn-row { justify-content: center; }
-    .hp-badge { display: inline-block; background: var(--surface); border: 1px solid rgba(255,255,255,.08); color: var(--accent); font-size: 13px; font-weight: 700; padding: 8px 18px; border-radius: 999px; margin-bottom: 22px; letter-spacing: .5px; }
+    .hp-hero h1 {
+      font-size: clamp(36px, 5.5vw, 64px);
+      line-height: 1.04;
+      letter-spacing: -1px;
+      max-width: 860px;
+      margin: 0 auto 20px;
+      font-weight: 900;
+    }
+    .hp-hero h1 .accent { color: var(--primary); }
+    .hp-hero .hp-sub {
+      font-size: 19px;
+      color: var(--muted);
+      max-width: 640px;
+      margin: 0 auto 36px;
+      line-height: 1.65;
+      font-weight: 400;
+    }
+    .hp-hero .btn-row { justify-content: center; gap: 14px; }
 
+    /* ── Badge ── */
+    .hp-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(108,71,255,.12);
+      border: 1px solid rgba(108,71,255,.30);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 20px;
+      border-radius: 999px;
+      margin-bottom: 26px;
+      letter-spacing: .4px;
+    }
+
+    /* ── Demo preview box ── */
     .hp-demo-preview {
-      max-width: 860px; margin: 48px auto 0; border-radius: var(--radius); overflow: hidden;
-      border: 1px solid rgba(255,255,255,.1); box-shadow: 0 20px 60px rgba(0,0,0,.4);
+      max-width: 880px;
+      margin: 60px auto 0;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid rgba(108,71,255,.22);
+      box-shadow: 0 24px 70px rgba(0,0,0,.55), 0 0 100px rgba(108,71,255,.08);
       position: relative;
     }
     .hp-demo-preview img { width: 100%; display: block; }
     .hp-demo-preview .hp-demo-overlay {
-      position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, var(--bg));
-      display: flex; align-items: flex-end; justify-content: center; padding-bottom: 32px;
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, var(--bg));
+      display: flex; align-items: flex-end; justify-content: center;
+      padding-bottom: 32px;
     }
 
-    .hp-steps { padding: 72px 0; }
-    .hp-steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; text-align: center; }
-    .hp-step-num { width: 48px; height: 48px; border-radius: 50%; background: var(--primary); color: #fff; font-size: 20px; font-weight: 900; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px; }
-    .hp-step h3 { font-size: 19px; margin-bottom: 8px; }
-    .hp-step p { color: var(--muted); font-size: 15px; line-height: 1.5; }
+    /* ══════════════ HOW IT WORKS ══════════════ */
+    .hp-steps { padding: 88px 0; }
+    .hp-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      text-align: center;
+    }
+    .hp-step-num {
+      width: 54px; height: 54px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      font-size: 20px; font-weight: 900;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 24px rgba(108,71,255,.40);
+    }
+    .hp-step h3 { font-size: 19px; margin-bottom: 10px; font-weight: 700; }
+    .hp-step p  { color: var(--muted); font-size: 15px; line-height: 1.6; }
 
-    .hp-trades { padding: 56px 0; text-align: center; }
-    .hp-trades-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 32px; }
+    /* ══════════════ TRADES ══════════════ */
+    .hp-trades { padding: 64px 0; text-align: center; }
+    .hp-trades-grid {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 12px; margin-top: 32px;
+    }
     .hp-trade-pill {
-      background: var(--surface); border: 1px solid rgba(255,255,255,.08); padding: 12px 22px;
-      border-radius: 999px; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px;
-      transition: border-color .18s, transform .18s;
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,.07);
+      padding: 12px 22px; border-radius: 999px;
+      font-size: 15px; font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+      transition: border-color .18s, transform .18s, background .18s, box-shadow .18s;
     }
-    .hp-trade-pill:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .hp-trade-pill:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      background: rgba(108,71,255,.09);
+      box-shadow: 0 4px 18px rgba(108,71,255,.18);
+    }
 
-    .hp-stats { padding: 48px 0; }
-    .hp-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; text-align: center; }
-    .hp-stat-num { font-size: 42px; font-weight: 900; color: var(--accent); line-height: 1; }
-    .hp-stat-label { color: var(--muted); font-size: 15px; margin-top: 6px; }
+    /* ══════════════ STATS ══════════════ */
+    .hp-stats { padding: 60px 0; }
+    .hp-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      text-align: center;
+    }
+    .hp-stat-num {
+      font-size: 52px; font-weight: 900; line-height: 1;
+      background: linear-gradient(135deg, var(--primary) 30%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hp-stat-label { color: var(--muted); font-size: 15px; margin-top: 10px; }
 
-    .hp-social-proof { padding: 56px 0; }
-    .hp-testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    /* ══════════════ SOCIAL PROOF ══════════════ */
+    .hp-social-proof { padding: 64px 0; }
+    .hp-testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
     .hp-testimonial {
-      background: var(--surface); border: 1px solid rgba(255,255,255,.06); border-radius: var(--radius);
-      padding: 28px 24px; position: relative;
+      background: var(--surface);
+      border: 1px solid rgba(108,71,255,.12);
+      border-radius: var(--radius);
+      padding: 30px 26px;
+      position: relative;
+      transition: border-color .2s, transform .2s, box-shadow .2s;
     }
-    .hp-testimonial::before { content: "\201C"; position: absolute; top: 16px; left: 20px; font-size: 48px; color: var(--primary); opacity: .3; line-height: 1; }
-    .hp-testimonial p { font-size: 15px; line-height: 1.55; margin-bottom: 14px; padding-top: 16px; font-style: italic; color: var(--text); }
-    .hp-testimonial cite { font-style: normal; font-size: 13px; color: var(--muted); font-weight: 700; }
+    .hp-testimonial:hover {
+      border-color: rgba(108,71,255,.32);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(108,71,255,.12);
+    }
+    .hp-testimonial::before {
+      content: "\201C";
+      position: absolute; top: 16px; left: 20px;
+      font-size: 58px; color: var(--primary); opacity: .22; line-height: 1;
+    }
+    .hp-testimonial p {
+      font-size: 15px; line-height: 1.65;
+      margin-bottom: 14px; padding-top: 18px;
+      font-style: italic; color: var(--text);
+    }
+    .hp-testimonial cite {
+      font-style: normal; font-size: 13px;
+      color: var(--muted); font-weight: 700;
+    }
+
+    /* ══════════════ CTA BAND ══════════════ */
+    .cta-band {
+      background: linear-gradient(135deg, #120833 0%, rgba(108,71,255,.35) 50%, #120833 100%);
+      border: 1px solid rgba(108,71,255,.28);
+      border-radius: var(--radius);
+      padding: 56px 44px;
+      text-align: center;
+      box-shadow: 0 0 80px rgba(108,71,255,.12);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-band::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(600px 300px at 50% 50%, rgba(108,71,255,.12), transparent 70%);
+      pointer-events: none;
+    }
+    .cta-band h2 { font-size: 30px; color: #fff; font-weight: 800; position: relative; z-index: 1; }
+    .cta-band p  {
+      color: rgba(255,255,255,.72); margin: 10px 0 28px;
+      position: relative; z-index: 1;
+    }
+    .cta-band .btn-primary {
+      background: #fff !important;
+      color: var(--primary-dark) !important;
+      font-weight: 800;
+      position: relative; z-index: 1;
+    }
+    .cta-band .btn-primary:hover {
+      background: #ede8ff !important;
+      transform: translateY(-2px);
+    }
+
+    /* ── Button overrides ── */
+    .btn-primary {
+      background: var(--primary) !important;
+      box-shadow: 0 8px 28px rgba(108,71,255,.40) !important;
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark) !important;
+      transform: translateY(-2px);
+    }
+    .btn-ghost:hover {
+      border-color: var(--primary) !important;
+      color: var(--primary) !important;
+    }
+
+    /* ── Get started form focus ── */
+    .gl-field input:focus,
+    .gl-field select:focus {
+      border-color: var(--primary) !important;
+      box-shadow: 0 0 0 3px rgba(108,71,255,.15);
+    }
+
+    /* ── Form wrap with purple glow ── */
+    .gl-form-wrap {
+      background: var(--surface);
+      border: 1px solid rgba(108,71,255,.18);
+      box-shadow: 0 0 60px rgba(108,71,255,.08);
+    }
+
+    /* ── Pricing: featured card ── */
+    .price-card.featured {
+      border-color: var(--primary);
+      box-shadow: 0 0 60px rgba(108,71,255,.22), 0 8px 40px rgba(0,0,0,.3);
+    }
+    .price-badge { background: var(--primary) !important; }
+
+    /* ── Feature cards hover ── */
+    .gl-feature:hover {
+      border-color: rgba(108,71,255,.3) !important;
+      box-shadow: 0 4px 20px rgba(108,71,255,.12);
+    }
+
+    /* ── Section titles ── */
+    .section-title { font-weight: 800; letter-spacing: -.4px; }
+
+    /* ── Footer ── */
+    footer { border-top-color: rgba(108,71,255,.12); }
 
     @media (max-width: 760px) {
       .hp-steps-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
       .hp-stats-grid { grid-template-columns: 1fr; }
+      .hp-steps  { padding: 64px 0; }
+      .hp-trades { padding: 48px 0; }
     }
   </style>
 </head>
 <body>
+
+  <!-- ── Background layers (behind all content) ── -->
+  <div class="gl-starfield" aria-hidden="true"></div>
+  <canvas id="gl-particles" class="gl-particles" aria-hidden="true"></canvas>
+
   <header>
     <div class="container nav">
       <div class="logo">
         <span class="dot"></span>
-        <span>GravityLead</span>
+        <span class="logo-gravity">Gravity</span><span class="logo-lead">Lead</span>
       </div>
       <div style="display:flex;align-items:center;gap:18px;">
         <a href="#pricing" style="color:var(--muted);font-weight:600;font-size:14px;">Pricing</a>
@@ -114,7 +401,8 @@
   </header>
 
   <main>
-    <!-- HERO -->
+
+    <!-- ══════════ HERO ══════════ -->
     <section class="hp-hero">
       <div class="container">
         <div class="hp-badge">🚀 AI-powered websites for contractors</div>
@@ -127,7 +415,7 @@
       </div>
     </section>
 
-    <!-- HOW IT WORKS -->
+    <!-- ══════════ HOW IT WORKS ══════════ -->
     <section class="hp-steps">
       <div class="container">
         <h2 class="section-title" style="text-align:center;">How It Works</h2>
@@ -152,7 +440,7 @@
       </div>
     </section>
 
-    <!-- WHAT YOU GET -->
+    <!-- ══════════ WHAT YOU GET ══════════ -->
     <section class="gl-sales">
       <div class="container">
         <h2 class="section-title" style="text-align:center;">Everything You Need to Capture Every Lead</h2>
@@ -202,7 +490,7 @@
       </div>
     </section>
 
-    <!-- BUILT FOR EVERY TRADE -->
+    <!-- ══════════ BUILT FOR EVERY TRADE ══════════ -->
     <section class="hp-trades">
       <div class="container">
         <h2 class="section-title">Built For Every Trade</h2>
@@ -222,7 +510,7 @@
       </div>
     </section>
 
-    <!-- SOCIAL PROOF -->
+    <!-- ══════════ SOCIAL PROOF ══════════ -->
     <section class="hp-social-proof">
       <div class="container">
         <h2 class="section-title" style="text-align:center;">What Contractors Are Saying</h2>
@@ -244,7 +532,7 @@
       </div>
     </section>
 
-    <!-- KEY STATS -->
+    <!-- ══════════ KEY STATS ══════════ -->
     <section class="hp-stats">
       <div class="container">
         <div class="hp-stats-grid">
@@ -264,7 +552,7 @@
       </div>
     </section>
 
-    <!-- PRICING -->
+    <!-- ══════════ PRICING ══════════ -->
     <section id="pricing" class="gl-sales">
       <div class="container">
         <h2 class="section-title" style="text-align:center;">Simple, Transparent Pricing</h2>
@@ -318,7 +606,7 @@
       </div>
     </section>
 
-    <!-- GET STARTED FORM -->
+    <!-- ══════════ GET STARTED FORM ══════════ -->
     <section id="get-started" class="gl-sales">
       <div class="container">
         <div class="gl-form-wrap">
@@ -365,7 +653,7 @@
       </div>
     </section>
 
-    <!-- FINAL CTA -->
+    <!-- ══════════ FINAL CTA ══════════ -->
     <section class="gl-sales">
       <div class="container">
         <div class="cta-band">
@@ -375,12 +663,15 @@
         </div>
       </div>
     </section>
+
   </main>
 
   <footer>
     <div class="container footer-grid">
       <div>
-        <strong>GravityLead</strong><br />
+        <strong>
+          <span style="color:#fff">Gravity</span><span style="color:#6C47FF">Lead</span>
+        </strong><br />
         <span>AI websites for home service businesses</span>
       </div>
       <div class="powered">
@@ -389,7 +680,7 @@
     </div>
   </footer>
 
-  <!-- Standalone form handler (no config.js/app.js needed on homepage) -->
+  <!-- ── Lead form handler ──────────────────────────────────────────────── -->
   <script>
   (function () {
     "use strict";
@@ -403,12 +694,12 @@
     form.addEventListener("submit", async function (e) {
       e.preventDefault();
       const data = {
-        name: document.getElementById("glName").value.trim(),
-        business: document.getElementById("glBiz").value.trim(),
-        trade: document.getElementById("glTrade").value,
-        phone: document.getElementById("glPhone").value.trim(),
+        name:      document.getElementById("glName").value.trim(),
+        business:  document.getElementById("glBiz").value.trim(),
+        trade:     document.getElementById("glTrade").value,
+        phone:     document.getElementById("glPhone").value.trim(),
         submitted: new Date().toISOString(),
-        source: "homepage",
+        source:    "homepage",
       };
 
       if (FORM_ENDPOINT) {
@@ -418,9 +709,7 @@
             headers: { "Accept": "application/json", "Content-Type": "application/json" },
             body: JSON.stringify(data),
           });
-        } catch (err) {
-          console.warn("[GravityLead] Formspree POST failed:", err);
-        }
+        } catch (err) { console.warn("[GravityLead] Formspree POST failed:", err); }
       }
 
       if (LEAD_SERVER_ENDPOINT) {
@@ -434,9 +723,7 @@
               twilio_number: "", source: "form",
             }),
           });
-        } catch (err) {
-          console.warn("[GravityLead] Lead server POST failed:", err);
-        }
+        } catch (err) { console.warn("[GravityLead] Lead server POST failed:", err); }
       }
 
       console.log("[GravityLead] Lead captured:", data);
@@ -446,5 +733,65 @@
     });
   })();
   </script>
+
+  <!-- ── Animated particle field ───────────────────────────────────────── -->
+  <script>
+  (function () {
+    "use strict";
+    const canvas = document.getElementById("gl-particles");
+    if (!canvas || !canvas.getContext) return;
+    const ctx = canvas.getContext("2d");
+    let W = 0, H = 0;
+    const COUNT = 65;
+    const particles = [];
+
+    function resize() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+
+    function mkParticle(fromBottom) {
+      return {
+        x:     Math.random() * (W || 1),
+        y:     fromBottom ? (H + 10) : Math.random() * (H || 1),
+        vx:    (Math.random() - 0.5) * 0.22,
+        vy:    -(Math.random() * 0.32 + 0.07),
+        r:     Math.random() * 1.5 + 0.3,
+        alpha: Math.random() * 0.42 + 0.07,
+        // alternate between brand purple and soft lavender
+        rgb:   Math.random() > 0.55 ? "108,71,255" : "155,123,255",
+      };
+    }
+
+    function init() {
+      particles.length = 0;
+      for (let i = 0; i < COUNT; i++) particles.push(mkParticle(false));
+    }
+
+    function loop() {
+      ctx.clearRect(0, 0, W, H);
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        // draw particle
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(" + p.rgb + "," + p.alpha + ")";
+        ctx.fill();
+        // move
+        p.x += p.vx;
+        p.y += p.vy;
+        // recycle when it floats off the top
+        if (p.y < -12) particles[i] = mkParticle(true);
+      }
+      requestAnimationFrame(loop);
+    }
+
+    resize();
+    init();
+    loop();
+    window.addEventListener("resize", function () { resize(); init(); });
+  })();
+  </script>
+
 </body>
 </html>
