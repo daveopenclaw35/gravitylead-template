@@ -257,39 +257,95 @@
     }
     .hp-stat-label { color: var(--muted); font-size: 15px; margin-top: 10px; }
 
-    /* ══════════════ SOCIAL PROOF ══════════════ */
-    .hp-social-proof { padding: 64px 0; }
-    .hp-testimonial-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+    /* ══════════════ FOUNDING CLIENTS ══════════════ */
+    .hp-founding { padding: 80px 0; text-align: center; }
+    .hp-founding-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(108,71,255,.12);
+      border: 1px solid rgba(108,71,255,.30);
+      color: var(--accent); font-size: 13px; font-weight: 700;
+      padding: 8px 20px; border-radius: 999px;
+      margin-bottom: 24px; letter-spacing: .4px;
     }
-    .hp-testimonial {
+    .hp-founding h2 { font-size: clamp(26px, 4vw, 40px); font-weight: 900; margin-bottom: 16px; }
+    .hp-founding .hp-founding-sub {
+      color: var(--muted); font-size: 18px; line-height: 1.65;
+      max-width: 620px; margin: 0 auto 48px;
+    }
+    .hp-slots-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 820px;
+      margin: 0 auto 48px;
+    }
+    .hp-slot {
       background: var(--surface);
-      border: 1px solid rgba(108,71,255,.12);
+      border: 1px solid rgba(108,71,255,.18);
       border-radius: var(--radius);
-      padding: 30px 26px;
+      padding: 28px 20px;
       position: relative;
       transition: border-color .2s, transform .2s, box-shadow .2s;
     }
-    .hp-testimonial:hover {
-      border-color: rgba(108,71,255,.32);
+    .hp-slot:hover {
+      border-color: rgba(108,71,255,.40);
       transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(108,71,255,.12);
+      box-shadow: 0 8px 30px rgba(108,71,255,.14);
     }
-    .hp-testimonial::before {
-      content: "\201C";
-      position: absolute; top: 16px; left: 20px;
-      font-size: 58px; color: var(--primary); opacity: .22; line-height: 1;
+    .hp-slot-num {
+      font-size: 13px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--primary); margin-bottom: 14px;
     }
-    .hp-testimonial p {
-      font-size: 15px; line-height: 1.65;
-      margin-bottom: 14px; padding-top: 18px;
-      font-style: italic; color: var(--text);
+    .hp-slot-icon { font-size: 32px; margin-bottom: 12px; }
+    .hp-slot h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .hp-slot p  { font-size: 14px; color: var(--muted); line-height: 1.5; }
+    .hp-slot-open {
+      position: absolute; top: -10px; right: 16px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff; font-size: 10px; font-weight: 800;
+      padding: 4px 12px; border-radius: 999px; letter-spacing: .5px;
+      text-transform: uppercase;
+      box-shadow: 0 2px 12px rgba(108,71,255,.40);
     }
-    .hp-testimonial cite {
-      font-style: normal; font-size: 13px;
-      color: var(--muted); font-weight: 700;
+    .hp-founding-offer {
+      background: linear-gradient(135deg, #120833 0%, rgba(108,71,255,.25) 50%, #120833 100%);
+      border: 1px solid rgba(108,71,255,.25);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      max-width: 680px;
+      margin: 0 auto;
+      position: relative; overflow: hidden;
+    }
+    .hp-founding-offer::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(500px 250px at 50% 50%, rgba(108,71,255,.10), transparent 70%);
+      pointer-events: none;
+    }
+    .hp-founding-offer h3 {
+      font-size: 20px; font-weight: 800; margin-bottom: 18px; position: relative; z-index: 1;
+    }
+    .hp-offer-list {
+      list-style: none; text-align: left;
+      display: inline-block; margin-bottom: 24px;
+      position: relative; z-index: 1;
+    }
+    .hp-offer-list li {
+      font-size: 15px; color: var(--text); padding: 6px 0;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hp-offer-list li .check {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: rgba(108,71,255,.20); border: 1px solid rgba(108,71,255,.40);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 11px; flex-shrink: 0;
+    }
+    .hp-founding-fine {
+      font-size: 13px; color: var(--muted); margin-top: 14px;
+      position: relative; z-index: 1;
+    }
+    @media (max-width: 760px) {
+      .hp-slots-grid { grid-template-columns: 1fr; max-width: 340px; }
     }
 
     /* ══════════════ CTA BAND ══════════════ */
@@ -510,24 +566,49 @@
       </div>
     </section>
 
-    <!-- ══════════ SOCIAL PROOF ══════════ -->
-    <section class="hp-social-proof">
+    <!-- ══════════ FOUNDING CLIENTS ══════════ -->
+    <section class="hp-founding">
       <div class="container">
-        <h2 class="section-title" style="text-align:center;">What Contractors Are Saying</h2>
-        <p class="section-sub" style="text-align:center;">Real results from real businesses.</p>
-        <div class="hp-testimonial-grid">
-          <div class="hp-testimonial">
-            <p>I was losing calls every day while I was up on a roof. Now my phone buzzes with leads that the AI already qualified. Booked 3 jobs my first week.</p>
-            <cite>— Mike R., Roofing Contractor</cite>
+        <div class="hp-founding-badge">🛰️ Founding Client Program</div>
+        <h2>3 Spots. 60 Days Free.<br/>Be First.</h2>
+        <p class="hp-founding-sub">We're selecting 3 local contractors to pilot GravityLead at no cost. You get a fully built AI website, live lead capture, and missed-call text-back for 60 days — in exchange for one honest review when you're done.</p>
+
+        <div class="hp-slots-grid">
+          <div class="hp-slot">
+            <div class="hp-slot-open">Open</div>
+            <div class="hp-slot-num">Spot #1</div>
+            <div class="hp-slot-icon">⚡</div>
+            <h3>Available</h3>
+            <p>One contractor in your area. First to apply gets it.</p>
           </div>
-          <div class="hp-testimonial">
-            <p>The missed-call text-back alone is worth it. A customer told me I was the only company that texted back right away. That's why she hired us.</p>
-            <cite>— Sarah T., HVAC Owner</cite>
+          <div class="hp-slot">
+            <div class="hp-slot-open">Open</div>
+            <div class="hp-slot-num">Spot #2</div>
+            <div class="hp-slot-icon">⚡</div>
+            <h3>Available</h3>
+            <p>One contractor in your area. First to apply gets it.</p>
           </div>
-          <div class="hp-testimonial">
-            <p>I didn't have a website for 12 years. GravityLead had mine up in two days. The AI chat thing freaked me out at first but it just works.</p>
-            <cite>— Carlos D., Plumber</cite>
+          <div class="hp-slot">
+            <div class="hp-slot-open">Open</div>
+            <div class="hp-slot-num">Spot #3</div>
+            <div class="hp-slot-icon">⚡</div>
+            <h3>Available</h3>
+            <p>One contractor in your area. First to apply gets it.</p>
           </div>
+        </div>
+
+        <div class="hp-founding-offer">
+          <h3>What You Get — Free for 60 Days</h3>
+          <ul class="hp-offer-list">
+            <li><span class="check">✓</span> Done-for-you AI website with your branding &amp; trade</li>
+            <li><span class="check">✓</span> AI chat receptionist that captures leads 24/7</li>
+            <li><span class="check">✓</span> Missed-call text-back — responds in under 5 seconds</li>
+            <li><span class="check">✓</span> Automated day 3, 7, and 30 follow-up sequences</li>
+            <li><span class="check">✓</span> Domain + Twilio setup handled for you</li>
+            <li><span class="check">✓</span> Direct support from our founding team</li>
+          </ul>
+          <a class="btn btn-primary" href="#get-started" style="display:inline-block;">Apply for a Founding Spot →</a>
+          <p class="hp-founding-fine">No credit card. No commitment. Just one honest review after 60 days.</p>
         </div>
       </div>
     </section>
