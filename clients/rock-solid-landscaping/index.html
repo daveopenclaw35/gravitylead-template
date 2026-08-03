@@ -6,6 +6,50 @@
   <title>Rock Solid Landscaping — GravityLead Demo</title>
   <meta name="description" content="See exactly how a GravityLead AI website would look for Rock Solid Landscaping. AI chat, lead capture, 24/7 availability — live demo." />
   <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    /* ── Rock Solid gallery section ── */
+    .rs-gallery {
+      padding: 80px 0;
+      background: color-mix(in srgb, var(--surface) 60%, var(--bg));
+    }
+    .rs-gallery .section-title { text-align: center; margin-bottom: 10px; }
+    .rs-gallery .section-sub   { text-align: center; margin-bottom: 40px; color: var(--muted); }
+    .rs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 260px 260px;
+      gap: 12px;
+    }
+    .rs-grid .rs-photo { border-radius: 10px; overflow: hidden; position: relative; cursor: pointer; }
+    .rs-grid .rs-photo:first-child { grid-column: span 2; }
+    .rs-grid .rs-photo img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .4s ease;
+      display: block;
+    }
+    .rs-grid .rs-photo:hover img { transform: scale(1.04); }
+    .rs-photo-cap {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,.65));
+      color: #fff; padding: 20px 14px 12px;
+      font-size: 13px; font-weight: 600; opacity: 0;
+      transition: opacity .25s;
+    }
+    .rs-grid .rs-photo:hover .rs-photo-cap { opacity: 1; }
+    @media (max-width: 700px) {
+      .rs-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .rs-grid .rs-photo:first-child { grid-column: span 2; }
+      .rs-grid .rs-photo img { height: 200px; }
+    }
+    /* ── Logo in header ── */
+    .logo img.rs-logo {
+      height: 38px; width: auto;
+      filter: brightness(0) invert(1);
+    }
+  </style>
 </head>
 <body>
 
@@ -16,7 +60,10 @@
 
   <header>
     <div class="container nav">
-      <div class="logo"><span class="dot"></span><span id="bizName">Rock Solid Landscaping</span></div>
+      <div class="logo">
+        <span class="dot"></span>
+        <img src="./images/rock-solid-logo.png" alt="Rock Solid Landscaping" class="rs-logo" />
+      </div>
       <div style="display:flex;align-items:center;">
         <a class="nav-phone" id="navPhone" href="tel:6074276032">(607) 427-6032</a>
         <a class="nav-cta" href="#get-started" id="navCta">Get a Free Estimate</a>
@@ -50,6 +97,36 @@
         <h2 class="section-title">Our Services</h2>
         <p class="section-sub">Hardscape, stonework, timber builds, and water features — all handled by Rock Solid craftsmen.</p>
         <div class="cards" id="serviceCards"></div>
+      </div>
+    </section>
+
+    <!-- PHOTO GALLERY -->
+    <section class="rs-gallery" id="gallery">
+      <div class="container">
+        <h2 class="section-title">Our Work</h2>
+        <p class="section-sub">Real projects, real results — right here in the Southern Tier.</p>
+        <div class="rs-grid">
+          <div class="rs-photo">
+            <img src="./images/large-stamped-patio.jpg" alt="Large Stamped Concrete Patio" loading="lazy" />
+            <div class="rs-photo-cap">Large Stamped Concrete Patio</div>
+          </div>
+          <div class="rs-photo">
+            <img src="./images/outdoor-fireplace.jpg" alt="Custom Outdoor Fireplace" loading="lazy" />
+            <div class="rs-photo-cap">Custom Outdoor Fireplace</div>
+          </div>
+          <div class="rs-photo">
+            <img src="./images/mountain-top-patio.jpg" alt="Mountaintop Concrete Patio" loading="lazy" />
+            <div class="rs-photo-cap">Mountaintop Concrete Patio</div>
+          </div>
+          <div class="rs-photo">
+            <img src="./images/water-feature.jpg" alt="Custom Water Feature" loading="lazy" />
+            <div class="rs-photo-cap">Custom Water Feature</div>
+          </div>
+          <div class="rs-photo">
+            <img src="./images/fireplace-patio-flowers.jpg" alt="Fireplace, Patio & Flower Beds" loading="lazy" />
+            <div class="rs-photo-cap">Fireplace, Patio &amp; Flower Beds</div>
+          </div>
+        </div>
       </div>
     </section>
 
