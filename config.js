@@ -4,7 +4,7 @@
  * ----------------------------------------------------------------------------
  * HOW TO USE:
  *   Change ONE line below:  const ACTIVE_TRADE = "hvac";
- *   Options: "hvac" | "roofing" | "plumbing"
+ *   Options: "hvac" | "roofing" | "plumbing" | "landscaping"
  *   Everything on the site (copy, colors, services, FAQs, chat behavior)
  *   re-skins automatically. No build step. Just save + reload.
  *
@@ -120,6 +120,54 @@ const TRADES = {
       quickReplies: ["Storm/hail damage", "Roof leak", "Need a quote", "Free inspection"],
       qualifiers: ["What's your address or ZIP?", "Do you have visible damage or a leak right now?", "Best phone number to text your inspection time?"],
       capture: "Perfect — your free inspection request is logged. An Ironclad rep will text you within 15 minutes to schedule. Anything else?",
+    },
+  },
+
+  /* ---------------------------------------------------------- LANDSCAPING */
+  landscaping: {
+    business: {
+      name: "Rock Pro Outdoor Living",
+      phone: "(555) 610-4892",
+      city: "Albany, NY",
+      hours: "Mon–Sat 7am–6pm · Free Estimates",
+      license: "NY Licensed & Insured",
+    },
+    theme: {
+      primary: "#2D6A4F",      // deep forest green
+      primaryDark: "#1B4332",
+      accent: "#C8963E",        // warm amber / natural stone
+      bg: "#0D1A0F",
+      surface: "#142918",
+      text: "#E8F5E9",
+      muted: "#8BA898",
+    },
+    hero: {
+      eyebrow: "Custom Hardscape & Outdoor Living",
+      headline: "Stunning stonework, patios & timber builds — crafted to outlast.",
+      sub: "From backyard patios to signature timber frames, we transform your outdoor space. Free estimates, expert craftsmanship, serving your area.",
+      cta: "Get a Free Estimate",
+      cta2: "See Our Services",
+      image: "🪨",
+    },
+    services: [
+      { icon: "🪵", title: "Timber Frame & Decks", desc: "Custom timber frame buildings and decks built for beauty and decades of use." },
+      { icon: "🧱", title: "Custom Concrete Work", desc: "Driveways, walkways, and decorative concrete — poured and finished right." },
+      { icon: "🔥", title: "Stone Walls & Fireplaces", desc: "Natural stone walls and outdoor fireplaces that define your outdoor space." },
+      { icon: "💧", title: "Waterfalls & Water Features", desc: "Custom ponds, waterfalls, and water features that bring your yard to life." },
+      { icon: "🪨", title: "Custom Stonework", desc: "From accent walls to full stone facades — hand-laid for lasting character." },
+      { icon: "⬜", title: "Pavers & Patios", desc: "Beautiful paver patios that add instant curb appeal and outdoor living space." },
+    ],
+    trust: ["Free Estimates", "Fully Insured", "Natural Stone Specialists", "5-Star Local Rated"],
+    faqs: [
+      { q: "Do you offer free estimates?", a: "Always. We'll come out, see the space, and give you a detailed quote — no strings attached." },
+      { q: "What areas do you serve?", a: "We serve the surrounding region. Ask us about your town — chances are we come to you." },
+      { q: "How long does a patio or deck take?", a: "Most hardscape projects take 3–7 days. Larger timber frame builds run 1–3 weeks depending on scope." },
+    ],
+    chat: {
+      greeting: "Hi! 👋 Thanks for reaching out. Are you looking for a patio, deck, stone wall, water feature, or something else?",
+      quickReplies: ["Patio or pavers", "Deck or timber frame", "Stone wall / fireplace", "Free estimate"],
+      qualifiers: ["What's your town or ZIP code?", "Do you have a rough timeline or project in mind?", "Best number to text you a quote?"],
+      capture: "Perfect — your request is logged. Someone from our team will text you within the hour to schedule your free estimate. Thanks!",
     },
   },
 
