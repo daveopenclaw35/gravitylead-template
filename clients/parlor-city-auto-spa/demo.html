@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parlor City Auto Spa — GravityLead Demo</title>
+  <meta name="description" content="See exactly how a GravityLead AI website would look for Parlor City Auto Spa. AI chat, appointment booking, 24/7 lead capture — live demo." />
+  <style>
+/* ============================================================================
+ * GravityLead — Parlor City Auto Spa Demo
+ * Fully self-contained. Zero external scripts. Zero relative path loading.
+ * ========================================================================== */
+:root {
+  --primary:      #1E22B0;
+  --primary-dark: #10124D;
+  --accent:       #C4A84A;
+  --accent-dark:  #A07C20;
+  --bg:           #0A0B14;
+  --surface:      #12131E;
+  --surface2:     #191B2E;
+  --text:         #F0F4FF;
+  --muted:        #8890C4;
+  --radius:       14px;
+  --maxw:         1080px;
+  --shadow:       0 10px 40px rgba(0,0,0,.45);
+  font-synthesis: none;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+
+/* ── Demo banner ── */
+.demo-banner{background:linear-gradient(90deg,var(--accent-dark),var(--primary));color:#fff;text-align:center;font-size:13px;font-weight:600;padding:7px 12px;letter-spacing:.3px}
+
+/* ── Discount bar ── */
+.discount-bar{background:linear-gradient(90deg,var(--accent),var(--accent-dark));color:#0A0B14;text-align:center;font-size:13px;font-weight:700;padding:9px 16px;letter-spacing:.2px}
+
+/* ── Buttons ── */
+.btn{display:inline-block;padding:11px 24px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;border:none;line-height:1}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:#262BD8}
+.btn-ghost{border:1.5px solid rgba(255,255,255,.22);color:var(--text);background:transparent}
+.btn-ghost:hover{border-color:var(--primary);color:#fff;background:var(--primary)}
+.btn-accent{background:var(--accent);color:#0A0B14;font-weight:800}
+.btn-accent:hover{background:#D4B85A}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap}
+
+/* ── Header ── */
+header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;max-width:var(--maxw);margin:0 auto}
+.logo{font-weight:900;font-size:16px;letter-spacing:.8px;text-transform:uppercase;line-height:1.2}
+.logo span{color:var(--accent)}
+.logo small{display:block;font-size:10px;font-weight:600;color:var(--muted);letter-spacing:2px}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-phone{font-size:14px;font-weight:600;color:var(--muted)}
+
+/* ── Hero ── */
+.hero{position:relative;padding:80px 20px 90px;overflow:hidden;background:linear-gradient(135deg,#08090F 0%,#10124D 55%,#1A1E9A 100%)}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(196,168,74,.14) 0%,transparent 65%)}
+.hero-inner{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;gap:56px;position:relative}
+.hero-text{flex:1;min-width:0}
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.hero-headline{font-size:clamp(28px,5vw,54px);font-weight:900;line-height:1.08;margin-bottom:20px}
+.hero-headline .hl{color:var(--accent)}
+.hero-sub{font-size:16px;color:var(--muted);margin-bottom:32px;max-width:520px;line-height:1.7}
+.hero-media{flex:0 0 auto;width:280px;display:flex;align-items:center;justify-content:center}
+.hero-car{font-size:130px;filter:drop-shadow(0 0 60px rgba(196,168,74,.45));line-height:1}
+
+/* ── Trust strip ── */
+.trust-strip{background:var(--primary-dark);border-top:1px solid rgba(196,168,74,.25);border-bottom:1px solid rgba(196,168,74,.25);padding:13px 20px}
+#trustStrip{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;font-size:13px;font-weight:600;letter-spacing:.2px;color:#C8CFEE}
+#trustStrip span::before{content:"✓ ";color:var(--accent)}
+
+/* ── Sections ── */
+section{padding:72px 0}
+.section-title{font-size:clamp(22px,3.5vw,38px);font-weight:800;text-align:center;margin-bottom:12px}
+.section-sub{text-align:center;color:var(--muted);max-width:560px;margin:0 auto 44px;font-size:15px;line-height:1.65}
+
+/* ── Service cards ── */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.card{background:var(--surface2);border:1px solid rgba(255,255,255,.07);border-radius:var(--radius);padding:28px 24px;transition:transform .2s,border-color .2s,box-shadow .2s}
+.card:hover{transform:translateY(-4px);border-color:rgba(196,168,74,.35);box-shadow:0 8px 32px rgba(30,34,176,.2)}
+.card .icon{font-size:38px;margin-bottom:14px}
+.card h3{font-size:16px;font-weight:700;margin-bottom:8px}
+.card p{font-size:14px;color:var(--muted);line-height:1.6}
+.card .price{margin-top:14px;font-size:14px;font-weight:800;color:var(--accent);display:inline-block;background:rgba(196,168,74,.12);padding:4px 10px;border-radius:6px}
+
+/* ── Gallery ── */
+.gallery-bg{background:var(--surface)}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+.gallery-item{border-radius:12px;overflow:hidden;position:relative;aspect-ratio:4/3;background:var(--surface2)}
+.gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+.gallery-item:hover img{transform:scale(1.06)}
+.gallery-cap{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.78));color:#fff;font-size:13px;font-weight:700;padding:28px 14px 12px}
+
+/* ── Reviews ── */
+.reviews-bg{background:var(--primary-dark)}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.review-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:var(--radius);padding:24px}
+.review-stars{color:var(--accent);font-size:16px;margin-bottom:10px}
+.review-text{font-size:14px;color:#D0D8F0;line-height:1.65;margin-bottom:14px}
+.review-author{font-size:13px;font-weight:700;color:var(--muted)}
+.review-vehicle{font-size:12px;color:rgba(136,144,196,.7);margin-top:2px}
+
+/* ── FAQ ── */
+.faq details{background:var(--surface2);border:1px solid rgba(255,255,255,.07);border-radius:10px;margin-bottom:10px;padding:16px 20px}
+.faq summary{font-weight:700;cursor:pointer;font-size:15px;padding-right:28px;position:relative;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:0;top:0;color:var(--accent);font-size:20px;line-height:1;font-weight:400}
+.faq details[open] summary::after{content:"−"}
+.faq details p{margin-top:12px;color:var(--muted);font-size:14px;line-height:1.65}
+
+/* ── GravityLead sales ── */
+.gl-sales{background:linear-gradient(135deg,#0D0F22,var(--primary-dark));border-top:1px solid rgba(196,168,74,.25);padding:80px 0}
+.gl-divider{display:flex;align-items:center;gap:16px;margin-bottom:40px}
+.gl-divider-line{flex:1;height:1px;background:rgba(255,255,255,.12)}
+.gl-divider-text{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap}
+.gl-headline{font-size:clamp(22px,3.5vw,36px);font-weight:900;text-align:center;margin-bottom:16px;line-height:1.2}
+.gl-headline .highlight{color:var(--accent)}
+.gl-sub{text-align:center;color:var(--muted);max-width:580px;margin:0 auto;font-size:15px;line-height:1.7}
+
+/* ── Footer ── */
+footer{background:#06070D;border-top:1px solid rgba(255,255,255,.06);padding:30px 0}
+.footer-grid{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.powered a{color:var(--accent);font-weight:600}
+
+/* ── Chat launcher ── */
+.chat-launcher{position:fixed;bottom:24px;right:24px;z-index:999;width:62px;height:62px;border-radius:50%;background:var(--primary);color:#fff;border:none;cursor:pointer;font-size:26px;box-shadow:var(--shadow);transition:transform .2s;display:flex;align-items:center;justify-content:center}
+.chat-launcher:hover{transform:scale(1.08)}
+.pulse{position:absolute;top:-2px;right:-2px;width:15px;height:15px;background:#22c55e;border-radius:50%;border:2px solid var(--bg)}
+.pulse::after{content:"";position:absolute;inset:-4px;border-radius:50%;background:rgba(34,197,94,.4);animation:ping 1.5s ease-out infinite}
+@keyframes ping{0%{transform:scale(1);opacity:1}100%{transform:scale(2.2);opacity:0}}
+
+/* ── Chat window ── */
+.chat-window{position:fixed;bottom:100px;right:24px;z-index:998;width:345px;max-height:570px;background:var(--surface);border-radius:18px;border:1px solid rgba(255,255,255,.1);box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden;transform:translateY(20px) scale(.95);opacity:0;pointer-events:none;transition:all .25s cubic-bezier(.34,1.56,.64,1)}
+.chat-window.open{transform:none;opacity:1;pointer-events:all}
+.chat-head{background:var(--primary-dark);padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.08)}
+.chat-head .av{width:38px;height:38px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;color:#0A0B14}
+.chat-head .meta{flex:1}
+.chat-head .meta b{font-size:13px;display:block}
+.chat-head .meta small{font-size:11px;color:var(--muted)}
+.demo-tag{background:rgba(196,168,74,.2);color:var(--accent);font-size:10px;font-weight:700;border-radius:4px;padding:2px 6px;letter-spacing:.5px;text-transform:uppercase}
+.chat-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:84%;padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.5}
+.msg.bot{background:rgba(255,255,255,.07);border-radius:14px 14px 14px 2px;align-self:flex-start}
+.msg.user{background:var(--primary);color:#fff;border-radius:14px 14px 2px 14px;align-self:flex-end}
+.typing{padding:10px 14px;background:rgba(255,255,255,.07);border-radius:14px 14px 14px 2px;align-self:flex-start;display:flex;gap:4px}
+.typing span{width:8px;height:8px;background:var(--muted);border-radius:50%;animation:bounce .9s infinite}
+.typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}}
+.quick{padding:10px 16px 14px;display:flex;gap:8px;flex-wrap:wrap}
+.quick button{background:rgba(30,34,176,.22);border:1px solid rgba(30,34,176,.5);color:var(--text);font-size:13px;border-radius:20px;padding:7px 14px;cursor:pointer;transition:all .15s}
+.quick button:hover{background:var(--primary);border-color:var(--primary)}
+.chat-input{padding:12px 16px;border-top:1px solid rgba(255,255,255,.07);display:flex;gap:8px}
+.chat-input input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:9px 12px;color:var(--text);font-size:14px;outline:none}
+.chat-input input:focus{border-color:var(--primary)}
+.chat-input button{background:var(--primary);color:#fff;border:none;border-radius:8px;padding:9px 14px;cursor:pointer;font-size:16px}
+
+/* ── Responsive ── */
+@media(max-width:700px){
+  .hero-inner{flex-direction:column;text-align:center}
+  .hero-media{display:none}
+  .nav-phone{display:none}
+  .chat-window{width:calc(100vw - 32px);right:16px}
+  .btn-row{justify-content:center}
+  #trustStrip{gap:16px;font-size:12px}
+}
+  </style>
+</head>
+<body>
+
+<!-- DEMO BANNER -->
+<div class="demo-banner" id="demoBanner">
+  🎯 This is a live GravityLead demo built for Parlor City Auto Spa — try the chat widget in the corner! →
+</div>
+
+<!-- HEADER -->
+<header>
+  <nav class="nav">
+    <div class="logo">
+      Parlor City <span>Auto Spa</span>
+      <small>Clean. Shine. Protect.</small>
+    </div>
+    <div class="nav-right">
+      <a class="nav-phone" href="tel:+16073412694" id="navPhone">(607) 341-2694</a>
+      <a class="btn btn-primary" href="#" data-open-chat id="navCta">Book Online</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <!-- VETERANS DISCOUNT BAR -->
+  <div class="discount-bar">
+    🎖️ Veterans, Teachers &amp; First Responders Receive <strong>10% Off</strong> — Thank You for Your Service
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner container">
+      <div class="hero-text">
+        <div class="hero-eyebrow" id="heroEyebrow">Premium Auto Detailing &amp; Ceramic Coatings · Binghamton, NY</div>
+        <h1 class="hero-headline" id="heroHead">
+          Broome County's Premier<br><span class="hl">Auto Spa</span>
+        </h1>
+        <p class="hero-sub" id="heroSub">
+          Ceramic coatings, paint correction, and full detailing — done right by Kyle. Top-shelf products, obsessive attention to detail, and results that speak for themselves.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn-accent" href="#" data-open-chat id="heroCta">Book Your Detail</a>
+          <a class="btn btn-ghost" href="#services" id="heroCta2">See Our Services →</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="hero-car" id="heroEmoji">🏎️</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <div class="trust-strip">
+    <div id="trustStrip"></div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="container">
+      <h2 class="section-title">Our Services</h2>
+      <p class="section-sub">From a quick exterior wash to a full multi-day ceramic coating — every job gets Kyle's personal attention.</p>
+      <div class="cards" id="serviceCards"></div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery-bg" style="padding:72px 0">
+    <div class="container">
+      <h2 class="section-title">Our Work</h2>
+      <p class="section-sub">Real results, real vehicles — right here in Binghamton. Every car gets treated like it's our own.</p>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1607860108855-64acf2078ed9?w=640&auto=format&fit=crop&q=80"
+               alt="Ceramic coating application — deep gloss finish" loading="lazy" />
+          <div class="gallery-cap">Ceramic Coating — Deep Gloss Finish</div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=640&auto=format&fit=crop&q=80"
+               alt="Luxury vehicle exterior detail" loading="lazy" />
+          <div class="gallery-cap">Luxury Exterior Detail — Showroom Ready</div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=640&auto=format&fit=crop&q=80"
+               alt="Paint correction machine polish" loading="lazy" />
+          <div class="gallery-cap">Paint Correction — Swirl-Free Finish</div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=640&auto=format&fit=crop&q=80"
+               alt="Interior leather detailing" loading="lazy" />
+          <div class="gallery-cap">Interior Detail — Every Surface Spotless</div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=640&auto=format&fit=crop&q=80"
+               alt="Car polished to mirror finish" loading="lazy" />
+          <div class="gallery-cap">Machine Polish — Mirror Reflection</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews-bg" style="padding:72px 0">
+    <div class="container">
+      <h2 class="section-title">What Binghamton Drivers Say</h2>
+      <p class="section-sub">4.7 stars across Yelp and Google — here's what real customers have experienced.</p>
+      <div class="reviews-grid" id="reviewsGrid"></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <h2 class="section-title">Frequently Asked</h2>
+      <p class="section-sub">Quick answers about our services — or ask our AI assistant anything in the chat widget.</p>
+      <div class="faq" id="faqList"></div>
+    </div>
+  </section>
+
+  <!-- GRAVITYLEAD SALES TRANSITION -->
+  <section id="get-started" class="gl-sales">
+    <div class="container">
+      <div class="gl-divider">
+        <div class="gl-divider-line"></div>
+        <span class="gl-divider-text">powered by</span>
+        <div class="gl-divider-line"></div>
+      </div>
+      <div>
+        <h2 class="gl-headline">👆 Everything above? That's a <span class="highlight">GravityLead</span> AI website.</h2>
+        <p class="gl-sub">Your customers see a premium site with an AI receptionist that books appointments and captures leads 24/7 — even when you're knee-deep in a ceramic coat job. You get every inquiry texted straight to your phone.</p>
+        <div class="btn-row" style="justify-content:center;margin-top:28px">
+          <a class="btn btn-primary" href="https://getgravitylead.com/#pricing">See Pricing</a>
+          <a class="btn btn-ghost" href="https://getgravitylead.com/#get-started">Get Mine →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container footer-grid">
+    <div>
+      <strong id="footBiz">Parlor City Auto Spa</strong><br />
+      <span id="footMeta">1258 Vestal Ave, Binghamton, NY 13903 · (607) 341-2694</span>
+    </div>
+    <div class="powered">
+      <span id="footHours">Mon–Sat 9am–8pm · Sun 10am–6pm</span><br />
+      <a href="https://getgravitylead.com/" id="poweredBy">Powered by GravityLead</a>
+    </div>
+  </div>
+</footer>
+
+<!-- CHAT WIDGET -->
+<button class="chat-launcher" id="chatLauncher" aria-label="Open AI assistant chat">
+  <span class="pulse"></span>💬
+</button>
+<div class="chat-window" id="chatWindow" role="dialog" aria-label="Parlor City Auto Spa AI assistant">
+  <div class="chat-head">
+    <div class="av">🤖</div>
+    <div class="meta">
+      <b id="chatBizName">Parlor City Auto Spa</b>
+      <small>Typically replies instantly · 24/7</small>
+    </div>
+    <span class="demo-tag" id="chatDemoTag">Demo</span>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="quick" id="chatQuick"></div>
+  <div class="chat-input">
+    <input type="text" id="chatText" placeholder="Ask about pricing, booking…" autocomplete="off" />
+    <button id="chatSend" aria-label="Send">➤</button>
+  </div>
+</div>
+
+<script>
+// ── GravityLead — Parlor City Auto Spa Demo Config ─────────────────────────
+/* ============================================================================
+ * Client:  Parlor City Auto Spa
+ * Site:    parlorcityautospa.com
+ * Address: 1258 Vestal Ave, Binghamton, NY 13903
+ * Phone:   (607) 341-2694
+ * Owner:   Kyle
+ * Built:   2026-08-04
+ * ========================================================================== */
+
+const ACTIVE_TRADE = "autoSpa";
+const ANALYTICS_ID = "G-XXXXXXXXXX"; // ← Replace with client GA4 ID at onboarding
+
+const BRAND = {
+  name:      "GravityLead",
+  domain:    "getgravitylead.com",
+  tagline:   "The AI receptionist that books appointments — even after hours.",
+  poweredBy: "Powered by GravityLead",
+};
+
+const TRADES = {
+  autoSpa: {
+    business: {
+      name:    "Parlor City Auto Spa",
+      phone:   "(607) 341-2694",
+      city:    "Binghamton, NY",
+      address: "1258 Vestal Ave, Binghamton, NY 13903",
+      hours:   "Mon–Sat 9am–8pm · Sun 10am–6pm",
+      license: "Owner-Operated by Kyle · Serving All of Broome County",
+    },
+    theme: {
+      primary:      "#1E22B0",
+      primaryDark:  "#10124D",
+      accent:       "#C4A84A",
+      bg:           "#0A0B14",
+      surface:      "#12131E",
+      text:         "#F0F4FF",
+      muted:        "#8890C4",
+    },
+    hero: {
+      eyebrow: "Premium Auto Detailing & Ceramic Coatings · Binghamton, NY",
+      headline: "Broome County's Premier Auto Spa",
+      sub: "Ceramic coatings, paint correction, and full detailing — done right by Kyle. Top-shelf products, obsessive attention to detail, and results that speak for themselves.",
+      cta: "Book Your Detail",
+      cta2: "See Our Services →",
+      image: "🏎️",
+    },
+    services: [
+      {
+        icon:  "✨",
+        title: "Exterior Detail",
+        desc:  "Hand wash, clay bar decontamination, iron decontamination, and hand-applied wax or paint sealant. Your paint protected and gleaming.",
+        price: "From $75",
+      },
+      {
+        icon:  "🪑",
+        title: "Interior Detail",
+        desc:  "Full vacuum, surface wipe-down, leather and vinyl conditioning, window cleaning, and odor treatment. Factory-fresh inside.",
+        price: "From $100",
+      },
+      {
+        icon:  "🚿",
+        title: "Full Detail Package",
+        desc:  "Complete interior + exterior — our most popular package. Perfect for seasonal maintenance, a new purchase, or pre-sale prep.",
+        price: "From $175",
+      },
+      {
+        icon:  "🔧",
+        title: "Paint Correction",
+        desc:  "Single or two-stage machine polish to eliminate swirl marks, oxidation, water spots, and fine scratches. Required before any ceramic coating.",
+        price: "From $350",
+      },
+      {
+        icon:  "💎",
+        title: "Ceramic Coating",
+        desc:  "3-year nano-ceramic protection. Hydrophobic, gloss-amplifying shield that keeps your paint flawless and dramatically easier to maintain.",
+        price: "From $699",
+      },
+      {
+        icon:  "🛡️",
+        title: "Scratch & Swirl Removal",
+        desc:  "Targeted paint restoration for isolated scratches, scuffs, and dealer-inflicted swirl marks — without committing to a full correction.",
+        price: "Get a Quote",
+      },
+    ],
+    trust: [
+      "4.7-Star Rated on Google & Yelp",
+      "Owner-Operated by Kyle",
+      "Pickup & Delivery Available",
+      "10% Off for Veterans, Teachers & First Responders",
+    ],
+    reviews: [
+      {
+        stars: 5,
+        text: "I had my car treated with a ceramic coating by Kyle and couldn't be more impressed. The attention to detail was evident throughout. The result is nothing short of spectacular — incredibly smooth and glossy. Highly recommend Kyle for anyone looking to give their vehicle the best possible care.",
+        author: "Josh Z.",
+        vehicle: "Ceramic Coating",
+      },
+      {
+        stars: 5,
+        text: "Kyle, the owner, is great to work with and took amazing care of my truck. He went above and beyond with my detail needs. 5/5 stars is an understatement!! Thank you, Kyle.",
+        author: "Daniel B.",
+        vehicle: "Full Detail — Truck",
+      },
+      {
+        stars: 5,
+        text: "Very thorough, great attention to detail, loves his paint polish! Wholehearted recommendation. Kyle works solo and every inch of the car gets his personal care — the results show it.",
+        author: "John B.",
+        vehicle: "Paint Correction & Detail",
+      },
+    ],
+    faqs: [
+      {
+        q: "How long does a ceramic coating take?",
+        a: "A full ceramic coating with paint correction typically takes 1–2 days depending on the vehicle size and paint condition. Kyle works solo — so every step gets his personal attention, no corners cut.",
+      },
+      {
+        q: "Do you offer vehicle pickup and delivery?",
+        a: "Yes! We offer pickup and delivery throughout Broome County. Just mention it when you book and we'll coordinate the logistics with you.",
+      },
+      {
+        q: "How long does ceramic coating protection last?",
+        a: "Our standard package provides 3 years of protection. With proper maintenance washes, many coatings last 4–5 years. We'll walk you through the aftercare routine.",
+      },
+      {
+        q: "Does my car need paint correction before ceramic coating?",
+        a: "If your paint has swirl marks, light scratches, or oxidation — yes. Ceramic locks in whatever's under it, so we correct first to ensure a flawless, mirror-like result.",
+      },
+      {
+        q: "What's the difference between wax and ceramic coating?",
+        a: "Wax lasts weeks to months and washes off. Ceramic coating is a semi-permanent nano-layer that bonds to your clear coat, lasting years and providing much better gloss, protection, and water-beading.",
+      },
+      {
+        q: "Can I book an appointment online?",
+        a: "Yes — click 'Book Online' or ask the chat assistant to get started. You can also call or text Kyle directly at (607) 341-2694.",
+      },
+    ],
+    chat: {
+      greeting: "Hi! 👋 Welcome to Parlor City Auto Spa — Binghamton's premier detail studio. Are you interested in a ceramic coating, paint correction, a full detail, or booking an appointment?",
+      quickReplies: ["Ceramic Coating 💎", "Paint Correction 🔧", "Full Detail 🚿", "Book Appointment 📅"],
+      qualifiers: [
+        "What vehicle are you bringing in? Year, make, and model helps us give you an accurate quote.",
+        "How would you describe the current paint condition? (Daily driver with some swirls, or does it need a full restoration?)",
+        "What's the best number to text you a custom quote and availability?",
+      ],
+      capture: "Perfect — Kyle will text you a custom quote within the hour. He may want to do a quick walk-around before finalizing the price, but we'll get the conversation started right away. Thanks for reaching out — talk soon! 🏎️✨",
+    },
+  },
+};
+
+/* ── Resolver ── */
+const SKIN = Object.assign({}, TRADES[ACTIVE_TRADE], { brand: BRAND, tradeKey: ACTIVE_TRADE });
+window.GRAVITYLEAD = SKIN;
+
+
+// ── GravityLead App Engine ───────────────────────────────────────────────────
+/* ============================================================================
+ * DEMO_MODE = true  → scripted local chat (no API keys, safe for sales demos)
+ * DEMO_MODE = false → POST to real backend (set FORM_ENDPOINT / LEAD_SERVER)
+ * ========================================================================== */
+(function () {
+  "use strict";
+
+  const DEMO_MODE = true;
+
+  const S = window.GRAVITYLEAD;
+  if (!S) { console.error("GravityLead config not loaded"); return; }
+
+  /* 1. Apply theme via CSS variables */
+  const root = document.documentElement.style;
+  const t = S.theme;
+  root.setProperty("--primary",      t.primary);
+  root.setProperty("--primary-dark", t.primaryDark);
+  root.setProperty("--accent",       t.accent);
+  root.setProperty("--bg",           t.bg);
+  root.setProperty("--surface",      t.surface);
+  root.setProperty("--text",         t.text);
+  root.setProperty("--muted",        t.muted);
+
+  /* 2. Populate content */
+  const $ = (id) => document.getElementById(id);
+  const b = S.business, h = S.hero;
+
+  document.title = `${b.name} — GravityLead Demo`;
+  $("navPhone").textContent = b.phone;
+  $("navPhone").href = "tel:" + b.phone.replace(/[^0-9+]/g, "");
+  $("navCta").textContent = h.cta;
+  $("heroEyebrow").textContent = h.eyebrow;
+  $("heroEmoji").textContent = h.image;
+  $("heroSub").textContent = h.sub;
+  $("heroCta").textContent = h.cta;
+  $("heroCta2").textContent = h.cta2;
+
+  // Trust strip
+  $("trustStrip").innerHTML = S.trust.map(x => `<span>${x}</span>`).join("");
+
+  // Services
+  $("serviceCards").innerHTML = S.services.map(s => `
+    <div class="card">
+      <div class="icon">${s.icon}</div>
+      <h3>${s.title}</h3>
+      <p>${s.desc}</p>
+      <div class="price">${s.price}</div>
+    </div>`).join("");
+
+  // Reviews
+  if ($("reviewsGrid") && S.reviews) {
+    $("reviewsGrid").innerHTML = S.reviews.map(r => `
+      <div class="review-card">
+        <div class="review-stars">${"★".repeat(r.stars)}${"☆".repeat(5 - r.stars)}</div>
+        <p class="review-text">"${r.text}"</p>
+        <div class="review-author">${r.author}</div>
+        <div class="review-vehicle">${r.vehicle}</div>
+      </div>`).join("");
+  }
+
+  // FAQ
+  $("faqList").innerHTML = S.faqs.map(f => `
+    <details>
+      <summary>${f.q}</summary>
+      <p>${f.a}</p>
+    </details>`).join("");
+
+  // Footer
+  $("footBiz").textContent = b.name;
+  $("footMeta").textContent = `${b.address} · ${b.phone}`;
+  $("footHours").textContent = b.hours;
+  $("poweredBy").textContent = S.brand.poweredBy;
+
+  // Chat header
+  $("chatBizName").textContent = b.name + " Assistant";
+  if (!DEMO_MODE) $("chatDemoTag").style.display = "none";
+  if (!DEMO_MODE) $("demoBanner").style.display = "none";
+
+  /* 3. Chat widget */
+  const win    = $("chatWindow");
+  const body   = $("chatBody");
+  const quick  = $("chatQuick");
+  const input  = $("chatText");
+  let convo    = { stage: 0, data: {} };
+  const c      = S.chat;
+
+  function openChat() {
+    if (win.classList.contains("open")) return;
+    win.classList.add("open");
+    if (body.childElementCount === 0) startConversation();
+    input.focus();
+  }
+  function toggleChat() {
+    win.classList.toggle("open");
+    if (win.classList.contains("open") && body.childElementCount === 0) startConversation();
+  }
+
+  $("chatLauncher").addEventListener("click", toggleChat);
+  document.querySelectorAll("[data-open-chat]").forEach(el =>
+    el.addEventListener("click", e => { e.preventDefault(); openChat(); }));
+
+  function addMsg(text, who) {
+    const el = document.createElement("div");
+    el.className = "msg " + who;
+    el.textContent = text;
+    body.appendChild(el);
+    body.scrollTop = body.scrollHeight;
+  }
+  function showTyping() {
+    const el = document.createElement("div");
+    el.className = "typing"; el.id = "typing";
+    el.innerHTML = "<span></span><span></span><span></span>";
+    body.appendChild(el);
+    body.scrollTop = body.scrollHeight;
+  }
+  function hideTyping() { const el = $("typing"); if (el) el.remove(); }
+  function botSay(text, delay = 750) {
+    showTyping();
+    return new Promise(res => setTimeout(() => { hideTyping(); addMsg(text, "bot"); res(); }, delay));
+  }
+  function renderQuick(options) {
+    quick.innerHTML = "";
+    (options || []).forEach(label => {
+      const btn = document.createElement("button");
+      btn.textContent = label;
+      btn.addEventListener("click", () => handleUser(label));
+      quick.appendChild(btn);
+    });
+  }
+  async function startConversation() {
+    await botSay(c.greeting, 400);
+    renderQuick(c.quickReplies);
+  }
+  async function runDemoFlow(text) {
+    const q = c.qualifiers;
+    if (convo.stage === 0) {
+      convo.data.intent = text;
+      await botSay(`Got it — ${text}. ${q[0]}`);
+      convo.stage = 1;
+    } else if (convo.stage === 1) {
+      convo.data.vehicle = text;
+      await botSay(q[1]);
+      convo.stage = 2;
+    } else if (convo.stage === 2) {
+      convo.data.condition = text;
+      await botSay(q[2]);
+      convo.stage = 3;
+    } else if (convo.stage === 3) {
+      convo.data.phone = text;
+      await botSay(c.capture, 1000);
+      console.log("[GravityLead DEMO] Lead captured:", convo.data);
+      convo.stage = 4;
+      renderQuick(["Start over ↺"]);
+    } else {
+      convo = { stage: 0, data: {} };
+      body.innerHTML = "";
+      startConversation();
+    }
+  }
+  async function handleUser(text) {
+    if (!text || !text.trim()) return;
+    addMsg(text, "user");
+    quick.innerHTML = "";
+    input.value = "";
+    if (DEMO_MODE) {
+      await runDemoFlow(text.trim());
+    } else {
+      await sendToBackend(text.trim());
+    }
+  }
+
+  /* Production hook — not called in demo mode */
+  const FORM_ENDPOINT    = "";  // e.g., "https://formspree.io/f/yourformid"
+  const LEAD_SERVER_ENDPOINT = "";
+  async function sendToBackend(text) {
+    showTyping();
+    try {
+      const r = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ trade: S.tradeKey, business: S.business.name, message: text, history: convo }),
+      });
+      const j = await r.json();
+      hideTyping();
+      addMsg(j.reply || "Thanks! Kyle will reach out shortly.", "bot");
+    } catch (e) {
+      hideTyping();
+      addMsg("Sorry — connection issue. Please call or text Kyle at " + S.business.phone + ".", "bot");
+    }
+  }
+
+  $("chatSend").addEventListener("click", () => handleUser(input.value));
+  input.addEventListener("keydown", e => { if (e.key === "Enter") handleUser(input.value); });
+
+  /* 4. GA4 — skips silently if placeholder ID */
+  (function () {
+    var id = (typeof ANALYTICS_ID !== "undefined") ? ANALYTICS_ID : "";
+    if (!id || id === "G-XXXXXXXXXX") return;
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag;
+    gtag("js", new Date()); gtag("config", id, { send_page_view: true });
+    var s = document.createElement("script"); s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + id;
+    document.head.appendChild(s);
+  })();
+
+})();
+</script>
+
+</body>
+</html>
