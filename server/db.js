@@ -57,6 +57,23 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_followups_status ON followups(status, scheduled_at);
   CREATE INDEX IF NOT EXISTS idx_followups_lead ON followups(lead_id);
   CREATE INDEX IF NOT EXISTS idx_sms_log_lead ON sms_log(lead_id);
+
+  CREATE TABLE IF NOT EXISTS review_requests (
+    id             INTEGER PRIMARY KEY AUTOINCREMENT,
+    customer_phone TEXT    NOT NULL,
+    customer_name  TEXT,
+    business_key   TEXT    NOT NULL,
+    twilio_number  TEXT    NOT NULL,
+    scheduled_at   TEXT    NOT NULL,
+    sent_at        TEXT,
+    message_sid    TEXT,
+    status         TEXT    DEFAULT 'pending',
+    error          TEXT,
+    created_at     TEXT    DEFAULT (datetime('now'))
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_review_status   ON review_requests(status, scheduled_at);
+  CREATE INDEX IF NOT EXISTS idx_review_phone    ON review_requests(customer_phone, business_key);
 `);
 
 /* -- Prepared statements --------------------------------------------------- */
@@ -118,6 +135,68 @@ const markFollowupFailed = db.prepare(`
 const insertSmsLog = db.prepare(`
   INSERT INTO sms_log (lead_id, direction, from_number, to_number, body, message_sid, status)
   VALUES (?, ?, ?, ?, ?, ?, ?)
+`);
+
+const isOptedOutStmt = db.prepare(`
+  SELECT opted_out FROM leads
+  WHERE phone = ? AND opted_out = 1
+  LIMIT 1
+`);
+
+const insertReviewRequest = db.prepare(`
+  INSERT INTO review_requests (customer_phone, customer_name, business_key, twilio_number, scheduled_at)
+  VALUES (?, ?, ?, ?, ?)
+`);
+
+const findPendingReviewStmt = db.prepare(`
+  SELECT * FROM review_requests
+  WHERE customer_phone = ? AND business_key = ?
+    AND status IN ('pending')
+  ORDER BY created_at DESC LIMIT 1
+`);
+
+const getDueReviewRequestsStmt = db.prepare(`
+  SELECT r.*
+  FROM review_requests r
+  WHERE r.status = 'pending'
+    AND r.scheduled_at <= datetime('now')
+  ORDER BY r.scheduled_at ASC
+`);
+
+const getReviewByIdStmt = db.prepare(`
+  SELECT * FROM review_requests WHERE id = ?
+`);
+
+const markReviewSentStmt = db.prepare(`
+  UPDATE review_requests SET status = 'sent', sent_at = datetime('now'), message_sid = ?
+  WHERE id = ?
+`);
+
+const markReviewFailedStmt = db.prepare(`
+  UPDATE review_requests SET status = 'failed', error = ?
+  WHERE id = ?
+`);
+
+const markReviewSkippedStmt = db.prepare(`
+  UPDATE review_requests SET status = 'skipped', error = ?
+  WHERE id = ?
+`);
+
+const updateReviewScheduleStmt = db.prepare(`
+  UPDATE review_requests SET scheduled_at = ?
+  WHERE id = ?
+`);
+
+const getReviewStatsStmt = db.prepare(`
+  SELECT
+    business_key,
+    COUNT(*) as total_scheduled,
+    SUM(CASE WHEN status = 'sent'    THEN 1 ELSE 0 END) as sent,
+    SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) as pending,
+    SUM(CASE WHEN status = 'failed'  THEN 1 ELSE 0 END) as failed,
+    SUM(CASE WHEN status = 'skipped' THEN 1 ELSE 0 END) as skipped
+  FROM review_requests
+  GROUP BY business_key
 `);
 
 const getLeadStatsStmt = db.prepare(`
@@ -188,5 +267,57 @@ module.exports = {
 
   getStats() {
     return getLeadStatsStmt.all();
+  },
+
+  /* -- Review request methods -------------------------------------------- */
+
+  isOptedOut(phone) {
+    const row = isOptedOutStmt.get(phone);
+    return !!(row && row.opted_out);
+  },
+
+  scheduleReviewRequest({ customerPhone, customerName, businessKey, twilioNumber, scheduledAt }) {
+    const sqlDt = scheduledAt instanceof Date
+      ? scheduledAt.toISOString().replace("T", " ").replace(/\.\d+Z$/, "")
+      : scheduledAt;
+    const result = insertReviewRequest.run(
+      customerPhone, customerName || null, businessKey, twilioNumber, sqlDt
+    );
+    return result.lastInsertRowid;
+  },
+
+  findPendingReview(customerPhone, businessKey) {
+    return findPendingReviewStmt.get(customerPhone, businessKey);
+  },
+
+  getReviewById(id) {
+    return getReviewByIdStmt.get(id);
+  },
+
+  getDueReviewRequests() {
+    return getDueReviewRequestsStmt.all();
+  },
+
+  markReviewSent(id, messageSid) {
+    markReviewSentStmt.run(messageSid, id);
+  },
+
+  markReviewFailed(id, error) {
+    markReviewFailedStmt.run(String(error), id);
+  },
+
+  markReviewSkipped(id, reason) {
+    markReviewSkippedStmt.run(String(reason), id);
+  },
+
+  rescheduleReview(id, newScheduledAt) {
+    const sqlDt = newScheduledAt instanceof Date
+      ? newScheduledAt.toISOString().replace("T", " ").replace(/\.\d+Z$/, "")
+      : newScheduledAt;
+    updateReviewScheduleStmt.run(sqlDt, id);
+  },
+
+  getReviewStats() {
+    return getReviewStatsStmt.all();
   },
 };

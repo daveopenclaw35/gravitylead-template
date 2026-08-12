@@ -6,7 +6,8 @@
       "owner_phone": "+16075559999",
       "trade": "hvac",
       "owner_name": "John",
-      "ring_timeout": 20
+      "ring_timeout": 20,
+      "google_review_link": "https://g.page/r/YOUR_REVIEW_LINK_HERE/review"
     }
   }
 }

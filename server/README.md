@@ -5,6 +5,7 @@ Automated lead capture and nurturing via Twilio:
 - **3-day follow-up** — warm check-in
 - **7-day follow-up** — offer free estimate
 - **30-day follow-up** — long-term nurture
+- **Google review request** — sent automatically 24–48h after a job is marked complete
 - **STOP opt-out** — automatic, legally compliant
 - **Reply forwarding** — customer replies go straight to the business owner
 - **Owner alerts** — instant SMS to the owner for every new lead and reply
@@ -39,10 +40,13 @@ Map each Twilio phone number to a business:
     "owner_phone": "+16075559999",
     "trade": "hvac",
     "owner_name": "John",
-    "ring_timeout": 20
+    "ring_timeout": 20,
+    "google_review_link": "https://g.page/r/YOUR_REVIEW_LINK_HERE/review"
   }
 }
 ```
+
+> **How to get a Google review link:** Go to your Google Business Profile → click "Get more reviews" → copy the short link.
 
 **Fields:**
 | Field | Required | Description |
@@ -52,6 +56,7 @@ Map each Twilio phone number to a business:
 | `trade` | Yes | `hvac`, `roofing`, `plumbing`, `electrical`, `landscaping`, `painting`, `general` |
 | `owner_name` | No | Personalizes templates |
 | `ring_timeout` | No | Seconds to ring before giving up (default: 20) |
+| `google_review_link` | Yes* | Google review URL for the business (`g.page/r/…/review`). Required for review requests. |
 
 ## Twilio Setup
 
@@ -81,6 +86,20 @@ Caller dials Twilio number
 
 Templates are in `templates.js` — customize per trade or add new ones.
 
+### Google Review Request Flow
+```
+Job is marked complete (POST /api/job/complete)
+  → Server schedules a review SMS for 24–48h later (randomized)
+  → Scheduler fires when due
+  → Customer receives: "Hi [Name], thanks for choosing [Business]!
+     We'd love your feedback — it only takes 30 seconds: [Google Review Link]
+     Reply STOP to opt out."
+```
+
+- Opted-out customers are automatically skipped
+- Each customer/business pair can only have one pending review request at a time
+- Dave can trigger a review immediately with `send_now: true` or via `POST /api/review/send`
+
 ### Inbound SMS Handling
 - **STOP/UNSUBSCRIBE** → opt out, cancel pending follow-ups
 - **YES** → alert owner with "hot lead" notification
@@ -88,14 +107,17 @@ Templates are in `templates.js` — customize per trade or add new ones.
 
 ## API Endpoints
 
-| Method | Path | Description |
-|--------|------|-------------|
-| POST | `/twilio/voice` | Incoming call webhook (returns TwiML) |
-| POST | `/twilio/voice/status` | Dial status callback (triggers text-back) |
-| POST | `/twilio/sms` | Inbound SMS (opt-out + reply forwarding) |
-| POST | `/api/lead` | Website form/chat lead intake |
-| GET | `/api/stats` | Lead statistics |
-| GET | `/health` | Health check |
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| POST | `/twilio/voice` | Twilio sig | Incoming call webhook (returns TwiML) |
+| POST | `/twilio/voice/status` | Twilio sig | Dial status callback (triggers text-back) |
+| POST | `/twilio/sms` | Twilio sig | Inbound SMS (opt-out + reply forwarding) |
+| POST | `/api/lead` | API key | Website form/chat lead intake |
+| GET | `/api/stats` | API key | Lead statistics |
+| POST | `/api/job/complete` | API key | Mark job complete; schedule review request |
+| POST | `/api/review/send` | API key | Manually trigger a review request now |
+| GET | `/api/review/stats` | API key | Review request statistics |
+| GET | `/health` | — | Health check |
 
 ### POST /api/lead
 Enroll a website form submission in the follow-up sequence:
@@ -107,6 +129,55 @@ Enroll a website form submission in the follow-up sequence:
   "trade": "hvac",
   "twilio_number": "+16075551234",
   "source": "form"
+}
+```
+
+### POST /api/job/complete
+Mark a job complete and schedule an automated review request 24–48h later:
+```json
+{
+  "customer_phone": "(607) 555-1234",
+  "twilio_number": "+16075551234",
+  "customer_name": "Sarah",
+  "send_now": false
+}
+```
+- `send_now: true` — skip the delay and send immediately (useful for testing)
+- Returns `{ status, review_id, scheduled_at, sent }`
+
+### POST /api/review/send
+Manually fire a review request right now. Two modes:
+
+**Mode A — by review ID** (resend a scheduled one):
+```json
+{ "review_id": 5 }
+```
+
+**Mode B — by customer** (create and send immediately):
+```json
+{
+  "customer_phone": "(607) 555-1234",
+  "twilio_number": "+16075551234",
+  "customer_name": "Sarah"
+}
+```
+
+### GET /api/review/stats
+Returns sent/pending/failed counts per client:
+```json
+{
+  "clients": [
+    {
+      "business_key": "+16075551234",
+      "business_name": "Summit Air & Heating",
+      "has_review_link": true,
+      "total_scheduled": 12,
+      "sent": 10,
+      "pending": 1,
+      "failed": 1,
+      "skipped": 0
+    }
+  ]
 }
 ```
 

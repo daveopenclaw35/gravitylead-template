@@ -8,6 +8,9 @@
  *   POST /twilio/sms            — inbound SMS (STOP opt-out + reply logging)
  *   POST /api/lead              — website form/chat lead intake  [API key required]
  *   GET  /api/stats             — lead stats dashboard           [API key required]
+ *   POST /api/job/complete      — mark job done; schedule review request [API key required]
+ *   POST /api/review/send       — manually trigger a review request now  [API key required]
+ *   GET  /api/review/stats      — review request statistics              [API key required]
  *   GET  /health                — health check
  *
  * Setup:
@@ -34,6 +37,7 @@ const twilio     = require("twilio");
 const rateLimit  = require("express-rate-limit");
 const db         = require("./db");
 const followup   = require("./followup");
+const review     = require("./review");
 const { renderTemplate } = require("./templates");
 
 /* ── Config ──────────────────────────────────────────────────────────────── */
@@ -76,6 +80,9 @@ console.log(`[startup] Loaded ${clientNumbers.size} client(s) from clients.json`
 
 /* ── Init follow-up engine ───────────────────────────────────────────────── */
 followup.init(twilioClient, clients);
+
+/* ── Init review engine ──────────────────────────────────────────────────── */
+review.init(twilioClient, clients);
 
 /* ══════════════════════════════════════════════════════════════════════════
  * SECURITY MIDDLEWARE
@@ -153,6 +160,13 @@ function normalizePhone(raw) {
   if (digits.length === 11 && digits[0] === "1")    return `+${digits}`;
   if (raw.startsWith("+") && digits.length >= 10)   return `+${digits}`;
   return null; // unrecognised — caller must handle
+}
+
+/* ── 5b. Parse boolean-ish values from JSON body ─────────────────────────── */
+function parseBool(val) {
+  if (typeof val === "boolean") return val;
+  if (typeof val === "string")  return val.toLowerCase() === "true";
+  return false;
 }
 
 /* ── 5. twilio_number allow-list check ───────────────────────────────────── */
@@ -435,6 +449,174 @@ app.get("/api/stats", requireApiKey, (req, res) => {
 });
 
 /* ══════════════════════════════════════════════════════════════════════════
+ * POST /api/job/complete — Mark a job complete; schedules a review request
+ * [API key required]
+ *
+ * Body:
+ *   customer_phone  {string}  Required. Customer's phone (10-digit or E.164).
+ *   twilio_number   {string}  Required. The client's Twilio number.
+ *   customer_name   {string}  Optional. Customer first name for personalisation.
+ *   send_now        {boolean} Optional. Skip the delay and send immediately.
+ *
+ * Response:
+ *   { status, review_id, scheduled_at, sent }
+ * ══════════════════════════════════════════════════════════════════════════ */
+app.post("/api/job/complete", requireApiKey, async (req, res) => {
+  const { customer_phone, customer_name, twilio_number, send_now } = req.body;
+
+  if (!customer_phone || !twilio_number) {
+    return res.status(400).json({ error: "customer_phone and twilio_number are required." });
+  }
+
+  if (!validateTwilioNumber(twilio_number)) {
+    return res.status(400).json({
+      error: "Invalid twilio_number. Must be a registered GravityLead number.",
+    });
+  }
+
+  const normalizedPhone = normalizePhone(String(customer_phone));
+  if (!normalizedPhone) {
+    return res.status(400).json({
+      error: "Invalid customer_phone. Provide a 10-digit US number or E.164 format.",
+    });
+  }
+
+  const client = clients[twilio_number];
+  if (!client.google_review_link) {
+    return res.status(422).json({
+      error: `Client "${client.business_name}" is missing google_review_link in clients.json. Add it and restart the server.`,
+    });
+  }
+
+  try {
+    const result = await review.scheduleReview({
+      customerPhone: normalizedPhone,
+      customerName:  customer_name || null,
+      businessKey:   twilio_number,
+      twilioNumber:  twilio_number,
+      sendNow:       parseBool(send_now),
+    });
+
+    if (result.skipped) {
+      return res.json({ status: "skipped", reason: result.reason });
+    }
+    if (result.duplicate) {
+      return res.json({ status: "already_scheduled", review_id: result.review_id, scheduled_at: result.scheduled_at });
+    }
+
+    console.log(
+      `[api/job/complete] Review #${result.review_id} scheduled for ${normalizedPhone} ` +
+      `(${client.business_name}) | send_now=${parseBool(send_now)} | sent=${result.sent}`
+    );
+
+    res.json({
+      status:       result.sent ? "sent" : "scheduled",
+      review_id:    result.review_id,
+      scheduled_at: result.scheduled_at,
+      sent:         result.sent,
+    });
+  } catch (err) {
+    console.error("[api/job/complete] Error:", err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/* ══════════════════════════════════════════════════════════════════════════
+ * POST /api/review/send — Manually trigger a review request right now
+ * [API key required]
+ *
+ * Two modes:
+ *   Mode A — by review_id:  { review_id: 5 }
+ *   Mode B — by customer:   { customer_phone, twilio_number, customer_name? }
+ *
+ * Mode B creates a new review request (or reuses a pending one) and fires it
+ * immediately — handy for manual one-off sends without marking a job complete.
+ * ══════════════════════════════════════════════════════════════════════════ */
+app.post("/api/review/send", requireApiKey, async (req, res) => {
+  const { review_id, customer_phone, twilio_number, customer_name } = req.body;
+
+  try {
+    // Mode A: send a specific scheduled review now
+    if (review_id != null) {
+      const reviewRecord = db.getReviewById(Number(review_id));
+      if (!reviewRecord) {
+        return res.status(404).json({ error: `Review request #${review_id} not found.` });
+      }
+      const result = await review.sendReviewById(Number(review_id));
+      return res.json({
+        status:       result.sent ? "sent" : "skipped",
+        review_id:    Number(review_id),
+        message_sid:  result.message_sid || null,
+        reason:       result.reason || null,
+      });
+    }
+
+    // Mode B: ad-hoc customer send
+    if (!customer_phone || !twilio_number) {
+      return res.status(400).json({
+        error: "Provide either review_id, or both customer_phone and twilio_number.",
+      });
+    }
+
+    if (!validateTwilioNumber(twilio_number)) {
+      return res.status(400).json({
+        error: "Invalid twilio_number. Must be a registered GravityLead number.",
+      });
+    }
+
+    const normalizedPhone = normalizePhone(String(customer_phone));
+    if (!normalizedPhone) {
+      return res.status(400).json({
+        error: "Invalid customer_phone. Provide a 10-digit US number or E.164 format.",
+      });
+    }
+
+    const client = clients[twilio_number];
+    if (!client.google_review_link) {
+      return res.status(422).json({
+        error: `Client "${client.business_name}" is missing google_review_link in clients.json.`,
+      });
+    }
+
+    const result = await review.scheduleReview({
+      customerPhone: normalizedPhone,
+      customerName:  customer_name || null,
+      businessKey:   twilio_number,
+      twilioNumber:  twilio_number,
+      sendNow:       true,
+    });
+
+    console.log(
+      `[api/review/send] Manual send for ${normalizedPhone} (${client.business_name}) ` +
+      `| review_id=${result.review_id} | sent=${result.sent}`
+    );
+
+    res.json({
+      status:      result.sent ? "sent" : "skipped",
+      review_id:   result.review_id,
+      sent:        result.sent,
+      reason:      result.reason || null,
+    });
+  } catch (err) {
+    console.error("[api/review/send] Error:", err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/* ══════════════════════════════════════════════════════════════════════════
+ * GET /api/review/stats — Review request statistics  [API key required]
+ * ══════════════════════════════════════════════════════════════════════════ */
+app.get("/api/review/stats", requireApiKey, (req, res) => {
+  const stats    = db.getReviewStats();
+  const enriched = stats.map(s => ({
+    ...s,
+    business_name:      clients[s.business_key]?.business_name || s.business_key,
+    has_review_link:    !!(clients[s.business_key]?.google_review_link),
+  }));
+  res.json({ clients: enriched });
+});
+
+/* ══════════════════════════════════════════════════════════════════════════
  * GET /health — Health check (unauthenticated, safe to expose publicly)
  * ══════════════════════════════════════════════════════════════════════════ */
 app.get("/health", (req, res) => {
@@ -454,4 +636,5 @@ app.listen(PORT, () => {
   console.log(`[server] Twilio SMS webhook:   ${BASE_URL}/twilio/sms`);
   console.log(`[server] Twilio sig validation: ${SKIP_TWILIO_VALIDATION === "true" ? "DISABLED (dev mode)" : "ENABLED"}`);
   followup.startScheduler();
+  review.startScheduler();
 });
