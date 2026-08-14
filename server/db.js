@@ -247,6 +247,36 @@ const getMonthlyReviewsSentStmt = db.prepare(`
     AND strftime('%m', sent_at) = ?
 `);
 
+/* -- Dashboard activity queries ------------------------------------------- */
+
+const getRecentLeadsStmt = db.prepare(`
+  SELECT id, phone, name, business_key, source, created_at, opted_out
+  FROM leads
+  ORDER BY created_at DESC
+  LIMIT ?
+`);
+
+const getUpcomingFollowupsStmt = db.prepare(`
+  SELECT f.id, f.lead_id, f.day, f.scheduled_at,
+         l.phone, l.name, l.business_key
+  FROM followups f
+  JOIN leads l ON f.lead_id = l.id
+  WHERE f.status = 'pending'
+    AND f.scheduled_at >= datetime('now')
+  ORDER BY f.scheduled_at ASC
+  LIMIT ?
+`);
+
+const getRecentTextBacksStmt = db.prepare(`
+  SELECT s.id, s.to_number, s.from_number, s.created_at, s.body,
+         l.name, l.phone AS caller, l.business_key
+  FROM sms_log s
+  JOIN leads l ON s.lead_id = l.id AND l.source = 'missed_call'
+  WHERE s.direction = 'outbound'
+  ORDER BY s.created_at DESC
+  LIMIT ?
+`);
+
 /* -- Public API ------------------------------------------------------------ */
 
 module.exports = {
@@ -373,5 +403,31 @@ module.exports = {
 
   getReviewStats() {
     return getReviewStatsStmt.all();
+  },
+
+  /* -- Dashboard queries --------------------------------------------------- */
+
+  /**
+   * Return the N most recent leads across all clients.
+   * @param {number} limit
+   */
+  getRecentLeads(limit = 20) {
+    return getRecentLeadsStmt.all(limit);
+  },
+
+  /**
+   * Return the next N pending follow-ups in chronological order.
+   * @param {number} limit
+   */
+  getUpcomingFollowups(limit = 20) {
+    return getUpcomingFollowupsStmt.all(limit);
+  },
+
+  /**
+   * Return the N most recent outbound missed-call text-backs.
+   * @param {number} limit
+   */
+  getRecentTextBacks(limit = 20) {
+    return getRecentTextBacksStmt.all(limit);
   },
 };

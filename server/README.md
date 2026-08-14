@@ -30,6 +30,7 @@ TWILIO_AUTH_TOKEN=xxxx
 PORT=3000
 BASE_URL=https://your-server.com
 FORMSPREE_ENDPOINT=https://formspree.io/f/xdaqyezr   # optional passthrough
+DASHBOARD_PASSWORD=replace_with_a_strong_password    # required for /dashboard
 ```
 
 ### clients.json
@@ -58,6 +59,8 @@ Map each Twilio phone number to a business:
 | `owner_name` | No | Personalizes templates |
 | `ring_timeout` | No | Seconds to ring before giving up (default: 20) |
 | `google_review_link` | Yes* | Google review URL for the business (`g.page/r/.../review`). Required for review requests. |
+| `go_live_date`       | No   | ISO date the client went live e.g. `"2026-07-01"`. Displayed in dashboard. |
+| `monthly_fee`        | No   | Monthly fee in USD (default: `149`). Used for MRR/ARR in dashboard. |
 
 ## Twilio Setup
 
@@ -141,8 +144,11 @@ Manually trigger at any time with `POST /api/report/send`.
 | POST | `/api/job/complete` | API key | Mark job complete; schedule review request |
 | POST | `/api/review/send` | API key | Manually trigger a review request now |
 | GET | `/api/review/stats` | API key | Review request statistics |
-| POST | `/api/report/send` | API key | Manually trigger monthly client report |
-| GET | `/health` | — | Health check |
+| POST | `/api/report/send`     | API key  | Manually trigger monthly client report |
+| GET  | `/dashboard`           | Password | Owner dashboard UI |
+| GET  | `/dashboard/login`     | —        | Login page |
+| GET  | `/dashboard/api/data`  | Cookie   | Live JSON payload for dashboard |
+| GET  | `/health`              | —        | Health check |
 
 ### POST /api/lead
 Enroll a website form submission in the follow-up sequence:
@@ -268,6 +274,29 @@ Any Node.js host works. Recommended:
 - **Docker** - Dockerfile not included yet, trivial to add
 
 The SQLite database (`gravitylead.db`) is created automatically on first run.
+
+## Owner Dashboard
+
+Visit `https://your-server.com/dashboard` in any browser and log in with `DASHBOARD_PASSWORD`.
+
+**What's shown:**
+
+| Section | Data |
+|---------|------|
+| System health | Render server status + uptime, Twilio account balance |
+| KPI strip (current month) | AI leads, missed calls recovered, follow-ups sent, review requests |
+| Revenue | MRR, ARR, avg per client — calculated from `monthly_fee` in clients.json |
+| Client cards | Per-client stats for the current month + go-live date + fee |
+| Recent leads | Last 20 leads across all clients with source badge |
+| Recent text-backs | Last 20 outbound missed-call text-backs |
+| Upcoming follow-ups | Next 20 pending follow-up messages by scheduled time |
+
+Dashboard auto-refreshes every 60 seconds. Sessions last 24 hours and clear on server restart.
+
+**Security:**
+- `HttpOnly` + `SameSite=Strict` cookie. Set `Secure` automatically when `BASE_URL` is HTTPS.
+- Timing-safe password comparison.
+- Generate a strong password: `openssl rand -base64 18`
 
 ## Multi-Tenant
 

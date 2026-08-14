@@ -12,6 +12,7 @@
  *   POST /api/review/send       — manually trigger a review request now  [API key required]
  *   GET  /api/review/stats      — review request statistics              [API key required]
  *   POST /api/report/send       — manually trigger monthly client report  [API key required]
+ *   GET  /dashboard             — owner dashboard (password protected)
  *   GET  /health                — health check
  *
  * Setup:
@@ -40,6 +41,7 @@ const db         = require("./db");
 const followup   = require("./followup");
 const review     = require("./review");
 const reports    = require("./reports");
+const dashboard  = require("./dashboard");
 const { renderTemplate } = require("./templates");
 
 /* ── Config ──────────────────────────────────────────────────────────────── */
@@ -88,6 +90,9 @@ review.init(twilioClient, clients);
 
 /* ── Init monthly report engine ──────────────────────────────────────────── */
 reports.init(twilioClient, clients);
+
+/* ── Init owner dashboard ─────────────────────────────────────────────────── */
+dashboard.init(twilioClient, clients, BASE_URL);
 
 /* ══════════════════════════════════════════════════════════════════════════
  * SECURITY MIDDLEWARE
@@ -191,6 +196,9 @@ app.use(express.json());
 
 // Apply general rate limit to all routes
 app.use(generalLimiter);
+
+/* ── Owner dashboard (mounted before API so it gets its own rate-limit context) */
+app.use("/dashboard", dashboard.router);
 
 /* ══════════════════════════════════════════════════════════════════════════
  * POST /twilio/voice — Incoming call webhook  [Twilio-signed]
