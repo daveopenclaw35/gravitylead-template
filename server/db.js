@@ -211,6 +211,42 @@ const getLeadStatsStmt = db.prepare(`
   GROUP BY business_key
 `);
 
+/* -- Monthly stats for client reports ------------------------------------- */
+
+const getMonthlyChatLeadsStmt = db.prepare(`
+  SELECT COUNT(*) AS count FROM leads
+  WHERE business_key = ?
+    AND (source = 'chat' OR source = 'form')
+    AND strftime('%Y', created_at) = ?
+    AND strftime('%m', created_at) = ?
+`);
+
+const getMonthlyMissedCallsStmt = db.prepare(`
+  SELECT COUNT(*) AS count FROM leads
+  WHERE business_key = ?
+    AND source = 'missed_call'
+    AND strftime('%Y', created_at) = ?
+    AND strftime('%m', created_at) = ?
+`);
+
+const getMonthlyFollowupsSentStmt = db.prepare(`
+  SELECT COUNT(*) AS count
+  FROM followups f
+  JOIN leads l ON f.lead_id = l.id
+  WHERE l.business_key = ?
+    AND f.status = 'sent'
+    AND strftime('%Y', f.sent_at) = ?
+    AND strftime('%m', f.sent_at) = ?
+`);
+
+const getMonthlyReviewsSentStmt = db.prepare(`
+  SELECT COUNT(*) AS count FROM review_requests
+  WHERE business_key = ?
+    AND status = 'sent'
+    AND strftime('%Y', sent_at) = ?
+    AND strftime('%m', sent_at) = ?
+`);
+
 /* -- Public API ------------------------------------------------------------ */
 
 module.exports = {
@@ -267,6 +303,24 @@ module.exports = {
 
   getStats() {
     return getLeadStatsStmt.all();
+  },
+
+  /**
+   * Return activity counts for a single client in a given calendar month.
+   * @param {string} businessKey  Twilio number / business key
+   * @param {number} year
+   * @param {number} month  1–12
+   * @returns {{ chat_leads, missed_calls, followups_sent, reviews_sent }}
+   */
+  getMonthlyStats(businessKey, year, month) {
+    const yy = String(year);
+    const mm = String(month).padStart(2, "0");
+    return {
+      chat_leads:     getMonthlyChatLeadsStmt.get(businessKey, yy, mm).count,
+      missed_calls:   getMonthlyMissedCallsStmt.get(businessKey, yy, mm).count,
+      followups_sent: getMonthlyFollowupsSentStmt.get(businessKey, yy, mm).count,
+      reviews_sent:   getMonthlyReviewsSentStmt.get(businessKey, yy, mm).count,
+    };
   },
 
   /* -- Review request methods -------------------------------------------- */

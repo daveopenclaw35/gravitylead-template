@@ -1,14 +1,15 @@
-# GravityLead Server — Missed-Call Text-Back + SMS Follow-Ups
+# GravityLead Server - Missed-Call Text-Back + SMS Follow-Ups
 
 Automated lead capture and nurturing via Twilio:
-- **Missed-call text-back** — caller gets an SMS within seconds
-- **3-day follow-up** — warm check-in
-- **7-day follow-up** — offer free estimate
-- **30-day follow-up** — long-term nurture
+- **Missed-call text-back** - caller gets an SMS within seconds
+- **3-day follow-up** - warm check-in
+- **7-day follow-up** - offer free estimate
+- **30-day follow-up** - long-term nurture
 - **Google review request** — sent automatically 24–48h after a job is marked complete
-- **STOP opt-out** — automatic, legally compliant
-- **Reply forwarding** — customer replies go straight to the business owner
-- **Owner alerts** — instant SMS to the owner for every new lead and reply
+- **Monthly client reports** — automated summary SMS to each owner on the 1st of every month
+- **STOP opt-out** - automatic, legally compliant
+- **Reply forwarding** - customer replies go straight to the business owner
+- **Owner alerts** - instant SMS to the owner for every new lead and reply
 
 ## Quick Start
 
@@ -56,7 +57,7 @@ Map each Twilio phone number to a business:
 | `trade` | Yes | `hvac`, `roofing`, `plumbing`, `electrical`, `landscaping`, `painting`, `general` |
 | `owner_name` | No | Personalizes templates |
 | `ring_timeout` | No | Seconds to ring before giving up (default: 20) |
-| `google_review_link` | Yes* | Google review URL for the business (`g.page/r/…/review`). Required for review requests. |
+| `google_review_link` | Yes* | Google review URL for the business (`g.page/r/.../review`). Required for review requests. |
 
 ## Twilio Setup
 
@@ -84,7 +85,7 @@ Caller dials Twilio number
 | 7 | "If you still need [service], reply YES and we'll get back to you." |
 | 30 | "We're just a text away. Save this number!" |
 
-Templates are in `templates.js` — customize per trade or add new ones.
+Templates are in `templates.js` - customize per trade or add new ones.
 
 ### Google Review Request Flow
 ```
@@ -92,13 +93,36 @@ Job is marked complete (POST /api/job/complete)
   → Server schedules a review SMS for 24–48h later (randomized)
   → Scheduler fires when due
   → Customer receives: "Hi [Name], thanks for choosing [Business]!
-     We'd love your feedback — it only takes 30 seconds: [Google Review Link]
+     We’d love your feedback — it only takes 30 seconds: [Google Review Link]
      Reply STOP to opt out."
 ```
 
 - Opted-out customers are automatically skipped
 - Each customer/business pair can only have one pending review request at a time
 - Dave can trigger a review immediately with `send_now: true` or via `POST /api/review/send`
+
+### Monthly Client Report Flow
+```
+1st of every month at 9:00 AM (server local time)
+  → For each client in clients.json, query previous month's DB stats
+  → Owner receives:
+     "Hey [Owner Name], here’s your GravityLead report for [Month]:
+
+     📊 Leads captured: X | Missed calls recovered: X |
+     Follow-ups sent: X | Review requests: X
+
+     Questions? Reply anytime."
+```
+
+**Metrics included:**
+| Metric | What it counts |
+|--------|----------------|
+| Leads captured | Website AI chat / form leads (`source: 'chat'` or `'form'`) |
+| Missed calls recovered | Missed-call text-backs sent (`source: 'missed_call'`) |
+| Follow-ups sent | Day-3/7/30 follow-up messages delivered |
+| Review requests | Google review request SMS messages sent |
+
+Manually trigger at any time with `POST /api/report/send`.
 
 ### Inbound SMS Handling
 - **STOP/UNSUBSCRIBE** → opt out, cancel pending follow-ups
@@ -117,6 +141,7 @@ Job is marked complete (POST /api/job/complete)
 | POST | `/api/job/complete` | API key | Mark job complete; schedule review request |
 | POST | `/api/review/send` | API key | Manually trigger a review request now |
 | GET | `/api/review/stats` | API key | Review request statistics |
+| POST | `/api/report/send` | API key | Manually trigger monthly client report |
 | GET | `/health` | — | Health check |
 
 ### POST /api/lead
@@ -133,7 +158,7 @@ Enroll a website form submission in the follow-up sequence:
 ```
 
 ### POST /api/job/complete
-Mark a job complete and schedule an automated review request 24–48h later:
+Mark a job complete and schedule an automated review request 24-48h later:
 ```json
 {
   "customer_phone": "(607) 555-1234",
@@ -142,23 +167,60 @@ Mark a job complete and schedule an automated review request 24–48h later:
   "send_now": false
 }
 ```
-- `send_now: true` — skip the delay and send immediately (useful for testing)
+- `send_now: true` - skip the delay and send immediately (useful for testing)
 - Returns `{ status, review_id, scheduled_at, sent }`
 
 ### POST /api/review/send
 Manually fire a review request right now. Two modes:
 
-**Mode A — by review ID** (resend a scheduled one):
+**Mode A - by review ID** (resend a scheduled one):
 ```json
 { "review_id": 5 }
 ```
 
-**Mode B — by customer** (create and send immediately):
+**Mode B - by customer** (create and send immediately):
 ```json
 {
   "customer_phone": "(607) 555-1234",
   "twilio_number": "+16075551234",
   "customer_name": "Sarah"
+}
+```
+
+### POST /api/report/send
+Manually trigger the monthly report without waiting for the 1st. Defaults to the previous calendar month.
+
+**Send to all clients (default):**
+```json
+{}
+```
+
+**Send to one client only:**
+```json
+{
+  "business_key": "+16075551234"
+}
+```
+
+**Override month/year (useful for testing or resends):**
+```json
+{
+  "year": 2026,
+  "month": 7
+}
+```
+
+Returns:
+```json
+{
+  "total": 3,
+  "sent": 3,
+  "failed": 0,
+  "results": [
+    { "business_key": "+16075551234", "sent": true, "message_sid": "SM...", "stats": { "chat_leads": 5, "missed_calls": 12, "followups_sent": 28, "reviews_sent": 8 } }
+  ],
+  "year": 2026,
+  "month": 7
 }
 ```
 
@@ -201,12 +263,12 @@ business: {
 ## Deployment
 
 Any Node.js host works. Recommended:
-- **Railway** / **Render** / **Fly.io** — easy, cheap, handles HTTPS
-- **VPS + PM2** — `pm2 start index.js --name gravitylead`
-- **Docker** — Dockerfile not included yet, trivial to add
+- **Railway** / **Render** / **Fly.io** - easy, cheap, handles HTTPS
+- **VPS + PM2** - `pm2 start index.js --name gravitylead`
+- **Docker** - Dockerfile not included yet, trivial to add
 
 The SQLite database (`gravitylead.db`) is created automatically on first run.
 
 ## Multi-Tenant
 
-Add multiple entries to `clients.json` — one per Twilio number. Each client gets isolated lead tracking and their own follow-up sequences. Scales to dozens of clients on a single server.
+Add multiple entries to `clients.json` - one per Twilio number. Each client gets isolated lead tracking and their own follow-up sequences. Scales to dozens of clients on a single server.

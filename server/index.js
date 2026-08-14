@@ -11,6 +11,7 @@
  *   POST /api/job/complete      — mark job done; schedule review request [API key required]
  *   POST /api/review/send       — manually trigger a review request now  [API key required]
  *   GET  /api/review/stats      — review request statistics              [API key required]
+ *   POST /api/report/send       — manually trigger monthly client report  [API key required]
  *   GET  /health                — health check
  *
  * Setup:
@@ -38,6 +39,7 @@ const rateLimit  = require("express-rate-limit");
 const db         = require("./db");
 const followup   = require("./followup");
 const review     = require("./review");
+const reports    = require("./reports");
 const { renderTemplate } = require("./templates");
 
 /* ── Config ──────────────────────────────────────────────────────────────── */
@@ -83,6 +85,9 @@ followup.init(twilioClient, clients);
 
 /* ── Init review engine ──────────────────────────────────────────────────── */
 review.init(twilioClient, clients);
+
+/* ── Init monthly report engine ──────────────────────────────────────────── */
+reports.init(twilioClient, clients);
 
 /* ══════════════════════════════════════════════════════════════════════════
  * SECURITY MIDDLEWARE
@@ -617,6 +622,64 @@ app.get("/api/review/stats", requireApiKey, (req, res) => {
 });
 
 /* ══════════════════════════════════════════════════════════════════════════
+ * POST /api/report/send — Manually trigger the monthly report
+ * [API key required]
+ *
+ * By default sends the previous month's report to all clients.
+ * Optional body params:
+ *   business_key  {string}  Send to one client only (Twilio number key)
+ *   year          {number}  Override year  (default: previous month's year)
+ *   month         {number}  Override month (default: previous month, 1–12)
+ *
+ * Response:
+ *   Single client: { sent, message_sid?, reason?, stats?, year, month }
+ *   All clients:   { total, sent, failed, results[], year, month }
+ * ══════════════════════════════════════════════════════════════════════════ */
+app.post("/api/report/send", requireApiKey, async (req, res) => {
+  const { business_key, year, month } = req.body;
+
+  // Default to previous calendar month when not specified
+  const { year: prevYear, month: prevMonth } = reports.previousMonth();
+  const targetYear  = year  != null ? Number(year)  : prevYear;
+  const targetMonth = month != null ? Number(month) : prevMonth;
+
+  if (!Number.isInteger(targetMonth) || targetMonth < 1 || targetMonth > 12) {
+    return res.status(400).json({ error: "month must be an integer between 1 and 12." });
+  }
+  if (!Number.isInteger(targetYear) || targetYear < 2024) {
+    return res.status(400).json({ error: "year must be a valid integer (2024 or later)." });
+  }
+
+  try {
+    if (business_key) {
+      // Single-client send
+      if (!validateTwilioNumber(business_key)) {
+        return res.status(400).json({
+          error: "Invalid business_key. Must be a registered GravityLead number.",
+        });
+      }
+      const result = await reports.sendMonthlyReport(business_key, targetYear, targetMonth);
+      console.log(
+        `[api/report/send] Manual report for ${business_key} ` +
+        `(${reports.monthLabel(targetYear, targetMonth)}) | sent=${result.sent}`
+      );
+      return res.json({ ...result, year: targetYear, month: targetMonth });
+    }
+
+    // All-clients send
+    const result = await reports.sendAllReports(targetYear, targetMonth);
+    console.log(
+      `[api/report/send] Manual bulk report (${reports.monthLabel(targetYear, targetMonth)}) ` +
+      `| ${result.sent}/${result.total} sent`
+    );
+    return res.json({ ...result, year: targetYear, month: targetMonth });
+  } catch (err) {
+    console.error("[api/report/send] Error:", err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/* ══════════════════════════════════════════════════════════════════════════
  * GET /health — Health check (unauthenticated, safe to expose publicly)
  * ══════════════════════════════════════════════════════════════════════════ */
 app.get("/health", (req, res) => {
@@ -637,4 +700,5 @@ app.listen(PORT, () => {
   console.log(`[server] Twilio sig validation: ${SKIP_TWILIO_VALIDATION === "true" ? "DISABLED (dev mode)" : "ENABLED"}`);
   followup.startScheduler();
   review.startScheduler();
+  reports.startScheduler();
 });
