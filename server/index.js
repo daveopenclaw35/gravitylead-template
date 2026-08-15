@@ -72,7 +72,8 @@ const MessagingResponse = twilio.twiml.MessagingResponse;
 /* ── Load client config ──────────────────────────────────────────────────── */
 let clients;
 try {
-  clients = require("./clients.json");
+  const clientsPath = process.env.CLIENTS_PATH || "/etc/secrets/clients.json";
+  clients = require(clientsPath);
   delete clients._comment;
   delete clients._example;
 } catch (err) {
