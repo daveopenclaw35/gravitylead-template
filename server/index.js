@@ -73,7 +73,7 @@ const MessagingResponse = twilio.twiml.MessagingResponse;
 let clients;
 try {
   const clientsPath = process.env.CLIENTS_PATH || "/etc/secrets/clients.json";
-  clients = require(clientsPath);
+  clients = JSON.parse(fs.readFileSync(clientsPath, "utf8"));
   delete clients._comment;
   delete clients._example;
 } catch (err) {
