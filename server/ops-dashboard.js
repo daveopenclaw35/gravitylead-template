@@ -51,6 +51,16 @@ async function ft(url, opts = {}, ms = 7000) {
   finally { clearTimeout(tid); }
 }
 
+// Race any promise (e.g. a Twilio SDK call that has no AbortController) against
+// a hard timeout so one slow/hanging dependency can't stall the whole dashboard.
+function withTimeout(promise, ms = 8000, label = "operation") {
+  let tid;
+  const timeout = new Promise((_, rej) => {
+    tid = setTimeout(() => rej(new Error(`${label} timed out after ${ms}ms`)), ms);
+  });
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(tid));
+}
+
 /* ══════════════════════════════════════════════════════════════════════════════
  * SYSTEM CHECKS
  * Each returns { ok: bool|null, status: string, ...extra }
@@ -92,10 +102,14 @@ async function checkTelegram() {
 async function checkTwilio() {
   if (!_tw) return { ok: false, status: "error", reason: "Not initialized" };
   try {
-    const [bal, nums] = await Promise.all([
-      _tw.balance.fetch(),
-      _tw.incomingPhoneNumbers.list({ limit: 50 }),
-    ]);
+    const [bal, nums] = await withTimeout(
+      Promise.all([
+        _tw.balance.fetch(),
+        _tw.incomingPhoneNumbers.list({ limit: 50 }),
+      ]),
+      8000,
+      "Twilio API"
+    );
     const amt = parseFloat(bal.balance);
     return {
       ok:       amt > 1,
@@ -247,10 +261,14 @@ async function checkAnthropic() {
 
 /* ── Aggregate all checks in parallel ──────────────────────────────────────── */
 async function gatherAll() {
+  // Wrap every probe in a hard timeout so no single dependency can stall the
+  // aggregate response. allSettled already isolates failures; this bounds latency.
+  const guarded = fn => withTimeout(Promise.resolve().then(fn), 9000, fn.name || "check")
+    .catch(e => ({ ok: false, status: "error", reason: e.message }));
   const settled = await Promise.allSettled([
-    checkRender(), checkOpenClaw(), checkTelegram(), checkTwilio(),
-    checkWebsite(), checkGitHub(), checkFormspree(), checkStripe(),
-    checkUptimeRobot(), checkAnthropic(),
+    guarded(checkRender), guarded(checkOpenClaw), guarded(checkTelegram), guarded(checkTwilio),
+    guarded(checkWebsite), guarded(checkGitHub), guarded(checkFormspree), guarded(checkStripe),
+    guarded(checkUptimeRobot), guarded(checkAnthropic),
   ]);
   const unwrap = r => r.status === "fulfilled"
     ? r.value
