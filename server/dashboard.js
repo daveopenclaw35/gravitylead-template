@@ -20,51 +20,11 @@
 
 const { Router } = require("express");
 const crypto     = require("crypto");
+const auth       = require("./auth");
 const db         = require("./db");
 
-/* ── Config ────────────────────────────────────────────────────────────────── */
-const DASHBOARD_PW = process.env.DASHBOARD_PASSWORD ?? "";
-const COOKIE       = "gl_sess";
-const SESSION_TTL  = 24 * 60 * 60 * 1000; // 24 h
-
-/* ── Session store ─────────────────────────────────────────────────────────── */
-const sessions = new Map(); // token → expiresAt
-
-function mkToken() {
-  const t = crypto.randomBytes(32).toString("hex");
-  sessions.set(t, Date.now() + SESSION_TTL);
-  return t;
-}
-function okToken(t) {
-  if (!t || !sessions.has(t)) return false;
-  if (Date.now() > sessions.get(t)) { sessions.delete(t); return false; }
-  return true;
-}
-function rmToken(t) { sessions.delete(t); }
-setInterval(() => { const now = Date.now(); for (const [t, e] of sessions) if (now > e) sessions.delete(t); }, 3_600_000);
-
-/* ── Cookie helpers ─────────────────────────────────────────────────────────── */
-function parseCookies(req) {
-  const out = {};
-  for (const s of (req.headers.cookie || "").split(";")) {
-    const [k, ...v] = s.split("=");
-    if (k?.trim()) out[k.trim()] = v.join("=").trim();
-  }
-  return out;
-}
-function applyCookie(res, tok, https) {
-  res.setHeader("Set-Cookie",
-    `${COOKIE}=${tok}; Max-Age=${SESSION_TTL / 1000 | 0}; Path=/; HttpOnly; SameSite=Strict${https ? "; Secure" : ""}`);
-}
-function wipeCookie(res) {
-  res.setHeader("Set-Cookie", `${COOKIE}=; Max-Age=0; Path=/; HttpOnly; SameSite=Strict`);
-}
-
-/* ── Auth guard ─────────────────────────────────────────────────────────────── */
-function guard(req, res, next) {
-  if (okToken(parseCookies(req)[COOKIE])) return next();
-  res.redirect("/dashboard/login");
-}
+/* ── Auth guard (shared session store with /ops) ─────────────────────────────── */
+const guard = auth.guard("/dashboard/login");
 
 /* ── Module state ───────────────────────────────────────────────────────────── */
 let twilio   = null;
@@ -137,11 +97,12 @@ function buildPayload() {
 const router = Router();
 
 router.get("/login", (req, res) => {
-  if (okToken(parseCookies(req)[COOKIE])) return res.redirect("/dashboard");
+  if (auth.okToken(auth.parseCookies(req)[auth.COOKIE])) return res.redirect("/dashboard");
   res.type("text/html").send(loginHtml());
 });
 
 router.post("/login", (req, res) => {
+  const DASHBOARD_PW = process.env.DASHBOARD_PASSWORD ?? "";
   if (!DASHBOARD_PW)
     return res.status(503).type("text/html").send(loginHtml("DASHBOARD_PASSWORD not set in .env"));
 
@@ -154,14 +115,14 @@ router.post("/login", (req, res) => {
 
   if (!valid) return res.type("text/html").send(loginHtml("Incorrect password. Try again."));
 
-  const tok = mkToken();
-  applyCookie(res, tok, BASE_URL.startsWith("https"));
+  const tok = auth.mkToken();
+  auth.applyCookie(res, tok, BASE_URL.startsWith("https"));
   res.redirect("/dashboard");
 });
 
 router.get("/logout", (req, res) => {
-  rmToken(parseCookies(req)[COOKIE]);
-  wipeCookie(res);
+  auth.rmToken(auth.parseCookies(req)[auth.COOKIE]);
+  auth.wipeCookie(res);
   res.redirect("/dashboard/login");
 });
 

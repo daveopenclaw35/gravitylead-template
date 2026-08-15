@@ -298,6 +298,42 @@ Dashboard auto-refreshes every 60 seconds. Sessions last 24 hours and clear on s
 - Timing-safe password comparison.
 - Generate a strong password: `openssl rand -base64 18`
 
+## System Ops Dashboard
+
+Visit `https://your-server.com/ops` — same `DASHBOARD_PASSWORD`, shared login with the Owner Dashboard.
+
+Shows real-time health of every connected system with **green / yellow / red indicators** and auto-refreshes every 60 seconds.
+
+| System | What's checked |
+|--------|----------------|
+| 🖥️ Render Server | Self-check — always green if the process is running; shows uptime |
+| 🤖 OpenClaw Gateway | HTTP GET to `OPENCLAW_GATEWAY_URL/health` |
+| 💬 Telegram — Frank | `getWebhookInfo` via Bot API — confirms Frank's webhook is active |
+| 📞 Twilio | Account balance (yellow < $5, red < $1) + active phone numbers |
+| 🌐 Website / Cloudflare | HEAD request to `getgravitylead.com` with response time |
+| 🔗 GitHub | Last commit SHA, message, author, timestamp via GitHub API |
+| 📋 Formspree | HTTP reachability check on `FORMSPREE_ENDPOINT` |
+| 💳 Stripe | Account balance + last 5 charges |
+| 📡 UptimeRobot | All monitor statuses, 30-day uptime %, response time |
+| 🧠 Anthropic API | API key validity check against `/v1/models` |
+
+**Detail panels below the status grid:**
+- Twilio numbers table (number, capabilities)
+- UptimeRobot monitors table (uptime %, response time)
+- Stripe recent charges (amount, status, date)
+- GitHub last deployment (SHA, message, author, branch)
+
+**Required .env additions** (all optional — unconfigured systems show gray):
+```
+OPENCLAW_GATEWAY_URL=https://your-openclaw-gateway.example.com
+GITHUB_REPO=daveopenclaw35/gravitylead-template
+STRIPE_SECRET_KEY=sk_live_...
+UPTIMEROBOT_API_KEY=ur...
+ANTHROPIC_API_KEY=sk-ant-...
+TELEGRAM_BOT_TOKEN=1234567890:...
+```
+`GITHUB_TOKEN` is optional but recommended to avoid the 60 req/hr unauthenticated rate limit.
+
 ## Multi-Tenant
 
 Add multiple entries to `clients.json` - one per Twilio number. Each client gets isolated lead tracking and their own follow-up sequences. Scales to dozens of clients on a single server.
