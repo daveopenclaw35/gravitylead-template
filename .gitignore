@@ -7,3 +7,6 @@ server/gravitylead.db-wal
 server/gravitylead.db-shm
 # clients.json contains real owner phone numbers — never commit production data
 server/clients.json
+# Generated /newdemo pages are runtime artifacts (keep the dir, ignore contents)
+public/demos/*
+!public/demos/.gitkeep

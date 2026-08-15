@@ -313,7 +313,7 @@ router.get("/api/data", guard, async (req, res) => {
 
 router.get("/", guard, (_req, res) => res.type("text/html").send(opsHtml()));
 
-module.exports = { router, init };
+module.exports = { router, init, gatherAll };
 
 /* ══════════════════════════════════════════════════════════════════════════════
  * HTML — Login page

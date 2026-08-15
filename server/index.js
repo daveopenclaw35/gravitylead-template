@@ -14,7 +14,12 @@
  *   POST /api/report/send       — manually trigger monthly client report  [API key required]
  *   GET  /dashboard             — owner dashboard (password protected)
  *   GET  /ops                   — system ops dashboard (password protected)
+ *   GET  /demos/:file           — generated /newdemo pages (public, shareable)
  *   GET  /health                — health check
+ *
+ * Telegram control bot (optional): set TELEGRAM_BOT_TOKEN + TELEGRAM_OWNER_ID.
+ *   Commands: /status /clients /leads /revenue /report /newdemo <url>
+ *             /prospects /frank /help  (see telegram-bot.js)
  *
  * Setup:
  *   1. Copy .env.example → .env, fill in Twilio credentials + API_KEY.
@@ -36,6 +41,7 @@
 require("dotenv").config();
 
 const fs         = require("fs");
+const path       = require("path");
 const express    = require("express");
 const twilio     = require("twilio");
 const rateLimit  = require("express-rate-limit");
@@ -45,6 +51,7 @@ const review     = require("./review");
 const reports      = require("./reports");
 const dashboard    = require("./dashboard");
 const opsDashboard = require("./ops-dashboard");
+const telegramBot  = require("./telegram-bot");
 const { renderTemplate } = require("./templates");
 
 /* ── Config ──────────────────────────────────────────────────────────────── */
@@ -98,6 +105,9 @@ reports.init(twilioClient, clients);
 /* ── Init owner dashboard ─────────────────────────────────────────────────── */
 dashboard.init(twilioClient, clients, BASE_URL);
 opsDashboard.init(twilioClient, clients, BASE_URL);
+
+/* ── Init Telegram control bot ────────────────────────────────────────────── */
+telegramBot.init({ twilio: twilioClient, clients, baseUrl: BASE_URL, ops: opsDashboard });
 
 /* ══════════════════════════════════════════════════════════════════════════
  * SECURITY MIDDLEWARE
@@ -207,6 +217,9 @@ app.use("/dashboard", dashboard.router);
 
 /* ── System ops dashboard */
 app.use("/ops", opsDashboard.router);
+
+/* ── Static: generated /newdemo pages (public, shareable) ─────────────────── */
+app.use("/demos", express.static(path.join(__dirname, "..", "public", "demos")));
 
 /* ══════════════════════════════════════════════════════════════════════════
  * POST /twilio/voice — Incoming call webhook  [Twilio-signed]
@@ -717,4 +730,5 @@ app.listen(PORT, () => {
   followup.startScheduler();
   review.startScheduler();
   reports.startScheduler();
+  telegramBot.start();
 });
