@@ -483,9 +483,20 @@ function dayBadge(day){
 /* ── Load ───────────────────────────────────────────────────── */
 async function load(){
   try{
-    const r = await fetch("/dashboard/api/data");
-    if(r.redirected||r.status===401||r.status===302){location="/dashboard/login";return;}
+    const ctrl = new AbortController();
+    const to = setTimeout(()=>ctrl.abort(), 15000);
+    let r;
+    try {
+      r = await fetch("/dashboard/api/data", {
+        headers:{ "Accept":"application/json", "X-Requested-With":"XMLHttpRequest" },
+        redirect:"manual",
+        signal: ctrl.signal,
+      });
+    } finally { clearTimeout(to); }
+    if(r.redirected||r.type==="opaqueredirect"||r.status===401||r.status===302||r.status===0){location="/dashboard/login";return;}
     if(!r.ok) throw new Error("HTTP "+r.status);
+    const ct = r.headers.get("content-type")||"";
+    if(!ct.includes("application/json")){location="/dashboard/login";return;}
     const d = await r.json();
     if(!d.ok) throw new Error(d.error||"Unknown error");
     render(d);

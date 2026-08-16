@@ -65,15 +65,34 @@ function wipeCookie(res) {
 
 /**
  * Returns an Express middleware guard.
- * Redirects unauthenticated requests to `loginPath`.
+ *
+ * For unauthenticated requests:
+ *   - API/XHR requests  → 401 JSON { error: "unauthorized", login }
+ *   - Normal page loads → 302 redirect to `loginPath`
+ *
+ * The API branch prevents SPA fetches from silently following a 302 to the
+ * login HTML page (which the frontend then fails to JSON-parse, hanging the
+ * loading spinner forever). A clean 401 lets the client redirect the whole
+ * page to login instead.
  *
  * @param {string} loginPath  e.g. "/dashboard/login" or "/ops/login"
  */
+function wantsJson(req) {
+  // API path, XHR header, or explicit JSON Accept → treat as programmatic.
+  if (req.path && req.path.includes("/api/")) return true;
+  if ((req.get && req.get("X-Requested-With")) === "XMLHttpRequest") return true;
+  const accept = (req.get && req.get("Accept")) || "";
+  return accept.includes("application/json");
+}
+
 function guard(loginPath) {
   return (req, res, next) => {
     if (okToken(parseCookies(req)[COOKIE])) return next();
+    if (wantsJson(req)) {
+      return res.status(401).json({ error: "unauthorized", login: loginPath });
+    }
     res.redirect(loginPath);
   };
 }
 
-module.exports = { mkToken, okToken, rmToken, parseCookies, applyCookie, wipeCookie, guard, COOKIE };
+module.exports = { mkToken, okToken, rmToken, parseCookies, applyCookie, wipeCookie, guard, wantsJson, COOKIE };

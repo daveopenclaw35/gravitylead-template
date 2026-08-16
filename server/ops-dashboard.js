@@ -650,9 +650,27 @@ function card(icon, name, ok, statusLine, metric){
 /* ── Render all ────────────────────────────────────────────── */
 async function load(){
   try{
-    const r = await fetch("/ops/api/data");
-    if(r.redirected||r.status===401||r.status===302){ location="/ops/login"; return; }
+    // Hard timeout so the spinner can never hang forever, even on a stalled
+    // request or an unexpected non-JSON response.
+    const ctrl = new AbortController();
+    const to = setTimeout(()=>ctrl.abort(), 15000);
+    let r;
+    try {
+      r = await fetch("/ops/api/data", {
+        headers:{ "Accept":"application/json", "X-Requested-With":"XMLHttpRequest" },
+        redirect:"manual",
+        signal: ctrl.signal,
+      });
+    } finally { clearTimeout(to); }
+    // Auth expired: server now returns 401 JSON (or an opaqueredirect on 302).
+    if(r.redirected||r.type==="opaqueredirect"||r.status===401||r.status===302||r.status===0){
+      location="/ops/login"; return;
+    }
     if(!r.ok) throw new Error("HTTP "+r.status);
+    // Defensive: if the body isn't JSON (e.g. an HTML login page slipped
+    // through), bounce to login instead of choking on JSON.parse.
+    const ct = r.headers.get("content-type")||"";
+    if(!ct.includes("application/json")){ location="/ops/login"; return; }
     const d = await r.json();
     if(!d.ok) throw new Error(d.error||"Unknown error");
     render(d);
