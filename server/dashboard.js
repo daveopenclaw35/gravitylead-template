@@ -138,6 +138,8 @@ router.get("/api/data", guard, async (req, res) => {
 });
 
 router.get("/", guard, (_req, res) => {
+  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private");
+  res.removeHeader("ETag");
   res.type("text/html").send(dashboardHtml());
 });
 

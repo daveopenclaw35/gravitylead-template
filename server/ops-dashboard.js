@@ -307,11 +307,31 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/api/data", guard, async (req, res) => {
-  try   { res.json({ ok: true, ...(await gatherAll()) }); }
-  catch (e) { console.error("[ops]", e); res.status(500).json({ ok: false, error: e.message }); }
+  // Hard server-side timeout so the route can never hang indefinitely,
+  // even if Promise.allSettled somehow stalls beyond the per-probe guards.
+  const ROUTE_TIMEOUT_MS = 20_000;
+  let sent = false;
+  const routeTimer = setTimeout(() => {
+    if (!sent) {
+      sent = true;
+      res.status(504).json({ ok: false, error: "Gateway timeout — checks took too long" });
+    }
+  }, ROUTE_TIMEOUT_MS);
+  try {
+    const data = await gatherAll();
+    if (!sent) { sent = true; clearTimeout(routeTimer); res.json({ ok: true, ...data }); }
+  } catch (e) {
+    if (!sent) { sent = true; clearTimeout(routeTimer); console.error("[ops]", e); res.status(500).json({ ok: false, error: e.message }); }
+  }
 });
 
-router.get("/", guard, (_req, res) => res.type("text/html").send(opsHtml()));
+router.get("/", guard, (_req, res) => {
+  // No-store: authenticated dashboard must never be served from cache.
+  // This also ensures browsers always get fresh JS after a deploy.
+  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private");
+  res.removeHeader("ETag");
+  res.type("text/html").send(opsHtml());
+});
 
 module.exports = { router, init, gatherAll };
 
