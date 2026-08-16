@@ -599,6 +599,27 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
 /* ═══════════════════════════════════════════════════════════
  * GravityLead Ops Dashboard — client script
  * ═══════════════════════════════════════════════════════════ */
+
+/* ── On-page error reporter (fires before any other code) ── */
+function showPageError(msg, detail){
+  var sl = document.getElementById('loadstatus');
+  if(sl){ sl.style.color='#f87171'; sl.textContent='JS ERROR: '+msg+(detail?'\n'+detail:''); }
+  var es = document.getElementById('errscreen');
+  var em = document.getElementById('errmsg');
+  var ld = document.getElementById('loading');
+  if(es && em){
+    em.textContent = 'JS ERROR: '+msg+(detail?' — '+detail:'');
+    if(ld) ld.style.display='none';
+    es.style.display='flex';
+  }
+}
+window.onerror = function(msg, src, line, col, err){
+  showPageError(String(msg), (src?src.split('/').pop():'')+(line?':'+line:'')+(col?':'+col:''));
+  return false;
+};
+window.addEventListener('unhandledrejection', function(e){
+  showPageError('Unhandled promise rejection', e.reason && e.reason.message ? e.reason.message : String(e.reason));
+});
 const REFRESH = 60;
 let cd = REFRESH, cdTimer = null;
 
