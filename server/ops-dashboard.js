@@ -540,7 +540,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
 </head>
 <body>
 
-<div id="loading"><div class="load-logo">⚡ GravityLead</div><div class="spinner"></div></div>
+<div id="loading"><div class="load-logo">⚡ GravityLead</div><div class="spinner"></div><div id="loadstatus" style="font-size:12px;color:var(--dim);margin-top:4px">Connecting…</div></div>
 
 <div id="errscreen" style="display:none">
   <div class="icon">⚠️</div>
@@ -668,8 +668,10 @@ function card(icon, name, ok, statusLine, metric){
 }
 
 /* ── Render all ────────────────────────────────────────────── */
+function setStatus(msg){ const el=$("loadstatus"); if(el) el.textContent=msg; }
 async function load(){
   try{
+    setStatus("Fetching system data…");
     // Hard timeout so the spinner can never hang forever, even on a stalled
     // request or an unexpected non-JSON response.
     const ctrl = new AbortController();
@@ -682,6 +684,7 @@ async function load(){
         signal: ctrl.signal,
       });
     } finally { clearTimeout(to); }
+    setStatus("Processing response (HTTP "+r.status+")…");
     // Auth expired: server now returns 401 JSON (or an opaqueredirect on 302).
     if(r.redirected||r.type==="opaqueredirect"||r.status===401||r.status===302||r.status===0){
       location="/ops/login"; return;
@@ -691,8 +694,10 @@ async function load(){
     // through), bounce to login instead of choking on JSON.parse.
     const ct = r.headers.get("content-type")||"";
     if(!ct.includes("application/json")){ location="/ops/login"; return; }
+    setStatus("Parsing data…");
     const d = await r.json();
     if(!d.ok) throw new Error(d.error||"Unknown error");
+    setStatus("Rendering…");
     render(d);
     $("loading").style.display="none";
     $("dash").style.display="block";
@@ -702,7 +707,8 @@ async function load(){
     console.error(e);
     $("loading").style.display="none";
     $("errscreen").style.display="flex";
-    $("errmsg").textContent="Failed to load: "+e.message;
+    $("errmsg").textContent="Failed to load: "+e.message+" ["+e.name+"]"+
+      (e.name==="AbortError"?" (15s timeout — server too slow)":"");
   }
 }
 
