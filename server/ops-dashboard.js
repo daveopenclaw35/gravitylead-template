@@ -37,7 +37,8 @@ const auth       = require("./auth");
 let _tw      = null;
 let _clients = {};
 let _BASE    = "";
-const START  = Date.now();
+const START    = Date.now();
+const BUILD_TS = START; // changes every server boot — cache-busting
 
 function init(tw, cl, baseUrl) { _tw = tw; _clients = cl; _BASE = baseUrl || ""; }
 
@@ -396,6 +397,9 @@ function opsHtml() {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>GravityLead — Ops Dashboard</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -595,9 +599,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   </div>
 </div>
 
-<script>
+<script data-build="${BUILD_TS}">
 /* ═══════════════════════════════════════════════════════════
- * GravityLead Ops Dashboard — client script
+ * GravityLead Ops Dashboard — client script (build: ${BUILD_TS})
  * ═══════════════════════════════════════════════════════════ */
 
 /* ── On-page error reporter (fires before any other code) ── */
