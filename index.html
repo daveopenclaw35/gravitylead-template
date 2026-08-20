@@ -3,24 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GravityLead — AI Websites for Home Service Businesses</title>
-  <meta name="description" content="AI websites that capture leads 24/7 for HVAC, roofing, plumbing, electrical, and more. Missed-call text-back, AI chat, follow-up sequences — all built in." />
+  <title>Lead Recovery and Automated Follow-Up for Contractors | Gravity Lead</title>
+  <meta name="description" content="Gravity Lead helps contractors recover missed calls, follow up with new inquiries and reactivate old estimates—without buying more leads." />
 
-  <!-- Inter font — clean modern typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- ── Google Analytics 4 (GravityLead marketing site) ────────────────────
-       Replace G-XXXXXXXXXX with GravityLead's own GA4 Measurement ID.
-       NOTE: Client sites use a separate per-client ID set via ANALYTICS_ID
-       in config.js — no changes needed here for client deployments.
-  ─────────────────────────────────────────────────────────────────────────── -->
+  <!-- ── Google Analytics 4 ─────────────────────────────────────────────
+       Replace G-XXXXXXXXXX with GravityLead's GA4 Measurement ID.
+  ──────────────────────────────────────────────────────────────────────── -->
   <script>
     (function () {
-      var GA_ID = 'G-XXXXXXXXXX'; // ← Replace with GravityLead's GA4 Measurement ID
+      var GA_ID = 'G-XXXXXXXXXX';
       if (!GA_ID || GA_ID === 'G-XXXXXXXXXX') return;
       window.dataLayer = window.dataLayer || [];
       function gtag() { dataLayer.push(arguments); }
@@ -32,20 +29,21 @@
       s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
       document.head.appendChild(s);
     })();
+    function glTrack(event, params) {
+      if (typeof gtag === 'function') gtag('event', event, params || {});
+    }
   </script>
 
   <style>
     /* ═══════════════════════════════════════════════════════════
-       GRAVITYLEAD HOMEPAGE — Deep Space / Purple Brand Theme
+       GRAVITY LEAD — Lead Recovery Positioning — Deep Space Theme
        ═══════════════════════════════════════════════════════════ */
 
-    /* ── Fonts ── */
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Brand palette override ── */
     :root {
       --primary:      #6C47FF;
       --primary-dark: #4C2FD9;
@@ -57,7 +55,6 @@
       --radius:       14px;
     }
 
-    /* ── Deep space body background ── */
     body {
       background: var(--bg);
       background-image:
@@ -67,72 +64,82 @@
       background-attachment: fixed;
     }
 
-    /* ── Star field (pure CSS, zero JS, zero weight) ── */
+    /* ── Star field ── */
     .gl-starfield {
       position: fixed; inset: 0; pointer-events: none; z-index: 0;
       background:
-        /* layer 1 — bright small stars */
-        radial-gradient(circle, rgba(255,255,255,.90) 1px, transparent 1px)
-          0px 0px / 211px 219px,
-        /* layer 2 */
-        radial-gradient(circle, rgba(255,255,255,.55) 1px, transparent 1px)
-          71px 87px / 179px 203px,
-        /* layer 3 — dimmer, tighter */
-        radial-gradient(circle, rgba(255,255,255,.40) .5px, transparent .5px)
-          137px 43px / 131px 161px,
-        /* layer 4 */
-        radial-gradient(circle, rgba(255,255,255,.65) .5px, transparent .5px)
-          19px 127px / 97px 117px,
-        /* layer 5 */
-        radial-gradient(circle, rgba(255,255,255,.30) 1px,  transparent 1px)
-          91px 163px / 149px 173px,
-        /* layer 6 */
-        radial-gradient(circle, rgba(255,255,255,.50) .5px, transparent .5px)
-          163px 37px / 223px 187px,
-        /* layer 7 */
-        radial-gradient(circle, rgba(255,255,255,.35) 1px,  transparent 1px)
-          47px 197px / 171px 139px,
-        /* layer 8 — faint purple tint stars */
-        radial-gradient(circle, rgba(185,160,255,.60) 1px,  transparent 1px)
-          117px 71px / 229px 199px,
-        /* layer 9 */
-        radial-gradient(circle, rgba(255,255,255,.45) .5px, transparent .5px)
-          53px 11px / 107px 143px,
-        /* layer 10 */
-        radial-gradient(circle, rgba(185,160,255,.35) 1px,  transparent 1px)
-          189px 151px / 241px 211px;
+        radial-gradient(circle, rgba(255,255,255,.90) 1px, transparent 1px) 0px 0px / 211px 219px,
+        radial-gradient(circle, rgba(255,255,255,.55) 1px, transparent 1px) 71px 87px / 179px 203px,
+        radial-gradient(circle, rgba(255,255,255,.40) .5px, transparent .5px) 137px 43px / 131px 161px,
+        radial-gradient(circle, rgba(255,255,255,.65) .5px, transparent .5px) 19px 127px / 97px 117px,
+        radial-gradient(circle, rgba(255,255,255,.30) 1px,  transparent 1px) 91px 163px / 149px 173px,
+        radial-gradient(circle, rgba(255,255,255,.50) .5px, transparent .5px) 163px 37px / 223px 187px,
+        radial-gradient(circle, rgba(255,255,255,.35) 1px,  transparent 1px) 47px 197px / 171px 139px,
+        radial-gradient(circle, rgba(185,160,255,.60) 1px,  transparent 1px) 117px 71px / 229px 199px,
+        radial-gradient(circle, rgba(255,255,255,.45) .5px, transparent .5px) 53px 11px / 107px 143px,
+        radial-gradient(circle, rgba(185,160,255,.35) 1px,  transparent 1px) 189px 151px / 241px 211px;
     }
 
-    /* ── Particle canvas ── */
-    .gl-particles {
-      position: fixed; inset: 0; pointer-events: none; z-index: 1;
-    }
-
-    /* ── All visible content above background layers ── */
+    .gl-particles { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
     header, main, footer { position: relative; z-index: 2; }
 
     /* ── Logo ── */
     .logo-gravity { color: #ffffff; }
     .logo-lead    { color: var(--primary); }
-    .logo .dot    {
+    .logo .dot {
       background: var(--primary);
       box-shadow: 0 0 0 4px rgba(108,71,255,.22), 0 0 12px rgba(108,71,255,.4);
     }
 
-    /* ── Nav CTA ── */
-    .nav-cta {
-      background: var(--primary);
-      box-shadow: 0 4px 16px rgba(108,71,255,.35);
-    }
-    .nav-cta:hover { background: var(--primary-dark); }
-
-    /* ── Header glass — slightly deeper surface ── */
+    /* ── Header ── */
     header {
       background: color-mix(in srgb, var(--bg) 85%, transparent);
       border-bottom: 1px solid rgba(108,71,255,.12);
     }
 
-    /* ══════════════ HERO ══════════════ */
+    /* ── Navigation ── */
+    .nav-links {
+      display: flex; align-items: center; gap: 2px;
+    }
+    .nav-links a {
+      color: var(--muted); font-weight: 600; font-size: 13.5px;
+      padding: 6px 10px; border-radius: 8px;
+      transition: color .15s, background .15s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,.05); }
+
+    .nav-cta {
+      background: var(--primary) !important;
+      color: #fff !important;
+      padding: 9px 16px !important;
+      border-radius: 999px !important;
+      font-size: 13.5px !important;
+      box-shadow: 0 4px 16px rgba(108,71,255,.35);
+    }
+    .nav-cta:hover { background: var(--primary-dark) !important; background: none; }
+
+    .nav-hamburger {
+      display: none; background: none; border: none;
+      cursor: pointer; color: var(--text); font-size: 22px; padding: 4px;
+    }
+
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none; flex-direction: column;
+        position: absolute; top: 66px; left: 0; right: 0;
+        background: var(--surface);
+        border-bottom: 1px solid rgba(108,71,255,.15);
+        padding: 12px 20px 20px; gap: 2px; z-index: 50;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 10px 14px; width: 100%; }
+      .nav-hamburger { display: block; }
+    }
+
+    /* ══════════════════════════════════
+       HERO
+    ══════════════════════════════════ */
     .hp-hero {
       padding: 96px 0 80px;
       text-align: center;
@@ -145,61 +152,133 @@
       background: radial-gradient(900px 500px at 50% -5%, rgba(108,71,255,.22), transparent 65%);
       pointer-events: none;
     }
+    .hp-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(108,71,255,.12);
+      border: 1px solid rgba(108,71,255,.30);
+      color: var(--accent);
+      font-size: 11px; font-weight: 800;
+      padding: 7px 18px; border-radius: 999px;
+      margin-bottom: 28px; letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
     .hp-hero h1 {
-      font-size: clamp(36px, 5.5vw, 64px);
-      line-height: 1.04;
+      font-size: clamp(34px, 5.5vw, 62px);
+      line-height: 1.06;
       letter-spacing: -1px;
-      max-width: 860px;
-      margin: 0 auto 20px;
+      max-width: 820px;
+      margin: 0 auto 22px;
       font-weight: 900;
     }
     .hp-hero h1 .accent { color: var(--primary); }
     .hp-hero .hp-sub {
       font-size: 19px;
       color: var(--muted);
-      max-width: 640px;
+      max-width: 620px;
       margin: 0 auto 36px;
       line-height: 1.65;
-      font-weight: 400;
     }
     .hp-hero .btn-row { justify-content: center; gap: 14px; }
-
-    /* ── Badge ── */
-    .hp-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: rgba(108,71,255,.12);
-      border: 1px solid rgba(108,71,255,.30);
-      color: var(--accent);
-      font-size: 13px;
-      font-weight: 700;
-      padding: 8px 20px;
-      border-radius: 999px;
-      margin-bottom: 26px;
-      letter-spacing: .4px;
+    .hp-reassurance {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
     }
+    .hp-reassurance strong { color: var(--text); }
 
-    /* ── Demo preview box ── */
-    .hp-demo-preview {
-      max-width: 880px;
-      margin: 60px auto 0;
+    /* ══════════════════════════════════
+       PROBLEM SECTION — What It Fixes
+    ══════════════════════════════════ */
+    .hp-problem { padding: 80px 0; }
+    .hp-section-intro {
+      text-align: center;
+      max-width: 660px;
+      margin: 0 auto 52px;
+    }
+    .hp-section-intro h2 {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 900; line-height: 1.2; margin-bottom: 16px;
+    }
+    .hp-section-intro p { color: var(--muted); font-size: 18px; line-height: 1.65; }
+    .hp-section-intro p + p { margin-top: 12px; }
+    .hp-problem-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .hp-problem-card {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,.07);
       border-radius: var(--radius);
-      overflow: hidden;
-      border: 1px solid rgba(108,71,255,.22);
-      box-shadow: 0 24px 70px rgba(0,0,0,.55), 0 0 100px rgba(108,71,255,.08);
-      position: relative;
+      padding: 28px 26px;
+      transition: border-color .2s, transform .2s, box-shadow .2s;
     }
-    .hp-demo-preview img { width: 100%; display: block; }
-    .hp-demo-preview .hp-demo-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to bottom, transparent 50%, var(--bg));
-      display: flex; align-items: flex-end; justify-content: center;
-      padding-bottom: 32px;
+    .hp-problem-card:hover {
+      border-color: rgba(108,71,255,.30);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(108,71,255,.10);
+    }
+    .hp-problem-icon { font-size: 32px; margin-bottom: 14px; display: block; }
+    .hp-problem-card h3 {
+      font-size: 13px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--accent); margin-bottom: 10px;
+    }
+    .hp-problem-card p { color: var(--muted); font-size: 15px; line-height: 1.6; }
+
+    @media (max-width: 640px) { .hp-problem-grid { grid-template-columns: 1fr; } }
+
+    /* ══════════════════════════════════
+       SOLUTION — Three Pillars
+    ══════════════════════════════════ */
+    .hp-solution { padding: 80px 0; }
+    .hp-solution-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .hp-solution-pillar {
+      background: var(--surface);
+      border: 1px solid rgba(108,71,255,.15);
+      border-radius: var(--radius);
+      padding: 32px 26px;
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+    }
+    .hp-solution-pillar:hover {
+      border-color: rgba(108,71,255,.35);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(108,71,255,.12);
+    }
+    .hp-pillar-label {
+      font-size: 11px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 1.5px; color: var(--primary);
+      margin-bottom: 8px; display: block;
+    }
+    .hp-solution-pillar h3 { font-size: 22px; font-weight: 800; margin-bottom: 10px; }
+    .hp-solution-pillar > p {
+      color: var(--muted); font-size: 15px; line-height: 1.6; margin-bottom: 20px;
+    }
+    .hp-pillar-list {
+      list-style: none;
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding-top: 18px;
+    }
+    .hp-pillar-list li {
+      font-size: 14px; color: var(--muted); padding: 5px 0;
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .hp-pillar-list li::before {
+      content: "→"; color: var(--primary); flex-shrink: 0; font-weight: 700;
     }
 
-    /* ══════════════ HOW IT WORKS ══════════════ */
-    .hp-steps { padding: 88px 0; }
+    @media (max-width: 760px) {
+      .hp-solution-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+    }
+
+    /* ══════════════════════════════════
+       HOW IT WORKS
+    ══════════════════════════════════ */
+    .hp-steps { padding: 80px 0; }
     .hp-steps-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -207,23 +286,37 @@
       text-align: center;
     }
     .hp-step-num {
-      width: 54px; height: 54px;
-      border-radius: 50%;
+      width: 56px; height: 56px; border-radius: 50%;
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #fff;
-      font-size: 20px; font-weight: 900;
+      color: #fff; font-size: 20px; font-weight: 900;
       display: inline-flex; align-items: center; justify-content: center;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
       box-shadow: 0 4px 24px rgba(108,71,255,.40);
     }
-    .hp-step h3 { font-size: 19px; margin-bottom: 10px; font-weight: 700; }
-    .hp-step p  { color: var(--muted); font-size: 15px; line-height: 1.6; }
+    .hp-step h3 { font-size: 19px; margin-bottom: 10px; font-weight: 700; line-height: 1.3; }
+    .hp-step p  { color: var(--muted); font-size: 15px; line-height: 1.65; }
 
-    /* ══════════════ TRADES ══════════════ */
-    .hp-trades { padding: 64px 0; text-align: center; }
+    @media (max-width: 760px) {
+      .hp-steps-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+    }
+
+    /* ══════════════════════════════════
+       BUILT FOR CONTRACTORS
+    ══════════════════════════════════ */
+    .hp-trades { padding: 72px 0; text-align: center; }
+    .hp-trades-intro {
+      max-width: 680px; margin: 0 auto 10px;
+    }
+    .hp-trades-intro h2 {
+      font-size: clamp(24px, 4vw, 34px);
+      font-weight: 900; margin-bottom: 16px; line-height: 1.2;
+    }
+    .hp-trades-intro p {
+      color: var(--muted); font-size: 17px; line-height: 1.65;
+    }
     .hp-trades-grid {
       display: flex; flex-wrap: wrap; justify-content: center;
-      gap: 12px; margin-top: 32px;
+      gap: 12px; margin-top: 36px;
     }
     .hp-trade-pill {
       background: var(--surface);
@@ -239,116 +332,288 @@
       background: rgba(108,71,255,.09);
       box-shadow: 0 4px 18px rgba(108,71,255,.18);
     }
-
-    /* ══════════════ STATS ══════════════ */
-    .hp-stats { padding: 60px 0; }
-    .hp-stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      text-align: center;
+    .hp-trades-note {
+      margin-top: 28px; color: var(--muted); font-size: 15px;
+      max-width: 500px; margin-left: auto; margin-right: auto;
     }
-    .hp-stat-num {
-      font-size: 52px; font-weight: 900; line-height: 1;
-      background: linear-gradient(135deg, var(--primary) 30%, var(--accent) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .hp-stat-label { color: var(--muted); font-size: 15px; margin-top: 10px; }
 
-    /* ══════════════ FOUNDING CLIENTS ══════════════ */
+    /* ══════════════════════════════════
+       FOUNDING PARTNER
+    ══════════════════════════════════ */
     .hp-founding { padding: 80px 0; text-align: center; }
     .hp-founding-badge {
       display: inline-flex; align-items: center; gap: 8px;
       background: rgba(108,71,255,.12);
       border: 1px solid rgba(108,71,255,.30);
-      color: var(--accent); font-size: 13px; font-weight: 700;
-      padding: 8px 20px; border-radius: 999px;
-      margin-bottom: 24px; letter-spacing: .4px;
-    }
-    .hp-founding h2 { font-size: clamp(26px, 4vw, 40px); font-weight: 900; margin-bottom: 16px; }
-    .hp-founding .hp-founding-sub {
-      color: var(--muted); font-size: 18px; line-height: 1.65;
-      max-width: 620px; margin: 0 auto 48px;
-    }
-    .hp-slots-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      max-width: 820px;
-      margin: 0 auto 48px;
-    }
-    .hp-slot {
-      background: var(--surface);
-      border: 1px solid rgba(108,71,255,.18);
-      border-radius: var(--radius);
-      padding: 28px 20px;
-      position: relative;
-      transition: border-color .2s, transform .2s, box-shadow .2s;
-    }
-    .hp-slot:hover {
-      border-color: rgba(108,71,255,.40);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(108,71,255,.14);
-    }
-    .hp-slot-num {
-      font-size: 13px; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 1px; color: var(--primary); margin-bottom: 14px;
-    }
-    .hp-slot-icon { font-size: 32px; margin-bottom: 12px; }
-    .hp-slot h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
-    .hp-slot p  { font-size: 14px; color: var(--muted); line-height: 1.5; }
-    .hp-slot-open {
-      position: absolute; top: -10px; right: 16px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #fff; font-size: 10px; font-weight: 800;
-      padding: 4px 12px; border-radius: 999px; letter-spacing: .5px;
+      color: var(--accent); font-size: 11px; font-weight: 800;
+      padding: 7px 18px; border-radius: 999px;
+      margin-bottom: 24px; letter-spacing: 1px;
       text-transform: uppercase;
-      box-shadow: 0 2px 12px rgba(108,71,255,.40);
     }
-    .hp-founding-offer {
-      background: linear-gradient(135deg, #120833 0%, rgba(108,71,255,.25) 50%, #120833 100%);
-      border: 1px solid rgba(108,71,255,.25);
+    .hp-founding h2 {
+      font-size: clamp(26px, 4vw, 40px); font-weight: 900; margin-bottom: 14px; line-height: 1.2;
+    }
+    .hp-founding-sub {
+      color: var(--muted); font-size: 18px; line-height: 1.65;
+      max-width: 600px; margin: 0 auto 48px;
+    }
+    .hp-founding-card {
+      background: linear-gradient(135deg, #120833 0%, rgba(108,71,255,.22) 50%, #120833 100%);
+      border: 1px solid rgba(108,71,255,.28);
       border-radius: var(--radius);
-      padding: 36px 32px;
-      max-width: 680px;
+      padding: 48px 44px;
+      max-width: 720px;
       margin: 0 auto;
       position: relative; overflow: hidden;
     }
-    .hp-founding-offer::before {
+    .hp-founding-card::before {
       content: "";
       position: absolute; inset: 0;
-      background: radial-gradient(500px 250px at 50% 50%, rgba(108,71,255,.10), transparent 70%);
+      background: radial-gradient(500px 260px at 50% 50%, rgba(108,71,255,.10), transparent 70%);
       pointer-events: none;
     }
-    .hp-founding-offer h3 {
-      font-size: 20px; font-weight: 800; margin-bottom: 18px; position: relative; z-index: 1;
+    .hp-founding-price {
+      position: relative; z-index: 1; margin-bottom: 32px;
+    }
+    .hp-founding-price .setup {
+      font-size: 16px; color: var(--accent); font-weight: 700; margin-bottom: 8px;
+    }
+    .hp-founding-price .amount {
+      font-size: 60px; font-weight: 900; line-height: 1; color: #fff;
+    }
+    .hp-founding-price .amount sup { font-size: 28px; vertical-align: super; }
+    .hp-founding-price .amount .per {
+      font-size: 22px; font-weight: 600; color: var(--muted);
+    }
+    .hp-founding-price .recur {
+      font-size: 14px; color: var(--muted); margin-top: 8px;
     }
     .hp-offer-list {
       list-style: none; text-align: left;
-      display: inline-block; margin-bottom: 24px;
+      display: inline-block; margin-bottom: 32px;
       position: relative; z-index: 1;
     }
     .hp-offer-list li {
-      font-size: 15px; color: var(--text); padding: 6px 0;
-      display: flex; align-items: center; gap: 10px;
+      font-size: 15px; color: var(--text); padding: 7px 0;
+      display: flex; align-items: flex-start; gap: 10px;
     }
     .hp-offer-list li .check {
       width: 20px; height: 20px; border-radius: 50%;
       background: rgba(108,71,255,.20); border: 1px solid rgba(108,71,255,.40);
       display: inline-flex; align-items: center; justify-content: center;
-      font-size: 11px; flex-shrink: 0;
+      font-size: 11px; flex-shrink: 0; margin-top: 1px;
     }
+    .hp-founding-cta { position: relative; z-index: 1; }
     .hp-founding-fine {
-      font-size: 13px; color: var(--muted); margin-top: 14px;
+      font-size: 13px; color: var(--muted); margin-top: 16px;
       position: relative; z-index: 1;
     }
-    @media (max-width: 760px) {
-      .hp-slots-grid { grid-template-columns: 1fr; max-width: 340px; }
+
+    @media (max-width: 640px) {
+      .hp-founding-card { padding: 32px 22px; }
     }
 
-    /* ══════════════ CTA BAND ══════════════ */
+    /* ══════════════════════════════════
+       DEMO SECTION
+    ══════════════════════════════════ */
+    .hp-demo { padding: 80px 0; text-align: center; }
+    .hp-demo-sequence {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0;
+      max-width: 900px;
+      margin: 48px auto 44px;
+      position: relative;
+    }
+    .hp-demo-sequence::after {
+      content: "";
+      position: absolute;
+      top: 27px;
+      left: calc(100% / 12);
+      right: calc(100% / 12);
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      z-index: 0;
+    }
+    .hp-demo-step {
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; padding: 0 6px;
+      position: relative; z-index: 1;
+    }
+    .hp-demo-step-icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--surface);
+      border: 2px solid rgba(108,71,255,.35);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 14px;
+      box-shadow: 0 0 20px rgba(108,71,255,.15);
+    }
+    .hp-demo-step h4 { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 4px; line-height: 1.3; }
+    .hp-demo-step p  { font-size: 11px; color: var(--muted); line-height: 1.4; }
+
+    @media (max-width: 640px) {
+      .hp-demo-sequence {
+        grid-template-columns: 1fr;
+        gap: 20px; max-width: 320px;
+        padding-left: 10px;
+      }
+      .hp-demo-sequence::after { display: none; }
+      .hp-demo-step { flex-direction: row; align-items: flex-start; text-align: left; gap: 14px; }
+      .hp-demo-step-icon { flex-shrink: 0; margin-bottom: 0; }
+    }
+
+    /* ══════════════════════════════════
+       SOCIAL PROOF PLACEHOLDER
+    ══════════════════════════════════ */
+    .hp-results { padding: 72px 0; }
+    .hp-results-inner { text-align: center; }
+    .hp-results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .hp-result-placeholder {
+      background: var(--surface);
+      border: 1px dashed rgba(255,255,255,.12);
+      border-radius: var(--radius);
+      padding: 32px 22px;
+    }
+    .hp-result-metric {
+      font-size: 11px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: .8px; margin-bottom: 12px;
+      color: rgba(255,255,255,.25);
+    }
+    .hp-result-placeholder p { color: var(--muted); font-size: 14px; line-height: 1.55; }
+
+    @media (max-width: 640px) {
+      .hp-results-grid { grid-template-columns: 1fr; max-width: 340px; margin: 0 auto; }
+    }
+
+    /* ══════════════════════════════════
+       FOUNDER SECTION
+    ══════════════════════════════════ */
+    .hp-founder { padding: 72px 0; }
+    .hp-founder-inner {
+      max-width: 760px; margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: var(--radius);
+      padding: 44px 40px;
+      display: flex; gap: 36px; align-items: flex-start;
+    }
+    .hp-founder-avatar {
+      width: 96px; height: 96px; border-radius: 50%;
+      background: rgba(108,71,255,.15);
+      border: 2px solid rgba(108,71,255,.30);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 38px; flex-shrink: 0;
+    }
+    .hp-founder-content h2 {
+      font-size: clamp(20px, 3vw, 26px); font-weight: 900; margin-bottom: 6px; line-height: 1.3;
+    }
+    .hp-founder-title {
+      font-size: 12px; color: var(--accent); font-weight: 700;
+      text-transform: uppercase; letter-spacing: .8px; margin-bottom: 18px;
+    }
+    .hp-founder-content p {
+      color: var(--muted); font-size: 16px; line-height: 1.7;
+    }
+    .hp-founder-content p + p { margin-top: 12px; }
+
+    @media (max-width: 640px) {
+      .hp-founder-inner { flex-direction: column; gap: 20px; padding: 28px 22px; }
+    }
+
+    /* ══════════════════════════════════
+       AUDIT FORM
+    ══════════════════════════════════ */
+    .hp-audit { padding: 80px 0; }
+    .hp-audit-intro {
+      text-align: center; max-width: 580px; margin: 0 auto 48px;
+    }
+    .hp-audit-intro h2 {
+      font-size: clamp(24px, 4vw, 36px); font-weight: 900; margin-bottom: 14px;
+    }
+    .hp-audit-intro p { color: var(--muted); font-size: 17px; line-height: 1.65; }
+    .gl-audit-wrap {
+      max-width: 700px; margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid rgba(108,71,255,.18);
+      border-radius: var(--radius);
+      padding: 44px 40px;
+      box-shadow: 0 0 60px rgba(108,71,255,.07);
+    }
+    .gl-audit-wrap h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+    .gl-audit-wrap > p { color: var(--muted); margin-bottom: 28px; font-size: 15px; }
+
+    .gl-form-2col {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px;
+    }
+    .gl-field { margin-bottom: 16px; }
+    .gl-field label {
+      display: block; font-size: 11px; font-weight: 700;
+      margin-bottom: 5px; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .6px;
+    }
+    .gl-field input,
+    .gl-field select {
+      width: 100%; padding: 12px 14px; font-size: 15px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: var(--bg); color: var(--text);
+      outline: none;
+      transition: border-color .15s, box-shadow .15s;
+      font-family: inherit;
+    }
+    .gl-field input:focus,
+    .gl-field select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(108,71,255,.15);
+    }
+    .gl-field select { appearance: none; cursor: pointer; }
+    .gl-submit {
+      width: 100%; margin-top: 20px;
+      font-size: 16px; padding: 16px;
+    }
+    .gl-consent {
+      font-size: 12px; color: var(--muted); margin-top: 16px; line-height: 1.55;
+    }
+    .gl-consent a { color: var(--accent); }
+
+    .gl-audit-success { display: none; text-align: center; padding: 32px 0; }
+    .gl-audit-success.show { display: block; }
+    .gl-success-icon { font-size: 56px; margin-bottom: 18px; }
+    .gl-audit-success h3 { font-size: 26px; margin-bottom: 12px; }
+    .gl-audit-success p { color: var(--muted); font-size: 15px; line-height: 1.65; }
+    .gl-audit-success p + p { margin-top: 8px; }
+
+    @media (max-width: 640px) {
+      .gl-audit-wrap { padding: 28px 20px; }
+      .gl-form-2col { grid-template-columns: 1fr; }
+    }
+
+    /* ══════════════════════════════════
+       COMPLIANCE NOTE
+    ══════════════════════════════════ */
+    .hp-compliance {
+      background: rgba(108,71,255,.06);
+      border: 1px solid rgba(108,71,255,.12);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      max-width: 740px;
+      margin: 0 auto;
+    }
+    .hp-compliance h4 {
+      font-size: 12px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--accent); margin-bottom: 10px;
+    }
+    .hp-compliance p { color: var(--muted); font-size: 14px; line-height: 1.65; }
+
+    /* ══════════════════════════════════
+       CTA BAND
+    ══════════════════════════════════ */
     .cta-band {
       background: linear-gradient(135deg, #120833 0%, rgba(108,71,255,.35) 50%, #120833 100%);
       border: 1px solid rgba(108,71,255,.28);
@@ -356,8 +621,7 @@
       padding: 56px 44px;
       text-align: center;
       box-shadow: 0 0 80px rgba(108,71,255,.12);
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
     }
     .cta-band::before {
       content: "";
@@ -366,378 +630,453 @@
       pointer-events: none;
     }
     .cta-band h2 { font-size: 30px; color: #fff; font-weight: 800; position: relative; z-index: 1; }
-    .cta-band p  {
-      color: rgba(255,255,255,.72); margin: 10px 0 28px;
-      position: relative; z-index: 1;
-    }
-    .cta-band .btn-primary {
-      background: #fff !important;
-      color: var(--primary-dark) !important;
-      font-weight: 800;
-      position: relative; z-index: 1;
-    }
-    .cta-band .btn-primary:hover {
-      background: #ede8ff !important;
-      transform: translateY(-2px);
-    }
+    .cta-band p  { color: rgba(255,255,255,.72); margin: 12px 0 28px; position: relative; z-index: 1; }
+    .cta-band .btn-row { position: relative; z-index: 1; justify-content: center; gap: 14px; }
 
     /* ── Button overrides ── */
     .btn-primary {
       background: var(--primary) !important;
       box-shadow: 0 8px 28px rgba(108,71,255,.40) !important;
     }
-    .btn-primary:hover {
-      background: var(--primary-dark) !important;
-      transform: translateY(-2px);
+    .btn-primary:hover { background: var(--primary-dark) !important; transform: translateY(-2px); }
+    .btn-ghost:hover { border-color: var(--primary) !important; color: var(--primary) !important; }
+    .btn-white {
+      background: #fff !important;
+      color: var(--primary-dark) !important;
+      font-weight: 800;
     }
-    .btn-ghost:hover {
+    .btn-white:hover { background: #ede8ff !important; transform: translateY(-2px); }
+
+    /* ── Field focus for main form ── */
+    .gl-field input:focus, .gl-field select:focus {
       border-color: var(--primary) !important;
-      color: var(--primary) !important;
     }
-
-    /* ── Get started form focus ── */
-    .gl-field input:focus,
-    .gl-field select:focus {
-      border-color: var(--primary) !important;
-      box-shadow: 0 0 0 3px rgba(108,71,255,.15);
-    }
-
-    /* ── Form wrap with purple glow ── */
-    .gl-form-wrap {
-      background: var(--surface);
-      border: 1px solid rgba(108,71,255,.18);
-      box-shadow: 0 0 60px rgba(108,71,255,.08);
-    }
-
-    /* ── Pricing: featured card ── */
-    .price-card.featured {
-      border-color: var(--primary);
-      box-shadow: 0 0 60px rgba(108,71,255,.22), 0 8px 40px rgba(0,0,0,.3);
-    }
-    .price-badge { background: var(--primary) !important; }
-
-    /* ── Feature cards hover ── */
-    .gl-feature:hover {
-      border-color: rgba(108,71,255,.3) !important;
-      box-shadow: 0 4px 20px rgba(108,71,255,.12);
-    }
-
-    /* ── Section titles ── */
-    .section-title { font-weight: 800; letter-spacing: -.4px; }
 
     /* ── Footer ── */
     footer { border-top-color: rgba(108,71,255,.12); }
+    .footer-tagline { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    .footer-copy { font-size: 12px; color: var(--muted); opacity: .5; margin-top: 8px; }
 
-    @media (max-width: 760px) {
-      .hp-steps-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
-      .hp-stats-grid { grid-template-columns: 1fr; }
-      .hp-steps  { padding: 64px 0; }
-      .hp-trades { padding: 48px 0; }
-    }
+    /* ── Section title ── */
+    .section-title { font-weight: 800; letter-spacing: -.4px; }
   </style>
 </head>
 <body>
 
-  <!-- ── Background layers (behind all content) ── -->
   <div class="gl-starfield" aria-hidden="true"></div>
   <canvas id="gl-particles" class="gl-particles" aria-hidden="true"></canvas>
 
+  <!-- ══════════ HEADER ══════════ -->
   <header>
-    <div class="container nav">
-      <div class="logo">
-        <span class="dot"></span>
-        <span class="logo-gravity">Gravity</span><span class="logo-lead">Lead</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:18px;">
-        <a href="#pricing" style="color:var(--muted);font-weight:600;font-size:14px;">Pricing</a>
-        <a href="demo/" style="color:var(--muted);font-weight:600;font-size:14px;">Demo</a>
-        <a class="nav-cta" href="#get-started">Get Started</a>
-      </div>
+    <div class="container nav" style="position:relative;">
+      <a href="#hero" style="text-decoration:none;">
+        <div class="logo">
+          <span class="dot"></span>
+          <span class="logo-gravity">Gravity</span><span class="logo-lead">Lead</span>
+        </div>
+      </a>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">☰</button>
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a href="#how-it-works">How It Works</a>
+        <a href="#what-it-fixes">What It Fixes</a>
+        <a href="#for-contractors">Built for Contractors</a>
+        <a href="#founding-partner">Founding Partner</a>
+        <a href="demo/">Demo</a>
+        <a href="#audit" class="nav-cta">Get a Free Audit</a>
+      </nav>
     </div>
   </header>
 
   <main>
 
     <!-- ══════════ HERO ══════════ -->
-    <section class="hp-hero">
+    <section class="hp-hero" id="hero">
       <div class="container">
-        <div class="hp-badge">🚀 AI-powered websites for contractors</div>
-        <h1>Your customers call. <span class="accent">You never miss a lead.</span></h1>
-        <p class="hp-sub">GravityLead gives home service businesses an AI website with a built-in receptionist that captures leads, texts back missed calls, and follows up automatically — 24/7, even while you're on the job.</p>
+        <div class="hp-badge">Lead Recovery for Contractors</div>
+        <h1>Turn the leads you've already paid for<br/><span class="accent">into booked jobs.</span></h1>
+        <p class="hp-sub">Gravity Lead responds to missed calls, follows up with new inquiries, and reactivates old estimates automatically—so fewer opportunities disappear and more customers book.</p>
         <div class="btn-row">
-          <a class="btn btn-primary" href="demo/">See the Demo →</a>
-          <a class="btn btn-ghost" href="#get-started">Get Started</a>
+          <a class="btn btn-primary" href="#audit" id="heroAuditBtn">Get a Free Lead Leakage Audit</a>
+          <a class="btn btn-ghost" href="#how-it-works">See How It Works</a>
+        </div>
+        <p class="hp-reassurance"><strong>No new advertising required.</strong> Gravity Lead helps you get more value from the leads you already receive.</p>
+      </div>
+    </section>
+
+    <!-- ══════════ PROBLEM — What It Fixes ══════════ -->
+    <section class="hp-problem" id="what-it-fixes">
+      <div class="container">
+        <div class="hp-section-intro">
+          <h2>You probably don't need more leads. You need fewer leads slipping away.</h2>
+          <p>Contractors spend heavily generating calls, quote requests and estimates. But when a call is missed, a web inquiry receives a slow response, or an estimate goes quiet, that opportunity can disappear.</p>
+          <p>Gravity Lead installs the response and follow-up system that keeps those opportunities alive.</p>
+        </div>
+        <div class="hp-problem-grid">
+          <div class="hp-problem-card">
+            <span class="hp-problem-icon">📵</span>
+            <h3>Missed Calls</h3>
+            <p>Your team may be working on a job, meeting with a customer or driving between appointments. Gravity Lead immediately acknowledges missed callers and starts the conversation.</p>
+          </div>
+          <div class="hp-problem-card">
+            <span class="hp-problem-icon">📬</span>
+            <h3>Unanswered Web Leads</h3>
+            <p>New website inquiries receive an immediate response instead of waiting until someone has time to check the inbox.</p>
+          </div>
+          <div class="hp-problem-card">
+            <span class="hp-problem-icon">📋</span>
+            <h3>Estimates That Go Quiet</h3>
+            <p>Automated follow-up keeps your company in front of prospects who requested an estimate but haven't made a decision.</p>
+          </div>
+          <div class="hp-problem-card">
+            <span class="hp-problem-icon">🗂️</span>
+            <h3>Old Leads Sitting Unused</h3>
+            <p>Gravity Lead can reconnect with older inquiries and unclosed estimates already sitting in your records.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ SOLUTION — Three Pillars ══════════ -->
+    <section class="hp-solution" id="solution">
+      <div class="container">
+        <div class="hp-section-intro">
+          <h2>Three ways Gravity Lead recovers opportunities</h2>
+        </div>
+        <div class="hp-solution-grid">
+
+          <div class="hp-solution-pillar">
+            <span class="hp-pillar-label">01 — Respond</span>
+            <h3>Respond</h3>
+            <p>Respond to missed calls and new inquiries within seconds.</p>
+            <ul class="hp-pillar-list">
+              <li>Missed-call text-back</li>
+              <li>Immediate website-lead response</li>
+              <li>AI chat receptionist</li>
+              <li>Lead qualification</li>
+              <li>Owner and team notifications</li>
+            </ul>
+          </div>
+
+          <div class="hp-solution-pillar">
+            <span class="hp-pillar-label">02 — Follow Up</span>
+            <h3>Follow Up</h3>
+            <p>Continue the conversation when a prospect doesn't book or stops responding.</p>
+            <ul class="hp-pillar-list">
+              <li>Automated follow-up sequences</li>
+              <li>Estimate reminders</li>
+              <li>Appointment reminders</li>
+              <li>Long-term lead nurturing</li>
+              <li>Consistent contact without manual chasing</li>
+            </ul>
+          </div>
+
+          <div class="hp-solution-pillar">
+            <span class="hp-pillar-label">03 — Reactivate</span>
+            <h3>Reactivate</h3>
+            <p>Reconnect with prospects who previously requested information or received an estimate.</p>
+            <ul class="hp-pillar-list">
+              <li>Old-lead reactivation campaigns</li>
+              <li>Personalized SMS and email outreach</li>
+              <li>Automated response handling</li>
+              <li>Interested-prospect qualification</li>
+              <li>Warm-lead handoff to your team</li>
+            </ul>
+          </div>
+
         </div>
       </div>
     </section>
 
     <!-- ══════════ HOW IT WORKS ══════════ -->
-    <section class="hp-steps">
+    <section class="hp-steps" id="how-it-works">
       <div class="container">
-        <h2 class="section-title" style="text-align:center;">How It Works</h2>
-        <p class="section-sub" style="text-align:center;">Live in 48 hours. No tech skills required.</p>
+        <div class="hp-section-intro">
+          <h2>Recover more opportunities in three steps</h2>
+        </div>
         <div class="hp-steps-grid">
           <div class="hp-step">
             <div class="hp-step-num">1</div>
-            <h3>Pick Your Trade</h3>
-            <p>HVAC, roofing, plumbing, electrical, landscaping, painting — we have a pre-built template for your industry.</p>
+            <h3>We identify where leads are being lost.</h3>
+            <p>We review missed calls, website inquiries, estimate follow-up and older lead records to find where opportunities may be disappearing.</p>
           </div>
           <div class="hp-step">
             <div class="hp-step-num">2</div>
-            <h3>We Build It</h3>
-            <p>Custom branding, your business info, your phone number. We set up your AI chat agent and missed-call text-back — all included.</p>
+            <h3>We install your recovery system.</h3>
+            <p>Gravity Lead connects the appropriate phone, website, messaging and follow-up tools to your existing process.</p>
           </div>
           <div class="hp-step">
             <div class="hp-step-num">3</div>
-            <h3>Leads Come To You</h3>
-            <p>Leads from chat, forms, and missed calls get texted straight to your phone. Follow-ups happen automatically at day 3, 7, and 30.</p>
+            <h3>Interested customers return to your team.</h3>
+            <p>Your company receives qualified responses and booking opportunities while Gravity Lead handles the repetitive response and follow-up work.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ══════════ WHAT YOU GET ══════════ -->
-    <section class="gl-sales">
+    <!-- ══════════ BUILT FOR CONTRACTORS ══════════ -->
+    <section class="hp-trades" id="for-contractors">
       <div class="container">
-        <h2 class="section-title" style="text-align:center;">Everything You Need to Capture Every Lead</h2>
-        <p class="section-sub" style="text-align:center;">One product. No piecemeal tools. No monthly add-ons.</p>
-        <div class="gl-features-grid">
-          <div class="gl-feature">
-            <span class="gl-feature-icon">🤖</span>
-            <h3>AI Chat Receptionist</h3>
-            <p>Your AI answers questions, qualifies leads, and captures phone numbers — automatically, 24/7. Even at 2 AM.</p>
-          </div>
-          <div class="gl-feature">
-            <span class="gl-feature-icon">📲</span>
-            <h3>Missed-Call Text-Back</h3>
-            <p>Miss a call? Your customer gets a text within seconds: "Sorry we missed you — how can we help?" No lead lost.</p>
-          </div>
-          <div class="gl-feature">
-            <span class="gl-feature-icon">🔁</span>
-            <h3>Auto Follow-Up Sequences</h3>
-            <p>Day 3, day 7, day 30 — automated texts keep you top-of-mind. Leads that ghost come back.</p>
-          </div>
-          <div class="gl-feature">
-            <span class="gl-feature-icon">⚡</span>
-            <h3>Speed-to-Lead</h3>
-            <p>The contractor who responds first wins 78% of jobs. GravityLead responds in seconds, not hours.</p>
-          </div>
-          <div class="gl-feature">
-            <span class="gl-feature-icon">📱</span>
-            <h3>Mobile-First Design</h3>
-            <p>Loads in under 2 seconds on any phone. SSL included. Google loves fast sites — and so do your customers.</p>
-          </div>
-          <div class="gl-feature">
-            <span class="gl-feature-icon">🔧</span>
-            <h3>Built For Your Trade</h3>
-            <p>Not a generic template. Copy, services, FAQs, and chat flows are pre-written for your specific industry.</p>
-          </div>
-          <div class="gl-feature">
-            <span class="gl-feature-icon">📊</span>
-            <h3>Lead Dashboard</h3>
-            <p>See every lead, every missed call, every text — all in one place. Know exactly what's working.</p>
-          </div>
-          <div class="gl-feature">
-            <span class="gl-feature-icon">🚫</span>
-            <h3>STOP Compliance Built In</h3>
-            <p>Opt-out handling, reply forwarding, and TCPA compliance are automatic. No legal headaches.</p>
-          </div>
-          <div class="gl-feature">
-            <span class="gl-feature-icon">⭐</span>
-            <h3>Automated Google Review Requests</h3>
-            <p>24–48 hours after every completed job, your customer gets a text asking for a Google review. More 5-star reviews on autopilot — zero effort from you.</p>
-          </div>
+        <div class="hp-trades-intro">
+          <h2>Built for contractors who can't stop working to chase every lead.</h2>
+          <p>Gravity Lead adapts to your trade, service area and sales process. Whether you're replacing a roof, repairing an HVAC system, remodeling a kitchen or quoting a landscaping project, the system helps your company respond and follow up consistently.</p>
         </div>
-      </div>
-    </section>
-
-    <!-- ══════════ BUILT FOR EVERY TRADE ══════════ -->
-    <section class="hp-trades">
-      <div class="container">
-        <h2 class="section-title">Built For Every Trade</h2>
-        <p class="section-sub">Industry-specific templates ready to deploy.</p>
         <div class="hp-trades-grid">
           <div class="hp-trade-pill">🌡️ HVAC</div>
           <div class="hp-trade-pill">🏠 Roofing</div>
           <div class="hp-trade-pill">🚰 Plumbing</div>
           <div class="hp-trade-pill">⚡ Electrical</div>
-          <div class="hp-trade-pill">🌿 Landscaping</div>
+          <div class="hp-trade-pill">🪟 Windows &amp; Doors</div>
+          <div class="hp-trade-pill">🔨 Remodeling</div>
           <div class="hp-trade-pill">🎨 Painting</div>
-          <div class="hp-trade-pill">🔨 General Contractor</div>
-          <div class="hp-trade-pill">💧 Pressure Washing</div>
+          <div class="hp-trade-pill">🌿 Landscaping</div>
           <div class="hp-trade-pill">🌲 Tree Service</div>
-          <div class="hp-trade-pill">❄️ Snow Removal</div>
+          <div class="hp-trade-pill">💧 Pressure Washing</div>
+          <div class="hp-trade-pill">🏗️ General Contractors</div>
+          <div class="hp-trade-pill">🔧 Other Home Services</div>
         </div>
+        <p class="hp-trades-note">Don't see your trade? If your company receives calls, quote requests or estimates, Gravity Lead can likely help.</p>
       </div>
     </section>
 
-    <!-- ══════════ FOUNDING CLIENTS ══════════ -->
-    <section class="hp-founding">
+    <!-- ══════════ FOUNDING PARTNER ══════════ -->
+    <section class="hp-founding" id="founding-partner">
       <div class="container">
-        <div class="hp-founding-badge">🛰️ Founding Client Program</div>
-        <h2>3 Spots. 60 Days Free.<br/>Be First.</h2>
-        <p class="hp-founding-sub">We're selecting 3 local contractors to pilot GravityLead at no cost. You get a fully built AI website, live lead capture, and missed-call text-back for 60 days — in exchange for one honest review when you're done.</p>
+        <div class="hp-founding-badge">⭐ Founding Partner Program</div>
+        <h2>Be one of three.<br/>No setup fee.</h2>
+        <p class="hp-founding-sub">We're accepting three contractor businesses into the Gravity Lead Founding Partner Program. Founding partners receive the complete lead-recovery system with no setup fee in exchange for feedback and permission to document measurable results.</p>
 
-        <div class="hp-slots-grid">
-          <div class="hp-slot">
-            <div class="hp-slot-open">Open</div>
-            <div class="hp-slot-num">Spot #1</div>
-            <div class="hp-slot-icon">⚡</div>
-            <h3>Available</h3>
-            <p>One contractor in your area. First to apply gets it.</p>
+        <div class="hp-founding-card">
+          <div class="hp-founding-price">
+            <div class="setup">$0 setup fee</div>
+            <div class="amount">
+              <sup>$</sup>297<span class="per"> / month</span>
+            </div>
+            <div class="recur">Month-to-month. Limited to three founding companies.</div>
           </div>
-          <div class="hp-slot">
-            <div class="hp-slot-open">Open</div>
-            <div class="hp-slot-num">Spot #2</div>
-            <div class="hp-slot-icon">⚡</div>
-            <h3>Available</h3>
-            <p>One contractor in your area. First to apply gets it.</p>
-          </div>
-          <div class="hp-slot">
-            <div class="hp-slot-open">Open</div>
-            <div class="hp-slot-num">Spot #3</div>
-            <div class="hp-slot-icon">⚡</div>
-            <h3>Available</h3>
-            <p>One contractor in your area. First to apply gets it.</p>
-          </div>
-        </div>
-
-        <div class="hp-founding-offer">
-          <h3>What You Get — Free for 60 Days</h3>
           <ul class="hp-offer-list">
-            <li><span class="check">✓</span> Done-for-you AI website with your branding &amp; trade</li>
-            <li><span class="check">✓</span> AI chat receptionist that captures leads 24/7</li>
-            <li><span class="check">✓</span> Missed-call text-back — responds in under 5 seconds</li>
-            <li><span class="check">✓</span> Automated day 3, 7, and 30 follow-up sequences</li>
-            <li><span class="check">✓</span> Automated Google review requests after every job</li>
-            <li><span class="check">✓</span> Domain + Twilio setup handled for you</li>
-            <li><span class="check">✓</span> Direct support from our founding team</li>
+            <li><span class="check">✓</span> Missed-call text-back</li>
+            <li><span class="check">✓</span> Immediate new-lead response</li>
+            <li><span class="check">✓</span> Automated estimate follow-up</li>
+            <li><span class="check">✓</span> One old-lead reactivation campaign</li>
+            <li><span class="check">✓</span> Lead tracking dashboard</li>
+            <li><span class="check">✓</span> AI chat receptionist</li>
+            <li><span class="check">✓</span> Website improvements when needed</li>
+            <li><span class="check">✓</span> Direct implementation support</li>
+            <li><span class="check">✓</span> No long-term contract</li>
           </ul>
-          <a class="btn btn-primary" href="#get-started" style="display:inline-block;">Apply for a Founding Spot →</a>
-          <p class="hp-founding-fine">No credit card. No commitment. Just one honest review after 60 days.</p>
+          <div class="hp-founding-cta">
+            <a class="btn btn-primary" href="#audit" id="foundingApplyBtn">Apply for a Founding Partner Spot</a>
+          </div>
+          <p class="hp-founding-fine">Limited to three founding companies.</p>
         </div>
       </div>
     </section>
 
-    <!-- ══════════ KEY STATS ══════════ -->
-    <section class="hp-stats">
+    <!-- ══════════ DEMO SECTION ══════════ -->
+    <section class="hp-demo" id="demo">
       <div class="container">
-        <div class="hp-stats-grid">
-          <div>
-            <div class="hp-stat-num">&lt; 5s</div>
-            <div class="hp-stat-label">Average response time to a missed call</div>
+        <div class="hp-section-intro">
+          <h2>See what happens after you miss a call.</h2>
+          <p style="color:var(--muted);font-size:17px;line-height:1.65;">This is what a prospective customer experiences when you're unavailable—and how Gravity Lead keeps that conversation alive automatically.</p>
+        </div>
+
+        <div class="hp-demo-sequence">
+          <div class="hp-demo-step">
+            <div class="hp-demo-step-icon">📞</div>
+            <div>
+              <h4>Call comes in</h4>
+              <p>Contractor is on a job or unavailable</p>
+            </div>
           </div>
-          <div>
-            <div class="hp-stat-num">78%</div>
-            <div class="hp-stat-label">Of customers hire the first business that responds</div>
+          <div class="hp-demo-step">
+            <div class="hp-demo-step-icon">💬</div>
+            <div>
+              <h4>Instant text-back</h4>
+              <p>Customer receives a text within seconds</p>
+            </div>
           </div>
-          <div>
-            <div class="hp-stat-num">24/7</div>
-            <div class="hp-stat-label">AI receptionist — never takes a day off</div>
+          <div class="hp-demo-step">
+            <div class="hp-demo-step-icon">🗣️</div>
+            <div>
+              <h4>Customer responds</h4>
+              <p>Explains what service is needed</p>
+            </div>
+          </div>
+          <div class="hp-demo-step">
+            <div class="hp-demo-step-icon">📋</div>
+            <div>
+              <h4>Lead qualified</h4>
+              <p>Request captured and organized</p>
+            </div>
+          </div>
+          <div class="hp-demo-step">
+            <div class="hp-demo-step-icon">🔔</div>
+            <div>
+              <h4>You're notified</h4>
+              <p>Lead details arrive directly to you</p>
+            </div>
+          </div>
+          <div class="hp-demo-step">
+            <div class="hp-demo-step-icon">🔁</div>
+            <div>
+              <h4>Auto follow-up</h4>
+              <p>If they don't book, follow-up continues</p>
+            </div>
+          </div>
+        </div>
+
+        <a class="btn btn-primary" href="demo/" id="demoBtn">Try the Lead Recovery Demo</a>
+      </div>
+    </section>
+
+    <!-- ══════════ RESULTS PLACEHOLDER ══════════ -->
+    <section class="hp-results" id="results">
+      <div class="container hp-results-inner">
+        <div class="hp-section-intro">
+          <h2>Results from the field</h2>
+          <p style="color:var(--muted);font-size:17px;line-height:1.65;max-width:520px;margin:0 auto;">We're documenting measurable outcomes from our founding partner companies. Real results will appear here as they become available.</p>
+        </div>
+        <div class="hp-results-grid">
+          <div class="hp-result-placeholder">
+            <div class="hp-result-metric">Leads Recovered</div>
+            <p>Conversations started from missed calls and unanswered web inquiries</p>
+          </div>
+          <div class="hp-result-placeholder">
+            <div class="hp-result-metric">Estimates Revived</div>
+            <p>Older quotes and estimates that re-engaged through follow-up outreach</p>
+          </div>
+          <div class="hp-result-placeholder">
+            <div class="hp-result-metric">Appointments Booked</div>
+            <p>Jobs scheduled directly from automated response and follow-up sequences</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ══════════ PRICING ══════════ -->
-    <section id="pricing" class="gl-sales">
+    <!-- ══════════ FOUNDER SECTION ══════════ -->
+    <section class="hp-founder" id="founder">
       <div class="container">
-        <h2 class="section-title" style="text-align:center;">Simple, Transparent Pricing</h2>
-        <p class="section-sub" style="text-align:center;">Every plan includes your AI website + chat agent + missed-call text-back. No hidden fees.</p>
-        <div class="pricing-grid">
-          <div class="price-card">
-            <div class="price-tier">Self-Serve</div>
-            <div class="price-amount"><sup>$</sup>997</div>
-            <div class="price-recur">+ $149/mo</div>
-            <ul class="price-list">
-              <li>✓ AI website for your trade</li>
-              <li>✓ AI chat lead capture</li>
-              <li>✓ Missed-call text-back</li>
-              <li>✓ 3/7/30-day follow-up sequences</li>
-              <li>✓ Automated Google review requests</li>
-              <li>✓ Your branding &amp; colors</li>
-              <li>✓ Self-setup guide</li>
-              <li>✓ Email support</li>
-            </ul>
-            <a href="#get-started" class="btn btn-ghost price-cta">Get Started</a>
-          </div>
-          <div class="price-card featured">
-            <div class="price-badge">⭐ Most Popular</div>
-            <div class="price-tier">Done-For-You</div>
-            <div class="price-amount"><sup>$</sup>1,997</div>
-            <div class="price-recur">+ $149/mo</div>
-            <ul class="price-list">
-              <li>✓ Everything in Self-Serve</li>
-              <li>✓ We build it for you</li>
-              <li>✓ Custom copy &amp; branding</li>
-              <li>✓ Domain + Twilio setup included</li>
-              <li>✓ Live in 48 hours</li>
-              <li>✓ Priority support</li>
-            </ul>
-            <a href="#get-started" class="btn btn-primary price-cta">Get Started</a>
-          </div>
-          <div class="price-card">
-            <div class="price-tier">Managed</div>
-            <div class="price-amount"><sup>$</sup>2,997</div>
-            <div class="price-recur">+ $299/mo</div>
-            <ul class="price-list">
-              <li>✓ Everything in Done-For-You</li>
-              <li>✓ Ongoing content updates</li>
-              <li>✓ Monthly performance reports</li>
-              <li>✓ SEO optimization</li>
-              <li>✓ Dedicated account manager</li>
-              <li>✓ Priority phone support</li>
-              <li>✓ Review request performance tracking</li>
-            </ul>
-            <a href="#get-started" class="btn btn-ghost price-cta">Get Started</a>
+        <div class="hp-founder-inner">
+          <div class="hp-founder-avatar" aria-hidden="true">👤</div>
+          <div class="hp-founder-content">
+            <h2>Built for owners who are too busy doing the work to chase every lead.</h2>
+            <p class="hp-founder-title">Dave — Founder, Gravity Lead</p>
+            <p>I'm Dave, the founder of Gravity Lead. I built Gravity Lead to give contractors a practical way to recover more opportunities without hiring another employee or spending more money on advertising.</p>
+            <p>Our job is simple: help your company respond faster, follow up consistently and get more value from the leads you already have.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ══════════ GET STARTED FORM ══════════ -->
-    <section id="get-started" class="gl-sales">
+    <!-- ══════════ AUDIT FORM ══════════ -->
+    <section class="hp-audit" id="audit">
       <div class="container">
-        <div class="gl-form-wrap">
-          <h2>Get My AI Website</h2>
-          <p>Tell us about your business and we'll reach out to get you set up.</p>
-          <form id="glLeadForm" class="gl-form">
-            <div class="gl-field">
-              <label for="glName">Your Name</label>
-              <input type="text" id="glName" name="name" required placeholder="John Smith" />
+        <div class="hp-audit-intro">
+          <h2>Find out where your leads are disappearing.</h2>
+          <p>Request a free Lead Leakage Audit. We'll review your current response and follow-up process and identify practical opportunities to recover more value from the leads you already generate.</p>
+        </div>
+
+        <div class="gl-audit-wrap">
+          <h3>Request My Free Lead Leakage Audit</h3>
+          <p>No commitment. We'll follow up within one business day to schedule a brief review.</p>
+
+          <form id="glAuditForm" novalidate>
+            <div class="gl-form-2col">
+              <div class="gl-field">
+                <label for="auditName">Your Name <span style="color:var(--accent)">*</span></label>
+                <input type="text" id="auditName" name="name" required placeholder="John Smith" autocomplete="name" />
+              </div>
+              <div class="gl-field">
+                <label for="auditCompany">Company <span style="color:var(--accent)">*</span></label>
+                <input type="text" id="auditCompany" name="company" required placeholder="Smith's HVAC" autocomplete="organization" />
+              </div>
+              <div class="gl-field">
+                <label for="auditEmail">Business Email <span style="color:var(--accent)">*</span></label>
+                <input type="email" id="auditEmail" name="email" required placeholder="john@smithshvac.com" autocomplete="email" />
+              </div>
+              <div class="gl-field">
+                <label for="auditPhone">Phone <span style="color:var(--accent)">*</span></label>
+                <input type="tel" id="auditPhone" name="phone" required placeholder="(555) 123-4567" autocomplete="tel" />
+              </div>
             </div>
+
             <div class="gl-field">
-              <label for="glBiz">Business Name</label>
-              <input type="text" id="glBiz" name="business" required placeholder="Smith's HVAC" />
+              <label for="auditWebsite">Website</label>
+              <input type="url" id="auditWebsite" name="website" placeholder="https://yourcompany.com" autocomplete="url" />
             </div>
-            <div class="gl-field">
-              <label for="glTrade">Your Trade</label>
-              <select id="glTrade" name="trade" required>
-                <option value="">Select your trade…</option>
-                <option value="hvac">HVAC</option>
-                <option value="roofing">Roofing</option>
-                <option value="plumbing">Plumbing</option>
-                <option value="electrical">Electrical</option>
-                <option value="landscaping">Landscaping</option>
-                <option value="painting">Painting</option>
-                <option value="general">General Contractor</option>
-                <option value="pressure-washing">Pressure Washing</option>
-                <option value="tree-service">Tree Service</option>
-                <option value="snow-removal">Snow Removal</option>
-                <option value="other">Other</option>
-              </select>
+
+            <div class="gl-form-2col">
+              <div class="gl-field">
+                <label for="auditTrade">Primary Trade <span style="color:var(--accent)">*</span></label>
+                <select id="auditTrade" name="trade" required>
+                  <option value="">Select your trade…</option>
+                  <option>HVAC</option>
+                  <option>Plumbing</option>
+                  <option>Electrical</option>
+                  <option>Roofing</option>
+                  <option>Windows and Doors</option>
+                  <option>Remodeling</option>
+                  <option>General Contracting</option>
+                  <option>Painting</option>
+                  <option>Landscaping</option>
+                  <option>Tree Service</option>
+                  <option>Pressure Washing</option>
+                  <option>Concrete</option>
+                  <option>Fencing</option>
+                  <option>Gutters</option>
+                  <option>Garage Doors</option>
+                  <option>Pest Control</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="gl-field">
+                <label for="auditArea">Primary Service Area</label>
+                <input type="text" id="auditArea" name="service_area" placeholder="e.g. Binghamton, NY" />
+              </div>
+              <div class="gl-field">
+                <label for="auditLeads">Approx. Leads per Month</label>
+                <select id="auditLeads" name="leads_per_month">
+                  <option value="">Select range…</option>
+                  <option>Fewer than 10</option>
+                  <option>10–25</option>
+                  <option>25–50</option>
+                  <option>50–100</option>
+                  <option>More than 100</option>
+                </select>
+              </div>
+              <div class="gl-field">
+                <label for="auditChallenge">Biggest Lead-Handling Challenge</label>
+                <select id="auditChallenge" name="challenge">
+                  <option value="">Select one…</option>
+                  <option>Missed calls</option>
+                  <option>Slow response</option>
+                  <option>Estimates going quiet</option>
+                  <option>Old leads not being contacted</option>
+                  <option>Not sure</option>
+                </select>
+              </div>
             </div>
-            <div class="gl-field">
-              <label for="glPhone">Phone Number</label>
-              <input type="tel" id="glPhone" name="phone" required placeholder="(555) 123-4567" />
-            </div>
-            <button type="submit" class="btn btn-primary gl-submit">Get My AI Website →</button>
+
+            <p class="gl-consent">By submitting this form you agree to be contacted by Gravity Lead about your audit request. You can opt out at any time. See our <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.</p>
+            <button type="submit" class="btn btn-primary gl-submit" id="auditSubmit">Request My Free Audit</button>
           </form>
-          <div class="gl-form-success" id="glFormSuccess">
+
+          <div class="gl-audit-success" id="glAuditSuccess">
             <div class="gl-success-icon">✅</div>
-            <h3>You're In!</h3>
-            <p>We've got your info. Someone from our team will reach out within 24 hours to get you set up.</p>
+            <h3>Request Received</h3>
+            <p>We've got your audit request and will follow up within one business day to schedule a brief review of your response and follow-up process.</p>
+            <p>Please note: the audit itself takes place during a scheduled conversation—it's not completed automatically after submitting this form.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ CONSENT-AWARE MESSAGING ══════════ -->
+    <section style="padding: 0 0 64px;">
+      <div class="container">
+        <div class="hp-compliance">
+          <h4>Consent-Aware Messaging Tools</h4>
+          <p>Gravity Lead supports automated opt-out handling and responsible messaging workflows. Campaign configuration depends on the client's lead sources, consent records and applicable requirements.</p>
         </div>
       </div>
     </section>
@@ -746,9 +1085,12 @@
     <section class="gl-sales">
       <div class="container">
         <div class="cta-band">
-          <h2>Stop losing leads. Start closing more jobs.</h2>
-          <p>See exactly what your customers will see — try the live demo.</p>
-          <a class="btn btn-primary" href="demo/">See the Demo →</a>
+          <h2>Stop paying for leads that disappear.</h2>
+          <p>See where missed calls, unresponsive inquiries and forgotten estimates may be costing your company opportunities.</p>
+          <div class="btn-row">
+            <a class="btn btn-white" href="#audit" id="finalAuditBtn">Get a Free Lead Leakage Audit</a>
+            <a class="btn btn-ghost" href="demo/" id="finalDemoBtn">See the Demo</a>
+          </div>
         </div>
       </div>
     </section>
@@ -760,84 +1102,153 @@
       <div>
         <strong>
           <span style="color:#fff">Gravity</span><span style="color:#6C47FF">Lead</span>
-        </strong><br />
-        <span>AI websites for home service businesses</span>
+        </strong>
+        <p class="footer-tagline">Lead recovery and automated follow-up for contractors</p>
+        <p class="footer-copy">© <span id="fyear"></span> Gravity Lead. All rights reserved.</p>
       </div>
       <div class="powered">
-        <a href="mailto:hello@getgravitylead.com" style="color:var(--accent);font-weight:700;">hello@getgravitylead.com</a><br />
-        <span style="font-size:13px;opacity:.7;">
-          <a href="/privacy" style="color:var(--muted);">Privacy Policy</a>
-          &nbsp;&middot;&nbsp;
-          <a href="/terms" style="color:var(--muted);">Terms of Service</a>
+        <a href="mailto:hello@getgravitylead.com" style="color:var(--accent);font-weight:700;display:block;margin-bottom:8px;">hello@getgravitylead.com</a>
+        <span style="font-size:13px;">
+          <a href="privacy.html" style="color:var(--muted);">Privacy Policy</a>
+          &nbsp;·&nbsp;
+          <a href="terms.html" style="color:var(--muted);">Terms of Service</a>
         </span>
+        <div style="margin-top:16px;">
+          <a class="btn btn-primary" href="#audit" style="font-size:13px;padding:9px 18px;display:inline-block;">Get a Free Audit</a>
+        </div>
       </div>
     </div>
   </footer>
 
-  <!-- ── Lead form handler ──────────────────────────────────────────────── -->
+  <!-- ── Mobile nav toggle ─────────────────────────────────────────────── -->
+  <script>
+  (function () {
+    var btn = document.getElementById('navHamburger');
+    var nav = document.getElementById('navLinks');
+    if (!btn || !nav) return;
+
+    btn.addEventListener('click', function () {
+      var open = nav.classList.toggle('open');
+      btn.textContent = open ? '✕' : '☰';
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    nav.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        nav.classList.remove('open');
+        btn.textContent = '☰';
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.getElementById('fyear').textContent = new Date().getFullYear();
+  })();
+  </script>
+
+  <!-- ── Audit form handler ─────────────────────────────────────────────── -->
   <script>
   (function () {
     "use strict";
-    const FORM_ENDPOINT = "https://formspree.io/f/xdaqyezr";
-    const LEAD_SERVER_ENDPOINT = "";
 
-    const form = document.getElementById("glLeadForm");
-    const success = document.getElementById("glFormSuccess");
+    var FORM_ENDPOINT = "https://formspree.io/f/xdaqyezr";
+
+    var form    = document.getElementById("glAuditForm");
+    var success = document.getElementById("glAuditSuccess");
+    var submit  = document.getElementById("auditSubmit");
     if (!form) return;
+
+    // Track audit form start on first field interaction
+    var started = false;
+    form.addEventListener('focusin', function () {
+      if (started) return;
+      started = true;
+      glTrack('audit_form_start', { form: 'lead_leakage_audit' });
+    }, true);
+
+    // Prevent duplicate submissions
+    var submitted = false;
 
     form.addEventListener("submit", async function (e) {
       e.preventDefault();
-      const data = {
-        name:      document.getElementById("glName").value.trim(),
-        business:  document.getElementById("glBiz").value.trim(),
-        trade:     document.getElementById("glTrade").value,
-        phone:     document.getElementById("glPhone").value.trim(),
-        submitted: new Date().toISOString(),
-        source:    "homepage",
+      if (submitted) return;
+
+      // Basic HTML5 validation
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+
+      submitted = true;
+      if (submit) { submit.disabled = true; submit.textContent = 'Sending…'; }
+
+      var data = {
+        name:            document.getElementById("auditName").value.trim(),
+        company:         document.getElementById("auditCompany").value.trim(),
+        email:           document.getElementById("auditEmail").value.trim(),
+        phone:           document.getElementById("auditPhone").value.trim(),
+        website:         document.getElementById("auditWebsite").value.trim(),
+        trade:           document.getElementById("auditTrade").value,
+        service_area:    document.getElementById("auditArea").value.trim(),
+        leads_per_month: document.getElementById("auditLeads").value,
+        challenge:       document.getElementById("auditChallenge").value,
+        submitted:       new Date().toISOString(),
+        source:          "homepage_audit_form",
+        form_type:       "lead_leakage_audit",
       };
 
-      if (FORM_ENDPOINT) {
-        try {
-          await fetch(FORM_ENDPOINT, {
-            method: "POST",
-            headers: { "Accept": "application/json", "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-          });
-        } catch (err) { console.warn("[GravityLead] Formspree POST failed:", err); }
+      try {
+        var resp = await fetch(FORM_ENDPOINT, {
+          method: "POST",
+          headers: { "Accept": "application/json", "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        if (resp.ok) {
+          glTrack('audit_form_complete', { form: 'lead_leakage_audit', trade: data.trade });
+        } else {
+          glTrack('audit_form_error', { form: 'lead_leakage_audit', status: resp.status });
+        }
+      } catch (err) {
+        console.warn("[GravityLead] Form POST failed:", err);
+        glTrack('audit_form_error', { form: 'lead_leakage_audit' });
+        // Still show success so the user isn't stuck
       }
 
-      if (LEAD_SERVER_ENDPOINT) {
-        try {
-          await fetch(LEAD_SERVER_ENDPOINT, {
-            method: "POST",
-            headers: { "Accept": "application/json", "Content-Type": "application/json" },
-            body: JSON.stringify({
-              phone: data.phone, name: data.name,
-              business: data.business, trade: data.trade,
-              twilio_number: "", source: "form",
-            }),
-          });
-        } catch (err) { console.warn("[GravityLead] Lead server POST failed:", err); }
-      }
-
-      console.log("[GravityLead] Lead captured:", data);
       form.style.display = "none";
       success.classList.add("show");
       success.style.display = "block";
     });
+
+    // Track demo link clicks
+    ['demoBtn', 'finalDemoBtn'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('click', function () {
+        glTrack('demo_click', { location: id });
+      });
+    });
+
+    // Track founding partner apply clicks
+    var fpBtn = document.getElementById('foundingApplyBtn');
+    if (fpBtn) fpBtn.addEventListener('click', function () {
+      glTrack('founding_partner_apply_click');
+    });
+
+    // Track hero and final CTA audit clicks
+    ['heroAuditBtn', 'finalAuditBtn'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('click', function () {
+        glTrack('audit_cta_click', { location: id });
+      });
+    });
+
   })();
   </script>
 
-  <!-- ── Animated particle field ───────────────────────────────────────── -->
+  <!-- ── Particle field ────────────────────────────────────────────────── -->
   <script>
   (function () {
     "use strict";
-    const canvas = document.getElementById("gl-particles");
+    var canvas = document.getElementById("gl-particles");
     if (!canvas || !canvas.getContext) return;
-    const ctx = canvas.getContext("2d");
-    let W = 0, H = 0;
-    const COUNT = 65;
-    const particles = [];
+    var ctx = canvas.getContext("2d");
+    var W = 0, H = 0, COUNT = 65;
+    var particles = [];
 
     function resize() {
       W = canvas.width  = window.innerWidth;
@@ -852,29 +1263,25 @@
         vy:    -(Math.random() * 0.32 + 0.07),
         r:     Math.random() * 1.5 + 0.3,
         alpha: Math.random() * 0.42 + 0.07,
-        // alternate between brand purple and soft lavender
         rgb:   Math.random() > 0.55 ? "108,71,255" : "155,123,255",
       };
     }
 
     function init() {
       particles.length = 0;
-      for (let i = 0; i < COUNT; i++) particles.push(mkParticle(false));
+      for (var i = 0; i < COUNT; i++) particles.push(mkParticle(false));
     }
 
     function loop() {
       ctx.clearRect(0, 0, W, H);
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-        // draw particle
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fillStyle = "rgba(" + p.rgb + "," + p.alpha + ")";
         ctx.fill();
-        // move
         p.x += p.vx;
         p.y += p.vy;
-        // recycle when it floats off the top
         if (p.y < -12) particles[i] = mkParticle(true);
       }
       requestAnimationFrame(loop);
