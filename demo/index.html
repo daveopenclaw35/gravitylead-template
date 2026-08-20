@@ -8,6 +8,14 @@
   <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
+
+  <!-- ── Loading overlay: hides placeholder DOM until config.js + app.js populate content ── -->
+  <div id="glLoader" aria-hidden="true" style="position:fixed;inset:0;background:#060913;z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;">
+    <div style="font-size:22px;font-weight:800;color:#fff;letter-spacing:-.3px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">Gravity<span style="color:#6C47FF">Lead</span></div>
+    <div style="width:36px;height:3px;background:#6C47FF;border-radius:999px;animation:glp 1s ease-in-out infinite;"></div>
+    <style>@keyframes glp{0%,100%{opacity:.25;transform:scaleX(.4)}50%{opacity:1;transform:scaleX(1)}}</style>
+  </div>
+
   <!-- Demo banner -->
   <div class="demo-banner" id="demoBanner">
     🔴 LIVE DEMO — You're viewing a sample Gravity Lead smart contractor website. Try the AI receptionist ↗ then <a href="/#get-started" style="color:#fff;text-decoration:underline;">apply for a founding spot</a>. · <a href="/" style="color:#fff;text-decoration:underline;">getgravitylead.com</a>
@@ -122,5 +130,19 @@
 
   <script src="../config.js"></script>
   <script src="../app.js"></script>
+
+  <!-- Remove loader once app.js has finished populating the DOM -->
+  <script>
+  (function () {
+    function hideLoader() {
+      var l = document.getElementById('glLoader');
+      if (l) { l.style.opacity = '0'; l.style.transition = 'opacity .2s'; setTimeout(function(){ if(l.parentNode) l.parentNode.removeChild(l); }, 220); }
+    }
+    // Scripts are synchronous — this runs immediately after app.js completes
+    hideLoader();
+    // Safety fallback: force-remove after 4s if something stalls
+    setTimeout(hideLoader, 4000);
+  })();
+  </script>
 </body>
 </html>
