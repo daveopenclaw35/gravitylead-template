@@ -12,7 +12,7 @@
 
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- Google Analytics 4 — replace G-XXXXXXXXXX with real GA4 ID to activate -->
+  <!-- Google Analytics 4 — replace G-XXXXXXXXXX with real GA4 Measurement ID to activate -->
   <script>
     (function () {
       var GA_ID = 'G-XXXXXXXXXX';
@@ -98,15 +98,15 @@
     /* ── Navigation ── */
     .nav-links { display: flex; align-items: center; gap: 2px; }
     .nav-links a {
-      color: var(--muted); font-weight: 600; font-size: 13px;
-      padding: 6px 9px; border-radius: 8px;
+      color: var(--muted); font-weight: 600; font-size: 12.5px;
+      padding: 6px 8px; border-radius: 8px;
       transition: color .15s, background .15s; white-space: nowrap;
     }
     .nav-links a:hover { color: var(--text); background: rgba(255,255,255,.05); }
     .nav-cta {
       background: var(--primary) !important; color: #fff !important;
-      padding: 9px 16px !important; border-radius: 999px !important;
-      font-size: 13px !important; box-shadow: 0 4px 16px rgba(108,71,255,.35);
+      padding: 9px 14px !important; border-radius: 999px !important;
+      font-size: 12.5px !important; box-shadow: 0 4px 16px rgba(108,71,255,.35);
       margin-left: 4px;
     }
     .nav-cta:hover { background: var(--primary-dark) !important; }
@@ -115,7 +115,7 @@
       cursor: pointer; color: var(--text); font-size: 22px; padding: 4px;
     }
 
-    @media (max-width: 960px) {
+    @media (max-width: 1024px) {
       .nav-links {
         display: none; flex-direction: column;
         position: absolute; top: 66px; left: 0; right: 0;
@@ -124,7 +124,7 @@
         padding: 12px 20px 20px; gap: 2px; z-index: 50;
       }
       .nav-links.open { display: flex; }
-      .nav-links a { padding: 10px 14px; width: 100%; }
+      .nav-links a { padding: 10px 14px; width: 100%; font-size: 14px; }
       .nav-hamburger { display: block; }
     }
 
@@ -133,27 +133,22 @@
     ══════════════════════════════════ */
     .hp-hero {
       padding: 88px 0 0;
-      text-align: center;
-      position: relative; overflow: hidden;
+      text-align: center; position: relative; overflow: hidden;
     }
     .hp-hero::before {
-      content: "";
-      position: absolute; inset: 0;
+      content: ""; position: absolute; inset: 0;
       background: radial-gradient(900px 500px at 50% -5%, rgba(108,71,255,.22), transparent 65%);
       pointer-events: none;
     }
     .hp-badge {
       display: inline-flex; align-items: center; gap: 7px;
-      background: rgba(108,71,255,.12);
-      border: 1px solid rgba(108,71,255,.30);
-      color: var(--accent);
-      font-size: 11px; font-weight: 800;
+      background: rgba(108,71,255,.12); border: 1px solid rgba(108,71,255,.30);
+      color: var(--accent); font-size: 11px; font-weight: 800;
       padding: 7px 18px; border-radius: 999px;
       margin-bottom: 28px; letter-spacing: 1.2px; text-transform: uppercase;
     }
     .hp-hero h1 {
-      font-size: clamp(32px, 5vw, 58px);
-      line-height: 1.08; letter-spacing: -1px;
+      font-size: clamp(32px, 5vw, 58px); line-height: 1.08; letter-spacing: -1px;
       max-width: 780px; margin: 0 auto 22px; font-weight: 900;
     }
     .hp-hero h1 .accent { color: var(--primary); }
@@ -175,33 +170,18 @@
       overflow: hidden; border: 1px solid rgba(108,71,255,.25);
       box-shadow: 0 24px 70px rgba(0,0,0,.55), 0 0 80px rgba(108,71,255,.08);
     }
-    .mock-browser-bar {
-      background: rgba(255,255,255,.05); padding: 10px 14px;
-      display: flex; align-items: center; gap: 6px;
-    }
+    .mock-browser-bar { background: rgba(255,255,255,.05); padding: 10px 14px; display: flex; align-items: center; gap: 6px; }
     .mock-dot { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,.18); }
-    .mock-url {
-      flex: 1; margin-left: 8px;
-      background: rgba(255,255,255,.06); border-radius: 4px;
-      font-size: 10px; padding: 4px 10px; color: var(--muted); text-align: left;
-    }
+    .mock-url { flex: 1; margin-left: 8px; background: rgba(255,255,255,.06); border-radius: 4px; font-size: 10px; padding: 4px 10px; color: var(--muted); text-align: left; }
     .mock-screen { padding: 18px; }
     .mock-site-nav { background: rgba(108,71,255,.15); height: 28px; border-radius: 5px; margin-bottom: 12px; }
-    .mock-site-hero {
-      background: linear-gradient(135deg, rgba(108,71,255,.25), rgba(76,47,217,.15));
-      border-radius: 8px; padding: 16px; margin-bottom: 10px; text-align: left;
-    }
+    .mock-site-hero { background: linear-gradient(135deg, rgba(108,71,255,.25), rgba(76,47,217,.15)); border-radius: 8px; padding: 16px; margin-bottom: 10px; text-align: left; }
     .mock-site-hero-label { font-size: 8px; color: var(--accent); font-weight: 700; margin-bottom: 4px; text-transform: uppercase; letter-spacing: .6px; }
     .mock-site-hero-h { font-size: 10px; font-weight: 800; color: var(--text); line-height: 1.3; margin-bottom: 8px; }
     .mock-site-hero-btn { background: var(--primary); color: #fff; font-size: 8px; font-weight: 700; padding: 5px 10px; border-radius: 999px; display: inline-block; }
     .mock-cards-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
     .mock-svc-card { background: rgba(255,255,255,.05); border-radius: 6px; height: 44px; }
-
-    .mock-phone {
-      width: 150px; flex-shrink: 0; background: #0a0f1e;
-      border-radius: 22px; border: 1px solid rgba(108,71,255,.28);
-      padding: 14px 10px; box-shadow: 0 16px 48px rgba(0,0,0,.5);
-    }
+    .mock-phone { width: 150px; flex-shrink: 0; background: #0a0f1e; border-radius: 22px; border: 1px solid rgba(108,71,255,.28); padding: 14px 10px; box-shadow: 0 16px 48px rgba(0,0,0,.5); }
     .mock-phone-label { text-align: center; font-size: 8px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 10px; }
     .mock-chat { display: flex; flex-direction: column; gap: 7px; }
     .mock-msg { padding: 7px 9px; border-radius: 9px; font-size: 9px; line-height: 1.4; max-width: 90%; }
@@ -212,59 +192,30 @@
     .mock-typing span:nth-child(2) { animation-delay: .2s; }
     .mock-typing span:nth-child(3) { animation-delay: .4s; }
     @keyframes blink { 0%,60%,100% { opacity:.3 } 30% { opacity:1 } }
-
     .mock-fade { position: relative; }
-    .mock-fade::after {
-      content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
-      background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none;
-    }
-
-    @media (max-width: 640px) {
-      .hp-mockup-wrap { flex-direction: column; align-items: center; }
-      .mock-phone { width: 100%; max-width: 260px; }
-    }
+    .mock-fade::after { content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 60px; background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
+    @media (max-width: 640px) { .hp-mockup-wrap { flex-direction: column; align-items: center; } .mock-phone { width: 100%; max-width: 260px; } }
 
     /* ══════════════════════════════════
        SHARED SECTION INTRO
     ══════════════════════════════════ */
-    .hp-section-intro {
-      text-align: center; max-width: 680px; margin: 0 auto 52px;
-    }
-    .hp-section-intro h2 {
-      font-size: clamp(24px, 4vw, 36px); font-weight: 900; line-height: 1.2; margin-bottom: 16px;
-    }
+    .hp-section-intro { text-align: center; max-width: 680px; margin: 0 auto 52px; }
+    .hp-section-intro h2 { font-size: clamp(24px, 4vw, 36px); font-weight: 900; line-height: 1.2; margin-bottom: 16px; }
     .hp-section-intro p { color: var(--muted); font-size: 18px; line-height: 1.65; }
     .hp-section-intro p + p { margin-top: 10px; }
 
     /* ══════════════════════════════════
-       PRODUCT FEATURES — More than a website
+       PRODUCT FEATURES
     ══════════════════════════════════ */
     .hp-features { padding: 80px 0; }
-    .hp-features-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
-    }
-    .hp-feature-card {
-      background: var(--surface); border: 1px solid rgba(255,255,255,.07);
-      border-radius: var(--radius); padding: 28px 24px;
-      transition: border-color .2s, transform .2s, box-shadow .2s;
-    }
-    .hp-feature-card:hover {
-      border-color: rgba(108,71,255,.30); transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(108,71,255,.10);
-    }
+    .hp-features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .hp-feature-card { background: var(--surface); border: 1px solid rgba(255,255,255,.07); border-radius: var(--radius); padding: 28px 24px; transition: border-color .2s, transform .2s, box-shadow .2s; }
+    .hp-feature-card:hover { border-color: rgba(108,71,255,.30); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(108,71,255,.10); }
     .hp-feature-icon { font-size: 32px; margin-bottom: 14px; display: block; }
-    .hp-feature-card h3 {
-      font-size: 13px; font-weight: 800; text-transform: uppercase;
-      letter-spacing: .9px; color: var(--accent); margin-bottom: 10px;
-    }
+    .hp-feature-card h3 { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: .9px; color: var(--accent); margin-bottom: 10px; }
     .hp-feature-card p { color: var(--muted); font-size: 15px; line-height: 1.6; }
-    .hp-features-line {
-      text-align: center; margin-top: 36px;
-      color: var(--muted); font-size: 15px; font-style: italic; line-height: 1.55;
-      max-width: 580px; margin-left: auto; margin-right: auto;
-    }
+    .hp-features-line { text-align: center; margin: 36px auto 0; color: var(--muted); font-size: 15px; font-style: italic; line-height: 1.55; max-width: 580px; }
     .hp-features-line strong { color: var(--text); font-style: normal; }
-
     @media (max-width: 760px) { .hp-features-grid { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 480px) { .hp-features-grid { grid-template-columns: 1fr; } }
 
@@ -272,52 +223,28 @@
        COMPARISON
     ══════════════════════════════════ */
     .hp-comparison { padding: 72px 0; }
-    .hp-comparison-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 20px; max-width: 800px; margin: 0 auto;
-    }
+    .hp-comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 800px; margin: 0 auto; }
     .hp-comparison-col { background: var(--surface); border-radius: var(--radius); overflow: hidden; }
     .hp-comparison-col.standard { border: 1px solid rgba(255,255,255,.08); }
-    .hp-comparison-col.gravity {
-      border: 1px solid rgba(108,71,255,.32);
-      box-shadow: 0 0 40px rgba(108,71,255,.10);
-    }
+    .hp-comparison-col.gravity { border: 1px solid rgba(108,71,255,.32); box-shadow: 0 0 40px rgba(108,71,255,.10); }
     .hp-comparison-header { padding: 18px 24px; font-weight: 800; font-size: 14px; letter-spacing: .2px; }
     .hp-comparison-col.standard .hp-comparison-header { background: rgba(255,255,255,.04); color: var(--muted); }
-    .hp-comparison-col.gravity .hp-comparison-header {
-      background: linear-gradient(135deg, rgba(108,71,255,.35), rgba(76,47,217,.20)); color: #fff;
-    }
-    .hp-comparison-item {
-      display: flex; align-items: flex-start; gap: 12px;
-      padding: 12px 24px; border-top: 1px solid rgba(255,255,255,.05);
-      font-size: 14px; color: var(--muted); line-height: 1.45;
-    }
+    .hp-comparison-col.gravity .hp-comparison-header { background: linear-gradient(135deg, rgba(108,71,255,.35), rgba(76,47,217,.20)); color: #fff; }
+    .hp-comparison-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 24px; border-top: 1px solid rgba(255,255,255,.05); font-size: 14px; color: var(--muted); line-height: 1.45; }
     .hp-comparison-icon { flex-shrink: 0; font-size: 15px; margin-top: 1px; }
     .hp-comparison-col.gravity .hp-comparison-item { color: var(--text); }
-
     @media (max-width: 580px) { .hp-comparison-grid { grid-template-columns: 1fr; } }
 
     /* ══════════════════════════════════
-       PROBLEM SECTION — Where websites fall short
+       PROBLEM SECTION
     ══════════════════════════════════ */
     .hp-problem { padding: 72px 0; }
     .hp-problem-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-    .hp-problem-card {
-      background: var(--surface); border: 1px solid rgba(255,255,255,.07);
-      border-radius: var(--radius); padding: 28px 26px;
-      transition: border-color .2s, transform .2s, box-shadow .2s;
-    }
-    .hp-problem-card:hover {
-      border-color: rgba(108,71,255,.30); transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(108,71,255,.10);
-    }
+    .hp-problem-card { background: var(--surface); border: 1px solid rgba(255,255,255,.07); border-radius: var(--radius); padding: 28px 26px; transition: border-color .2s, transform .2s, box-shadow .2s; }
+    .hp-problem-card:hover { border-color: rgba(108,71,255,.30); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(108,71,255,.10); }
     .hp-problem-icon { font-size: 32px; margin-bottom: 14px; display: block; }
-    .hp-problem-card h3 {
-      font-size: 13px; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 1px; color: var(--accent); margin-bottom: 10px;
-    }
+    .hp-problem-card h3 { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 10px; }
     .hp-problem-card p { color: var(--muted); font-size: 15px; line-height: 1.6; }
-
     @media (max-width: 640px) { .hp-problem-grid { grid-template-columns: 1fr; } }
 
     /* ══════════════════════════════════
@@ -325,16 +252,9 @@
     ══════════════════════════════════ */
     .hp-steps { padding: 80px 0; }
     .hp-steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; text-align: center; }
-    .hp-step-num {
-      width: 56px; height: 56px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #fff; font-size: 20px; font-weight: 900;
-      display: inline-flex; align-items: center; justify-content: center;
-      margin-bottom: 20px; box-shadow: 0 4px 24px rgba(108,71,255,.40);
-    }
+    .hp-step-num { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; font-size: 20px; font-weight: 900; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 20px; box-shadow: 0 4px 24px rgba(108,71,255,.40); }
     .hp-step h3 { font-size: 19px; margin-bottom: 10px; font-weight: 700; line-height: 1.3; }
     .hp-step p  { color: var(--muted); font-size: 15px; line-height: 1.65; }
-
     @media (max-width: 760px) { .hp-steps-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; } }
 
     /* ══════════════════════════════════
@@ -345,169 +265,95 @@
     .hp-trades-intro h2 { font-size: clamp(24px, 4vw, 34px); font-weight: 900; margin-bottom: 16px; line-height: 1.2; }
     .hp-trades-intro p { color: var(--muted); font-size: 17px; line-height: 1.65; }
     .hp-trades-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 36px; }
-    .hp-trade-pill {
-      background: var(--surface); border: 1px solid rgba(255,255,255,.07);
-      padding: 12px 22px; border-radius: 999px;
-      font-size: 15px; font-weight: 600;
-      display: flex; align-items: center; gap: 8px;
-      transition: border-color .18s, transform .18s, background .18s, box-shadow .18s;
-    }
-    .hp-trade-pill:hover {
-      border-color: var(--primary); transform: translateY(-2px);
-      background: rgba(108,71,255,.09); box-shadow: 0 4px 18px rgba(108,71,255,.18);
-    }
+    .hp-trade-pill { background: var(--surface); border: 1px solid rgba(255,255,255,.07); padding: 12px 22px; border-radius: 999px; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: border-color .18s, transform .18s, background .18s, box-shadow .18s; }
+    .hp-trade-pill:hover { border-color: var(--primary); transform: translateY(-2px); background: rgba(108,71,255,.09); box-shadow: 0 4px 18px rgba(108,71,255,.18); }
     .hp-trades-note { margin: 28px auto 0; color: var(--muted); font-size: 15px; max-width: 500px; }
 
     /* ══════════════════════════════════
        PRICING / FOUNDING CLIENT
     ══════════════════════════════════ */
     .hp-founding { padding: 80px 0; text-align: center; }
-    .hp-founding-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(108,71,255,.12); border: 1px solid rgba(108,71,255,.30);
-      color: var(--accent); font-size: 11px; font-weight: 800;
-      padding: 7px 18px; border-radius: 999px;
-      margin-bottom: 24px; letter-spacing: 1px; text-transform: uppercase;
-    }
+    .hp-founding-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(108,71,255,.12); border: 1px solid rgba(108,71,255,.30); color: var(--accent); font-size: 11px; font-weight: 800; padding: 7px 18px; border-radius: 999px; margin-bottom: 24px; letter-spacing: 1px; text-transform: uppercase; }
     .hp-founding h2 { font-size: clamp(26px, 4vw, 40px); font-weight: 900; margin-bottom: 14px; line-height: 1.2; }
     .hp-founding-sub { color: var(--muted); font-size: 18px; line-height: 1.65; max-width: 620px; margin: 0 auto 48px; }
-    .hp-founding-card {
-      background: linear-gradient(135deg, #120833 0%, rgba(108,71,255,.22) 50%, #120833 100%);
-      border: 1px solid rgba(108,71,255,.28); border-radius: var(--radius);
-      padding: 48px 44px; max-width: 740px; margin: 0 auto;
-      position: relative; overflow: hidden;
-    }
-    .hp-founding-card::before {
-      content: ""; position: absolute; inset: 0;
-      background: radial-gradient(500px 260px at 50% 50%, rgba(108,71,255,.10), transparent 70%);
-      pointer-events: none;
-    }
+    .hp-founding-card { background: linear-gradient(135deg, #120833 0%, rgba(108,71,255,.22) 50%, #120833 100%); border: 1px solid rgba(108,71,255,.28); border-radius: var(--radius); padding: 48px 44px; max-width: 740px; margin: 0 auto; position: relative; overflow: hidden; }
+    .hp-founding-card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(500px 260px at 50% 50%, rgba(108,71,255,.10), transparent 70%); pointer-events: none; }
     .hp-founding-price { position: relative; z-index: 1; margin-bottom: 32px; }
     .hp-founding-price .setup { font-size: 16px; color: var(--accent); font-weight: 700; margin-bottom: 8px; }
     .hp-founding-price .amount { font-size: 60px; font-weight: 900; line-height: 1; color: #fff; }
     .hp-founding-price .amount sup { font-size: 28px; vertical-align: super; }
     .hp-founding-price .amount .per { font-size: 22px; font-weight: 600; color: var(--muted); }
     .hp-founding-price .recur { font-size: 14px; color: var(--muted); margin-top: 8px; }
-    .hp-offer-list {
-      list-style: none; text-align: left; display: inline-block;
-      margin-bottom: 32px; position: relative; z-index: 1;
-    }
-    .hp-offer-list li {
-      font-size: 15px; color: var(--text); padding: 6px 0;
-      display: flex; align-items: flex-start; gap: 10px;
-    }
-    .hp-offer-list li .check {
-      width: 20px; height: 20px; border-radius: 50%;
-      background: rgba(108,71,255,.20); border: 1px solid rgba(108,71,255,.40);
-      display: inline-flex; align-items: center; justify-content: center;
-      font-size: 11px; flex-shrink: 0; margin-top: 1px;
-    }
+    .hp-offer-list { list-style: none; text-align: left; display: inline-block; margin-bottom: 32px; position: relative; z-index: 1; }
+    .hp-offer-list li { font-size: 15px; color: var(--text); padding: 6px 0; display: flex; align-items: flex-start; gap: 10px; }
+    .hp-offer-list li .check { width: 20px; height: 20px; border-radius: 50%; background: rgba(108,71,255,.20); border: 1px solid rgba(108,71,255,.40); display: inline-flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; margin-top: 1px; }
     .hp-founding-cta { position: relative; z-index: 1; }
     .hp-founding-fine { font-size: 13px; color: var(--muted); margin-top: 16px; position: relative; z-index: 1; }
-
     @media (max-width: 640px) { .hp-founding-card { padding: 32px 22px; } }
 
     /* ══════════════════════════════════
        DEMO SECTION
     ══════════════════════════════════ */
     .hp-demo { padding: 80px 0; text-align: center; }
-    .hp-demo-sequence {
-      display: grid; grid-template-columns: repeat(6, 1fr); gap: 0;
-      max-width: 900px; margin: 48px auto 44px; position: relative;
-    }
-    .hp-demo-sequence::after {
-      content: ""; position: absolute;
-      top: 27px; left: calc(100% / 12); right: calc(100% / 12);
-      height: 2px; background: linear-gradient(90deg, var(--primary), var(--accent)); z-index: 0;
-    }
+    .hp-demo-sequence { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; max-width: 900px; margin: 48px auto 44px; position: relative; }
+    .hp-demo-sequence::after { content: ""; position: absolute; top: 27px; left: calc(100% / 12); right: calc(100% / 12); height: 2px; background: linear-gradient(90deg, var(--primary), var(--accent)); z-index: 0; }
     .hp-demo-step { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 6px; position: relative; z-index: 1; }
-    .hp-demo-step-icon {
-      width: 56px; height: 56px; border-radius: 50%;
-      background: var(--surface); border: 2px solid rgba(108,71,255,.35);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px; margin-bottom: 14px; box-shadow: 0 0 20px rgba(108,71,255,.15);
-    }
+    .hp-demo-step-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--surface); border: 2px solid rgba(108,71,255,.35); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 14px; box-shadow: 0 0 20px rgba(108,71,255,.15); }
     .hp-demo-step h4 { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 4px; line-height: 1.3; }
     .hp-demo-step p  { font-size: 11px; color: var(--muted); line-height: 1.4; }
-
-    @media (max-width: 640px) {
-      .hp-demo-sequence { grid-template-columns: 1fr; gap: 20px; max-width: 320px; padding-left: 10px; }
-      .hp-demo-sequence::after { display: none; }
-      .hp-demo-step { flex-direction: row; align-items: flex-start; text-align: left; gap: 14px; }
-      .hp-demo-step-icon { flex-shrink: 0; margin-bottom: 0; }
-    }
+    @media (max-width: 640px) { .hp-demo-sequence { grid-template-columns: 1fr; gap: 20px; max-width: 320px; padding-left: 10px; } .hp-demo-sequence::after { display: none; } .hp-demo-step { flex-direction: row; align-items: flex-start; text-align: left; gap: 14px; } .hp-demo-step-icon { flex-shrink: 0; margin-bottom: 0; } }
 
     /* ══════════════════════════════════
-       SOCIAL PROOF PLACEHOLDER
+       RESULTS / WHAT WE'LL MEASURE
     ══════════════════════════════════ */
     .hp-results { padding: 72px 0; }
-    .hp-results-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 20px; max-width: 820px; margin: 0 auto;
-    }
-    .hp-result-placeholder {
-      background: var(--surface); border: 1px dashed rgba(255,255,255,.12);
-      border-radius: var(--radius); padding: 32px 22px;
-    }
+    .hp-results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 820px; margin: 0 auto; }
+    .hp-result-placeholder { background: var(--surface); border: 1px dashed rgba(255,255,255,.12); border-radius: var(--radius); padding: 32px 22px; }
     .hp-result-metric { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .8px; margin-bottom: 12px; color: rgba(255,255,255,.25); }
     .hp-result-placeholder p { color: var(--muted); font-size: 14px; line-height: 1.55; }
-
     @media (max-width: 640px) { .hp-results-grid { grid-template-columns: 1fr; max-width: 340px; margin: 0 auto; } }
 
     /* ══════════════════════════════════
        FOUNDER SECTION
     ══════════════════════════════════ */
     .hp-founder { padding: 72px 0; }
-    .hp-founder-inner {
-      max-width: 760px; margin: 0 auto;
-      background: var(--surface); border: 1px solid rgba(255,255,255,.07);
-      border-radius: var(--radius); padding: 44px 40px;
-      display: flex; gap: 36px; align-items: flex-start;
-    }
-    .hp-founder-avatar {
-      width: 96px; height: 96px; border-radius: 50%;
-      background: rgba(108,71,255,.15); border: 2px solid rgba(108,71,255,.30);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 38px; flex-shrink: 0;
-    }
+    .hp-founder-inner { max-width: 760px; margin: 0 auto; background: var(--surface); border: 1px solid rgba(255,255,255,.07); border-radius: var(--radius); padding: 44px 40px; display: flex; gap: 36px; align-items: flex-start; }
+    .hp-founder-avatar { width: 96px; height: 96px; border-radius: 50%; background: rgba(108,71,255,.15); border: 2px solid rgba(108,71,255,.30); display: flex; align-items: center; justify-content: center; font-size: 38px; flex-shrink: 0; }
     .hp-founder-content h2 { font-size: clamp(20px, 3vw, 26px); font-weight: 900; margin-bottom: 6px; line-height: 1.3; }
     .hp-founder-title { font-size: 12px; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: .8px; margin-bottom: 18px; }
     .hp-founder-content p { color: var(--muted); font-size: 16px; line-height: 1.7; }
     .hp-founder-content p + p { margin-top: 12px; }
-
     @media (max-width: 640px) { .hp-founder-inner { flex-direction: column; gap: 20px; padding: 28px 22px; } }
 
     /* ══════════════════════════════════
-       GET STARTED FORM
+       APPLICATION FORM
     ══════════════════════════════════ */
     .hp-audit { padding: 80px 0; }
-    .hp-audit-intro { text-align: center; max-width: 600px; margin: 0 auto 48px; }
+    .hp-audit-intro { text-align: center; max-width: 620px; margin: 0 auto 48px; }
     .hp-audit-intro h2 { font-size: clamp(24px, 4vw, 36px); font-weight: 900; margin-bottom: 14px; line-height: 1.2; }
     .hp-audit-intro p { color: var(--muted); font-size: 17px; line-height: 1.65; }
-    .gl-audit-wrap {
-      max-width: 700px; margin: 0 auto;
-      background: var(--surface); border: 1px solid rgba(108,71,255,.18);
-      border-radius: var(--radius); padding: 44px 40px;
-      box-shadow: 0 0 60px rgba(108,71,255,.07);
-    }
-    .gl-audit-wrap h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+    .gl-audit-wrap { max-width: 700px; margin: 0 auto; background: var(--surface); border: 1px solid rgba(108,71,255,.18); border-radius: var(--radius); padding: 44px 40px; box-shadow: 0 0 60px rgba(108,71,255,.07); }
+    .gl-audit-wrap h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--muted); }
     .gl-audit-wrap > p { color: var(--muted); margin-bottom: 28px; font-size: 15px; }
     .gl-form-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
     .gl-field { margin-bottom: 16px; }
     .gl-field label { display: block; font-size: 11px; font-weight: 700; margin-bottom: 5px; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; }
-    .gl-field input, .gl-field select {
-      width: 100%; padding: 12px 14px; font-size: 15px; border-radius: 10px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: var(--bg); color: var(--text);
-      outline: none; transition: border-color .15s, box-shadow .15s; font-family: inherit;
-    }
-    .gl-field input:focus, .gl-field select:focus {
-      border-color: var(--primary); box-shadow: 0 0 0 3px rgba(108,71,255,.15);
-    }
+    .gl-field input, .gl-field select { width: 100%; padding: 12px 14px; font-size: 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,.12); background: var(--bg); color: var(--text); outline: none; transition: border-color .15s, box-shadow .15s; font-family: inherit; }
+    .gl-field input:focus, .gl-field select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(108,71,255,.15); }
     .gl-field select { appearance: none; cursor: pointer; }
     .gl-submit { width: 100%; margin-top: 20px; font-size: 16px; padding: 16px; }
     .gl-consent { font-size: 12px; color: var(--muted); margin-top: 16px; line-height: 1.55; }
     .gl-consent a { color: var(--accent); }
+
+    /* Form error state */
+    .gl-form-error {
+      background: rgba(220,50,50,.10); border: 1px solid rgba(220,50,50,.25);
+      border-radius: 10px; padding: 12px 16px;
+      color: #ff8080; font-size: 14px; line-height: 1.55;
+      margin-top: 16px;
+    }
+    .gl-form-error a { color: var(--accent); }
+
     .gl-audit-success { display: none; text-align: center; padding: 32px 0; }
     .gl-audit-success.show { display: block; }
     .gl-success-icon { font-size: 56px; margin-bottom: 18px; }
@@ -515,56 +361,34 @@
     .gl-audit-success p { color: var(--muted); font-size: 15px; line-height: 1.65; }
     .gl-audit-success p + p { margin-top: 8px; }
 
-    @media (max-width: 640px) {
-      .gl-audit-wrap { padding: 28px 20px; }
-      .gl-form-2col { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 640px) { .gl-audit-wrap { padding: 28px 20px; } .gl-form-2col { grid-template-columns: 1fr; } }
 
     /* ══════════════════════════════════
        EXISTING WEBSITE SECTION
     ══════════════════════════════════ */
     .hp-existing { padding: 56px 0; }
-    .hp-existing-inner {
-      max-width: 700px; margin: 0 auto; text-align: center;
-      background: var(--surface); border: 1px solid rgba(255,255,255,.07);
-      border-radius: var(--radius); padding: 40px 36px;
-    }
+    .hp-existing-inner { max-width: 700px; margin: 0 auto; text-align: center; background: var(--surface); border: 1px solid rgba(255,255,255,.07); border-radius: var(--radius); padding: 40px 36px; }
     .hp-existing-inner h2 { font-size: clamp(20px, 3vw, 26px); font-weight: 900; margin-bottom: 14px; }
     .hp-existing-inner p { color: var(--muted); font-size: 16px; line-height: 1.65; margin-bottom: 24px; }
-
     @media (max-width: 640px) { .hp-existing-inner { padding: 28px 22px; } }
 
     /* ══════════════════════════════════
        COMPLIANCE NOTE
     ══════════════════════════════════ */
-    .hp-compliance {
-      background: rgba(108,71,255,.06); border: 1px solid rgba(108,71,255,.12);
-      border-radius: var(--radius); padding: 24px 28px;
-      max-width: 740px; margin: 0 auto;
-    }
+    .hp-compliance { background: rgba(108,71,255,.06); border: 1px solid rgba(108,71,255,.12); border-radius: var(--radius); padding: 24px 28px; max-width: 740px; margin: 0 auto; }
     .hp-compliance h4 { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 10px; }
     .hp-compliance p { color: var(--muted); font-size: 14px; line-height: 1.65; }
 
     /* ══════════════════════════════════
-       CTA BAND
+       FINAL CTA BAND
     ══════════════════════════════════ */
-    .cta-band {
-      background: linear-gradient(135deg, #120833 0%, rgba(108,71,255,.35) 50%, #120833 100%);
-      border: 1px solid rgba(108,71,255,.28); border-radius: var(--radius);
-      padding: 56px 44px; text-align: center;
-      box-shadow: 0 0 80px rgba(108,71,255,.12);
-      position: relative; overflow: hidden;
-    }
-    .cta-band::before {
-      content: ""; position: absolute; inset: 0;
-      background: radial-gradient(600px 300px at 50% 50%, rgba(108,71,255,.12), transparent 70%);
-      pointer-events: none;
-    }
+    .cta-band { background: linear-gradient(135deg, #120833 0%, rgba(108,71,255,.35) 50%, #120833 100%); border: 1px solid rgba(108,71,255,.28); border-radius: var(--radius); padding: 56px 44px; text-align: center; box-shadow: 0 0 80px rgba(108,71,255,.12); position: relative; overflow: hidden; }
+    .cta-band::before { content: ""; position: absolute; inset: 0; background: radial-gradient(600px 300px at 50% 50%, rgba(108,71,255,.12), transparent 70%); pointer-events: none; }
     .cta-band h2 { font-size: 30px; color: #fff; font-weight: 800; position: relative; z-index: 1; }
     .cta-band p  { color: rgba(255,255,255,.72); margin: 12px 0 28px; position: relative; z-index: 1; }
     .cta-band .btn-row { position: relative; z-index: 1; justify-content: center; gap: 14px; }
 
-    /* ── Button overrides ── */
+    /* ── Buttons ── */
     .btn-primary { background: var(--primary) !important; box-shadow: 0 8px 28px rgba(108,71,255,.40) !important; }
     .btn-primary:hover { background: var(--primary-dark) !important; transform: translateY(-2px); }
     .btn-ghost:hover { border-color: var(--primary) !important; color: var(--primary) !important; }
@@ -575,8 +399,6 @@
     footer { border-top-color: rgba(108,71,255,.12); }
     .footer-tagline { font-size: 13px; color: var(--muted); margin-top: 4px; }
     .footer-copy { font-size: 12px; color: var(--muted); opacity: .5; margin-top: 8px; }
-
-    .section-title { font-weight: 800; letter-spacing: -.4px; }
   </style>
 </head>
 <body>
@@ -601,7 +423,7 @@
         <a href="#for-contractors">Built for Contractors</a>
         <a href="#pricing">Pricing</a>
         <a href="demo/">Demo</a>
-        <a href="#get-started" class="nav-cta">Get My Website</a>
+        <a href="#get-started" class="nav-cta">Apply for a Founding Spot</a>
       </nav>
     </div>
   </header>
@@ -615,8 +437,8 @@
         <h1>A contractor website that helps turn more inquiries into <span class="accent">booked jobs.</span></h1>
         <p class="hp-sub">Gravity Lead designs, builds and hosts your website—with an AI receptionist, missed-call text-back, lead capture and automatic follow-up built in.</p>
         <div class="btn-row">
-          <a class="btn btn-primary" href="demo/" id="heroDemoBtn">See a Website Demo</a>
-          <a class="btn btn-ghost" href="#get-started" id="heroGetWebsiteBtn">Get My Smart Website</a>
+          <a class="btn btn-primary" href="#get-started" id="heroApplyBtn">Apply for a Founding Client Spot</a>
+          <a class="btn btn-ghost" href="demo/" id="heroDemoBtn">See the Demo</a>
         </div>
         <p class="hp-hero-tagline"><strong>Built for contractors.</strong> Managed for you. Working 24/7.</p>
 
@@ -841,7 +663,7 @@
             <li><span class="check">✓</span> No long-term contract</li>
           </ul>
           <div class="hp-founding-cta">
-            <a class="btn btn-primary" href="#get-started" id="foundingApplyBtn">Apply for a Founding Client Website</a>
+            <a class="btn btn-primary" href="#get-started" id="foundingApplyBtn">Apply for a Founding Client Spot</a>
           </div>
           <p class="hp-founding-fine">Limited to three founding companies.</p>
         </div>
@@ -859,58 +681,43 @@
         <div class="hp-demo-sequence">
           <div class="hp-demo-step">
             <div class="hp-demo-step-icon">🌐</div>
-            <div>
-              <h4>Visit the website</h4>
-              <p>Customer finds your site on their phone</p>
-            </div>
+            <div><h4>Visit the website</h4><p>Customer finds your site on their phone</p></div>
           </div>
           <div class="hp-demo-step">
             <div class="hp-demo-step-icon">🤖</div>
-            <div>
-              <h4>AI answers</h4>
-              <p>Receptionist greets them, answers questions</p>
-            </div>
+            <div><h4>AI answers</h4><p>Receptionist greets them, answers questions</p></div>
           </div>
           <div class="hp-demo-step">
             <div class="hp-demo-step-icon">📋</div>
-            <div>
-              <h4>Lead captured</h4>
-              <p>Service request collected and organized</p>
-            </div>
+            <div><h4>Lead captured</h4><p>Service request collected and organized</p></div>
           </div>
           <div class="hp-demo-step">
             <div class="hp-demo-step-icon">📞</div>
-            <div>
-              <h4>Call missed</h4>
-              <p>Contractor unavailable — out on a job</p>
-            </div>
+            <div><h4>Call missed</h4><p>Contractor unavailable — out on a job</p></div>
           </div>
           <div class="hp-demo-step">
             <div class="hp-demo-step-icon">💬</div>
-            <div>
-              <h4>Instant text-back</h4>
-              <p>Caller receives a response within seconds</p>
-            </div>
+            <div><h4>Instant text-back</h4><p>Caller receives a response within seconds</p></div>
           </div>
           <div class="hp-demo-step">
             <div class="hp-demo-step-icon">🔁</div>
-            <div>
-              <h4>Follow-up continues</h4>
-              <p>Automated sequences keep the conversation alive</p>
-            </div>
+            <div><h4>Follow-up continues</h4><p>Automated sequences keep the conversation alive</p></div>
           </div>
         </div>
 
-        <a class="btn btn-primary" href="demo/" id="demoBtn">View the Website Demo</a>
+        <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+          <a class="btn btn-ghost" href="demo/" id="demoViewBtn">View the Website Demo</a>
+          <a class="btn btn-primary" href="#get-started" id="demoApplyBtn">Apply for a Founding Spot</a>
+        </div>
       </div>
     </section>
 
-    <!-- ══════════ RESULTS PLACEHOLDER ══════════ -->
+    <!-- ══════════ WHAT WE'LL MEASURE ══════════ -->
     <section class="hp-results" id="results">
       <div class="container" style="text-align:center;">
         <div class="hp-section-intro">
-          <h2>Results from the field</h2>
-          <p style="color:var(--muted);font-size:17px;line-height:1.65;max-width:520px;margin:0 auto;">We're documenting measurable outcomes from our founding client companies. Real results will appear here as they become available.</p>
+          <h2>What We'll Measure for Founding Clients</h2>
+          <p style="color:var(--muted);font-size:17px;line-height:1.65;max-width:600px;margin:0 auto;">We'll document how each founding-client website performs, including conversations started from missed calls and web inquiries, estimates re-engaged, and appointments booked. Verified results will be added as they become available.</p>
         </div>
         <div class="hp-results-grid">
           <div class="hp-result-placeholder">
@@ -945,20 +752,21 @@
       </div>
     </section>
 
-    <!-- ══════════ GET STARTED FORM ══════════ -->
+    <!-- ══════════ APPLICATION FORM ══════════ -->
     <div id="get-started" style="scroll-margin-top:66px;"></div>
     <section class="hp-audit" id="audit">
       <div class="container">
         <div class="hp-audit-intro">
-          <h2>Is your website helping you win jobs—or just sitting there?</h2>
-          <p>Request a free Website &amp; Lead Audit. We'll review how your website captures and handles new inquiries and identify practical opportunities for improvement.</p>
+          <h2>Apply for a Gravity Lead Founding Client Spot</h2>
+          <p>We're accepting three contractor businesses into the Gravity Lead Founding Client Program. Apply below and we'll review your current website and lead-response process, then contact you within one business day.</p>
+          <p style="margin-top:10px;font-size:15px;">The review is free and there is no obligation.</p>
         </div>
 
         <div class="gl-audit-wrap">
-          <h3>Get My Smart Website</h3>
-          <p>Tell us about your business and we'll follow up within one business day. Founding clients get the complete smart website system with no setup fee.</p>
+          <h3>Tell us about your business</h3>
+          <p>Founding clients receive a complete smart contractor website with no setup fee.</p>
 
-          <form id="glAuditForm" novalidate>
+          <form id="glAuditForm" action="https://formspree.io/f/xdaqyezr" method="POST" novalidate>
             <div class="gl-form-2col">
               <div class="gl-field">
                 <label for="auditName">Your Name <span style="color:var(--accent)">*</span></label>
@@ -1036,14 +844,17 @@
               </div>
             </div>
 
-            <p class="gl-consent">By submitting this form you agree to be contacted by Gravity Lead about your request. You can opt out at any time. See our <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.</p>
-            <button type="submit" class="btn btn-primary gl-submit" id="auditSubmit">Get My Smart Website →</button>
+            <!-- Accessible inline error — shown only on network/server failure -->
+            <div id="glAuditError" class="gl-form-error" role="alert" aria-live="assertive" style="display:none;"></div>
+
+            <p class="gl-consent">By submitting this form you agree to be contacted by Gravity Lead about your application. You can opt out at any time. See our <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.</p>
+            <button type="submit" class="btn btn-primary gl-submit" id="auditSubmit">Submit My Application</button>
           </form>
 
           <div class="gl-audit-success" id="glAuditSuccess">
             <div class="gl-success-icon">✅</div>
-            <h3>Request Received</h3>
-            <p>We'll follow up within one business day to walk you through what your site will look like and how the system works.</p>
+            <h3>Application Received</h3>
+            <p>We'll follow up within one business day to review your website and lead-response process and walk you through next steps.</p>
             <p>In the meantime, feel free to <a href="demo/" style="color:var(--accent);">view the website demo</a> to see the AI receptionist and lead capture in action.</p>
           </div>
         </div>
@@ -1061,7 +872,7 @@
       </div>
     </section>
 
-    <!-- ══════════ CONSENT-AWARE MESSAGING ══════════ -->
+    <!-- ══════════ COMPLIANCE NOTE ══════════ -->
     <section style="padding: 0 0 64px;">
       <div class="container">
         <div class="hp-compliance">
@@ -1078,7 +889,7 @@
           <h2>Your website should help you win jobs—even while you're on the job.</h2>
           <p>Get a professionally built contractor website with lead capture, an AI receptionist, missed-call response and automated follow-up built in.</p>
           <div class="btn-row">
-            <a class="btn btn-white" href="#get-started" id="finalGetWebsiteBtn">Get My Smart Website</a>
+            <a class="btn btn-white" href="#get-started" id="finalApplyBtn">Apply for a Founding Client Spot</a>
             <a class="btn btn-ghost" href="demo/" id="finalDemoBtn">See the Website Demo</a>
           </div>
         </div>
@@ -1104,7 +915,7 @@
           <a href="terms.html" style="color:var(--muted);">Terms of Service</a>
         </span>
         <div style="margin-top:16px;">
-          <a class="btn btn-primary" href="#get-started" style="font-size:13px;padding:9px 18px;display:inline-block;">Get My Website</a>
+          <a class="btn btn-primary" href="#get-started" style="font-size:13px;padding:9px 18px;display:inline-block;">Apply for a Founding Spot</a>
         </div>
       </div>
     </div>
@@ -1132,7 +943,7 @@
   })();
   </script>
 
-  <!-- ── Form handler ───────────────────────────────────────────────────── -->
+  <!-- ── Application form handler ──────────────────────────────────────── -->
   <script>
   (function () {
     "use strict";
@@ -1142,17 +953,40 @@
     var form    = document.getElementById("glAuditForm");
     var success = document.getElementById("glAuditSuccess");
     var submit  = document.getElementById("auditSubmit");
+    var errorEl = document.getElementById("glAuditError");
     if (!form) return;
+
+    function showError(msg) {
+      if (!errorEl) return;
+      errorEl.textContent = '';
+      var text = document.createTextNode(msg + ' ');
+      var link = document.createElement('a');
+      link.href = 'mailto:hello@getgravitylead.com';
+      link.textContent = 'hello@getgravitylead.com';
+      errorEl.appendChild(text);
+      errorEl.appendChild(link);
+      errorEl.style.display = 'block';
+      errorEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function clearError() {
+      if (errorEl) { errorEl.textContent = ''; errorEl.style.display = 'none'; }
+    }
+
+    function restoreForm() {
+      submitted = false;
+      if (submit) { submit.disabled = false; submit.textContent = 'Submit My Application'; }
+    }
 
     // Track form start on first field interaction
     var started = false;
     form.addEventListener('focusin', function () {
       if (started) return;
       started = true;
-      glTrack('form_start', { form: 'get_smart_website' });
+      glTrack('form_start', { form: 'founding_client_application' });
     }, true);
 
-    // Prevent duplicate submissions
+    // Duplicate-submission guard (reset only on error, not success)
     var submitted = false;
 
     form.addEventListener("submit", async function (e) {
@@ -1160,6 +994,7 @@
       if (submitted) return;
       if (!form.checkValidity()) { form.reportValidity(); return; }
 
+      clearError();
       submitted = true;
       if (submit) { submit.disabled = true; submit.textContent = 'Sending…'; }
 
@@ -1174,8 +1009,8 @@
         leads_per_month: document.getElementById("auditLeads").value,
         challenge:       document.getElementById("auditChallenge").value,
         submitted:       new Date().toISOString(),
-        source:          "homepage_get_website_form",
-        form_type:       "get_smart_website",
+        source:          "homepage_founding_client_application",
+        form_type:       "founding_client_application",
       };
 
       try {
@@ -1184,26 +1019,39 @@
           headers: { "Accept": "application/json", "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
-        glTrack('form_complete', { form: 'get_smart_website', trade: data.trade, ok: resp.ok });
-      } catch (err) {
-        console.warn("[GravityLead] Form POST failed:", err);
-        glTrack('form_error', { form: 'get_smart_website' });
-      }
 
-      form.style.display = "none";
-      success.classList.add("show");
-      success.style.display = "block";
+        if (resp.ok) {
+          // ── SUCCESS ────────────────────────────────────────────────────
+          glTrack('form_complete', { form: 'founding_client_application', trade: data.trade });
+          form.style.display = "none";
+          success.classList.add("show");
+          success.style.display = "block";
+          success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          // ── NON-2XX RESPONSE ───────────────────────────────────────────
+          glTrack('form_error', { form: 'founding_client_application', status: resp.status });
+          restoreForm();
+          showError("We couldn't send your application. Please try again or email");
+        }
+      } catch (err) {
+        // ── NETWORK / FETCH ERROR ──────────────────────────────────────
+        console.warn("[GravityLead] Form POST failed:", err.message || err);
+        glTrack('form_error', { form: 'founding_client_application' });
+        restoreForm();
+        showError("We couldn't send your application. Please try again or email");
+      }
     });
 
-    // Track CTA and demo clicks
+    // Track CTA clicks
     var trackMap = {
-      heroDemoBtn:         'demo_click',
-      heroGetWebsiteBtn:   'get_website_cta_click',
-      demoBtn:             'demo_click',
-      foundingApplyBtn:    'founding_apply_click',
-      addToolsBtn:         'add_tools_click',
-      finalGetWebsiteBtn:  'get_website_cta_click',
-      finalDemoBtn:        'demo_click',
+      heroApplyBtn:    'apply_cta_click',
+      heroDemoBtn:     'demo_click',
+      demoViewBtn:     'demo_click',
+      demoApplyBtn:    'apply_cta_click',
+      foundingApplyBtn:'apply_cta_click',
+      addToolsBtn:     'add_tools_click',
+      finalApplyBtn:   'apply_cta_click',
+      finalDemoBtn:    'demo_click',
     };
     Object.keys(trackMap).forEach(function (id) {
       var el = document.getElementById(id);
