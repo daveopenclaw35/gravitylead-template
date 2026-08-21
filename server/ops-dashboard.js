@@ -31,6 +31,7 @@
 
 const { Router } = require("express");
 const crypto     = require("crypto");
+const rateLimit  = require("express-rate-limit");
 const auth       = require("./auth");
 
 /* ── Module state ───────────────────────────────────────────────────────────── */
@@ -284,13 +285,21 @@ async function gatherAll() {
  * ══════════════════════════════════════════════════════════════════════════════ */
 const router = Router();
 const guard  = auth.guard("/ops/login");
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  skipSuccessfulRequests: true,
+  message: "Too many login attempts. Please wait 15 minutes and try again.",
+});
 
 router.get("/login", (req, res) => {
   if (auth.okToken(auth.parseCookies(req)[auth.COOKIE])) return res.redirect("/ops");
   res.type("text/html").send(loginHtml());
 });
 
-router.post("/login", (req, res) => {
+router.post("/login", loginLimiter, (req, res) => {
   const PW = process.env.DASHBOARD_PASSWORD ?? "";
   if (!PW) return res.status(503).type("text/html").send(loginHtml("DASHBOARD_PASSWORD not set in .env"));
   const given = String(req.body?.password ?? "").trim();

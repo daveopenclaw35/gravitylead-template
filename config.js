@@ -23,6 +23,10 @@ const ACTIVE_TRADE = "hvac"; // <-- CHANGE THIS: "hvac" | "roofing" | "plumbing"
  * ----------------------------------------------------------------------- */
 const ANALYTICS_ID = "G-XXXXXXXXXX"; // ← Replace with client's GA4 Measurement ID
 
+/* Public browser-safe lead intake endpoint. The server must list this site's
+ * exact origin in PUBLIC_LEAD_ORIGINS. Leave blank for demo-only sites. */
+const LEAD_SERVER_ENDPOINT = ""; // e.g. "https://your-server.com/api/public/lead"
+
 const BRAND = {
   name: "GravityLead",
   domain: "getgravitylead.com",
@@ -219,5 +223,9 @@ const TRADES = {
 };
 
 /* --------- Resolver: exposes the active skin globally, no build step -------- */
-const SKIN = Object.assign({}, TRADES[ACTIVE_TRADE], { brand: BRAND, tradeKey: ACTIVE_TRADE });
+const SKIN = Object.assign({}, TRADES[ACTIVE_TRADE], {
+  brand: BRAND,
+  tradeKey: ACTIVE_TRADE,
+  leadServerEndpoint: LEAD_SERVER_ENDPOINT,
+});
 window.GRAVITYLEAD = SKIN;

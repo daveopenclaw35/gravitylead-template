@@ -53,6 +53,7 @@ const dashboard    = require("./dashboard");
 const opsDashboard = require("./ops-dashboard");
 const telegramBot  = require("./telegram-bot");
 const { renderTemplate } = require("./templates");
+const { normalizePhone, parseOwnerReply, canSendAutomatedSms } = require("./sms-policy");
 
 /* ── Config ──────────────────────────────────────────────────────────────── */
 const {
@@ -62,6 +63,8 @@ const {
   PORT     = 3000,
   BASE_URL = `http://localhost:${PORT}`,
   FORMSPREE_ENDPOINT,
+  PUBLIC_LEAD_ORIGINS = "",
+  TRUST_PROXY_HOPS = "0",
   NODE_ENV = "production",
   SKIP_TWILIO_VALIDATION = "false",
 } = process.env;
@@ -150,7 +153,7 @@ function twilioAuth(req, res, next) {
 
 /* ── 2. API key middleware ───────────────────────────────────────────────── */
 function requireApiKey(req, res, next) {
-  const provided = req.headers["x-api-key"] || req.query.api_key;
+  const provided = req.headers["x-api-key"];
   if (!provided || provided !== API_KEY) {
     return res.status(401).json({
       error: "Unauthorized. Provide a valid X-Api-Key header.",
@@ -177,15 +180,15 @@ const leadLimiter = rateLimit({
   message:        { error: "Too many submissions. Please try again in an hour." },
 });
 
-/* ── 4. Phone normalisation ──────────────────────────────────────────────── */
-function normalizePhone(raw) {
-  if (!raw || typeof raw !== "string") return null;
-  const digits = raw.replace(/\D/g, "");
-  if (digits.length === 10)                         return `+1${digits}`;
-  if (digits.length === 11 && digits[0] === "1")    return `+${digits}`;
-  if (raw.startsWith("+") && digits.length >= 10)   return `+${digits}`;
-  return null; // unrecognised — caller must handle
-}
+// Public website forms need a much tighter limit because they cannot safely
+// carry the private API key used by server-to-server integrations.
+const publicLeadLimiter = rateLimit({
+  windowMs:       60 * 60 * 1000,
+  max:            5,
+  standardHeaders: true,
+  legacyHeaders:  false,
+  message:        { error: "Too many submissions. Please try again later." },
+});
 
 /* ── 5b. Parse boolean-ish values from JSON body ─────────────────────────── */
 function parseBool(val) {
@@ -199,15 +202,56 @@ function validateTwilioNumber(twilioNumber) {
   return typeof twilioNumber === "string" && clientNumbers.has(twilioNumber);
 }
 
+function cleanText(value, maxLength = 120) {
+  return typeof value === "string" ? value.trim().slice(0, maxLength) : "";
+}
+
+function asyncHandler(handler) {
+  return (req, res, next) => Promise.resolve(handler(req, res, next)).catch(next);
+}
+
+const publicLeadOrigins = new Set(
+  PUBLIC_LEAD_ORIGINS.split(",").map(origin => origin.trim()).filter(Boolean)
+);
+
+function requirePublicLeadOrigin(req, res, next) {
+  const origin = req.get("Origin") || "";
+  if (!origin || !publicLeadOrigins.has(origin)) {
+    return res.status(403).json({ error: "This website is not authorized for public lead intake." });
+  }
+  res.setHeader("Access-Control-Allow-Origin", origin);
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Vary", "Origin");
+  if (req.method === "OPTIONS") return res.sendStatus(204);
+  next();
+}
+
 /* ══════════════════════════════════════════════════════════════════════════
  * EXPRESS APP
  * ══════════════════════════════════════════════════════════════════════════ */
 const app = express();
 
+// Set this to the exact number of trusted reverse proxies in production.
+// Keeping the default at zero prevents spoofed X-Forwarded-For rate-limit bypasses.
+const trustProxyHops = Number.parseInt(TRUST_PROXY_HOPS, 10);
+if (Number.isInteger(trustProxyHops) && trustProxyHops > 0) {
+  app.set("trust proxy", trustProxyHops);
+}
+app.disable("x-powered-by");
+
 // Twilio sends form-encoded; our API sends JSON.
 // Order matters: urlencoded first so Twilio body is parsed before sig check.
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+app.use((_req, res, next) => {
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("X-Frame-Options", "DENY");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  next();
+});
 
 // Apply general rate limit to all routes
 app.use(generalLimiter);
@@ -278,6 +322,13 @@ app.post("/twilio/voice/status", twilioAuth, async (req, res) => {
     return res.type("text/xml").send(twiml.toString());
   }
 
+  if (!canSendAutomatedSms(db, From)) {
+    console.log(`[voice-status] ${From} previously opted out — no text-back or follow-up created`);
+    twiml.say("Sorry we missed your call. Please call again later.");
+    twiml.hangup();
+    return res.type("text/xml").send(twiml.toString());
+  }
+
   twiml.say(
     { voice: "Polly.Joanna" },
     "Sorry we missed your call. We'll text you right away at this number. Talk soon!"
@@ -344,12 +395,48 @@ app.post("/twilio/voice/status", twilioAuth, async (req, res) => {
  * POST /twilio/sms — Inbound SMS handler  [Twilio-signed]
  * Handles STOP/opt-out and logs all inbound messages.
  * ══════════════════════════════════════════════════════════════════════════ */
-app.post("/twilio/sms", twilioAuth, (req, res) => {
+app.post("/twilio/sms", twilioAuth, asyncHandler(async (req, res) => {
   const { From, To, Body, MessageSid } = req.body;
   const twiml    = new MessagingResponse();
   const bodyLower = (Body || "").trim().toLowerCase();
+  const client = clients[To];
 
   console.log(`[sms-in] From: ${From} To: ${To} Body: "${Body}"`);
+
+  // Contractor replies use an explicit lead id so simultaneous conversations
+  // can never be routed to the wrong customer: "#123 Your message".
+  const isOwner = client && normalizePhone(client.owner_phone) === normalizePhone(From);
+  if (isOwner) {
+    const parsedReply = parseOwnerReply(Body);
+    if (!parsedReply) {
+      twiml.message("To reply to a lead, send # followed by the lead number and your message. Example: #123 Thanks, we can help.");
+      return res.type("text/xml").send(twiml.toString());
+    }
+
+    const lead = db.getLeadById(parsedReply.leadId);
+    if (!lead || lead.business_key !== To) {
+      twiml.message(`Lead #${parsedReply.leadId} was not found for this business number.`);
+      return res.type("text/xml").send(twiml.toString());
+    }
+    if (!canSendAutomatedSms(db, lead.phone)) {
+      twiml.message(`Lead #${lead.id} has opted out. No message was sent.`);
+      return res.type("text/xml").send(twiml.toString());
+    }
+
+    const outboundBody = parsedReply.message;
+    try {
+      const sent = await twilioClient.messages.create({ to: lead.phone, from: To, body: outboundBody });
+      db.logSms({
+        lead_id: lead.id, direction: "outbound", from_number: To,
+        to_number: lead.phone, body: outboundBody, message_sid: sent.sid, status: sent.status,
+      });
+      twiml.message(`Sent to lead #${lead.id} (${lead.phone}).`);
+    } catch (err) {
+      console.error(`[sms-owner] Failed to send to lead #${lead.id}:`, err.message);
+      twiml.message(`Message to lead #${lead.id} failed. Please try again or contact them directly.`);
+    }
+    return res.type("text/xml").send(twiml.toString());
+  }
 
   const lead = db.findLead(From, To);
   db.logSms({
@@ -370,14 +457,21 @@ app.post("/twilio/sms", twilioAuth, (req, res) => {
     return res.type("text/xml").send(twiml.toString());
   }
 
+  if (bodyLower === "help") {
+    const businessName = client?.business_name || "this business";
+    const contact = client?.owner_phone ? ` Call ${client.owner_phone} for assistance.` : "";
+    twiml.message(`${businessName}: Reply STOP to opt out.${contact}`);
+    return res.type("text/xml").send(twiml.toString());
+  }
+
   // YES — interested reply
   if (bodyLower === "yes" || bodyLower === "y") {
-    const client = clients[To];
     if (client) {
+      const replyHint = lead ? `\n\nReply with #${lead.id} followed by your message.` : "";
       twilioClient.messages.create({
         to:   client.owner_phone,
         from: To,
-        body: `🔔 GravityLead: ${From} replied YES to your follow-up. Call or text them back!\n\nLead: ${lead ? `#${lead.id} (${lead.source})` : "unknown"}`,
+        body: `🔔 GravityLead: ${From} replied YES to your follow-up.\n\nLead: ${lead ? `#${lead.id} (${lead.source})` : "unknown"}${replyHint}`,
       }).catch(err => console.error("[sms-in] Failed to notify owner:", err.message));
 
       twiml.message("Thanks! Someone from our team will reach out to you shortly.");
@@ -386,24 +480,41 @@ app.post("/twilio/sms", twilioAuth, (req, res) => {
   }
 
   // Any other reply — forward to owner
-  const client = clients[To];
   if (client && Body && Body.trim()) {
+    const replyHint = lead
+      ? `Reply with #${lead.id} followed by your message.`
+      : `Call or text ${From} directly to respond.`;
     twilioClient.messages.create({
       to:   client.owner_phone,
       from: To,
-      body: `💬 GravityLead: Reply from ${From}:\n"${Body}"\n\nReply to this number to respond.`,
+      body: `💬 GravityLead: Reply from ${From}:\n"${Body}"\n\n${replyHint}`,
     }).catch(err => console.error("[sms-in] Failed to forward reply:", err.message));
   }
 
   res.type("text/xml").send(twiml.toString());
-});
+}));
 
 /* ══════════════════════════════════════════════════════════════════════════
  * POST /api/lead — Website form / chat lead intake
  * [API key required] [Rate limited: 10/hr]
  * ══════════════════════════════════════════════════════════════════════════ */
-app.post("/api/lead", requireApiKey, leadLimiter, async (req, res) => {
-  const { phone, name, business, trade, twilio_number, source } = req.body;
+async function intakeLead(req, res, { requireConsent = false } = {}) {
+  const phone = cleanText(req.body.phone, 32);
+  const name = cleanText(req.body.name, 80);
+  const business = cleanText(req.body.business, 120);
+  const trade = cleanText(req.body.trade, 80);
+  const twilio_number = cleanText(req.body.twilio_number, 32);
+  const source = cleanText(req.body.source, 80) || "form";
+
+  // Hidden honeypot field for public browser forms. Pretend success so bots do
+  // not learn how to bypass it, but do not create a lead or send any SMS.
+  if (requireConsent && cleanText(req.body.website_confirm, 200)) {
+    return res.status(202).json({ status: "accepted" });
+  }
+
+  if (requireConsent && parseBool(req.body.sms_consent) !== true) {
+    return res.status(400).json({ error: "SMS consent is required before automated follow-up." });
+  }
 
   // Validate required fields
   if (!phone || !twilio_number) {
@@ -426,6 +537,12 @@ app.post("/api/lead", requireApiKey, leadLimiter, async (req, res) => {
     });
   }
 
+  // A prior STOP is durable. A later missed call or form submission must not
+  // silently create a fresh, contactable lead and restart automation.
+  if (!canSendAutomatedSms(db, normalizedPhone)) {
+    return res.status(409).json({ status: "opted_out", error: "This number previously opted out of SMS." });
+  }
+
   // Deduplicate
   const existing = db.findRecentLead(normalizedPhone, twilio_number);
   if (existing) {
@@ -437,8 +554,8 @@ app.post("/api/lead", requireApiKey, leadLimiter, async (req, res) => {
     name:         name  || null,
     business_key: twilio_number,
     twilio_number,
-    source:       source || "form",
-    notes:        `Business: ${business || ""}, Trade: ${trade || ""}`,
+    source,
+    notes:        `Business: ${business}, Trade: ${trade}, SMS consent: ${requireConsent ? "yes" : "integration"}`,
   });
 
   db.scheduleFollowups(leadId);
@@ -466,9 +583,18 @@ app.post("/api/lead", requireApiKey, leadLimiter, async (req, res) => {
     }).catch(err => console.error("[api/lead] Failed to notify owner:", err.message));
   }
 
-  console.log(`[api/lead] Created lead #${leadId}: ${normalizedPhone} (${source || "form"}) for ${twilio_number}`);
+  console.log(`[api/lead] Created lead #${leadId}: ${normalizedPhone} (${source}) for ${twilio_number}`);
   res.json({ status: "enrolled", lead_id: leadId });
-});
+}
+
+app.post("/api/lead", requireApiKey, leadLimiter, asyncHandler((req, res) =>
+  intakeLead(req, res, { requireConsent: false })
+));
+
+app.options("/api/public/lead", requirePublicLeadOrigin);
+app.post("/api/public/lead", requirePublicLeadOrigin, publicLeadLimiter, asyncHandler((req, res) =>
+  intakeLead(req, res, { requireConsent: true })
+));
 
 /* ══════════════════════════════════════════════════════════════════════════
  * GET /api/stats — Lead stats  [API key required]

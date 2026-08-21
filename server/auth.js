@@ -36,10 +36,11 @@ function okToken(t) {
 function rmToken(t) { sessions.delete(t); }
 
 // Purge expired sessions hourly
-setInterval(() => {
+const purgeTimer = setInterval(() => {
   const now = Date.now();
   for (const [t, e] of sessions) if (now > e) sessions.delete(t);
 }, 3_600_000);
+purgeTimer.unref();
 
 /* ── Cookie helpers ─────────────────────────────────────────────────────────── */
 function parseCookies(req) {
