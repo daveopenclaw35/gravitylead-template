@@ -129,8 +129,14 @@ Manually trigger at any time with `POST /api/report/send`.
 
 ### Inbound SMS Handling
 - **STOP/UNSUBSCRIBE** → opt out, cancel pending follow-ups
+- **HELP** → return the business name, contact number, and STOP instructions
 - **YES** → alert owner with "hot lead" notification
 - **Any other reply** → forward to owner's phone
+
+Owner notifications include a lead number. To respond safely, the owner texts
+the Gravity Lead number using `#<lead-id> <message>`, for example:
+`#123 Thanks, Dave—we can come by tomorrow.` Explicit lead ids prevent replies
+from being routed to the wrong customer when conversations overlap.
 
 ## API Endpoints
 
@@ -139,7 +145,8 @@ Manually trigger at any time with `POST /api/report/send`.
 | POST | `/twilio/voice` | Twilio sig | Incoming call webhook (returns TwiML) |
 | POST | `/twilio/voice/status` | Twilio sig | Dial status callback (triggers text-back) |
 | POST | `/twilio/sms` | Twilio sig | Inbound SMS (opt-out + reply forwarding) |
-| POST | `/api/lead` | API key | Website form/chat lead intake |
+| POST | `/api/lead` | API key | Trusted server-to-server lead intake |
+| POST | `/api/public/lead` | Origin + rate limit + consent | Browser lead intake |
 | GET | `/api/stats` | API key | Lead statistics |
 | POST | `/api/job/complete` | API key | Mark job complete; schedule review request |
 | POST | `/api/review/send` | API key | Manually trigger a review request now |
@@ -151,7 +158,8 @@ Manually trigger at any time with `POST /api/report/send`.
 | GET  | `/health`              | —        | Health check |
 
 ### POST /api/lead
-Enroll a website form submission in the follow-up sequence:
+Enroll a trusted server-side submission in the follow-up sequence. Send the
+secret only in the `X-Api-Key` header; query-string API keys are rejected.
 ```json
 {
   "phone": "(607) 555-1234",
@@ -251,10 +259,20 @@ Returns sent/pending/failed counts per client:
 
 ## Website Integration
 
-In the GravityLead template's `app.js`, set `LEAD_SERVER_ENDPOINT` to your server URL:
+In the GravityLead template's `config.js`, set the browser-safe public endpoint:
 ```js
-const LEAD_SERVER_ENDPOINT = "https://your-server.com/api/lead";
+const LEAD_SERVER_ENDPOINT = "https://your-server.com/api/public/lead";
 ```
+
+Add the website's exact origin to the server environment, for example:
+```env
+PUBLIC_LEAD_ORIGINS=https://client.example.com,https://www.client.example.com
+TRUST_PROXY_HOPS=1
+```
+
+The form must include a required `#glSmsConsent` checkbox with clear automated
+SMS disclosure and a hidden `#glWebsiteConfirm` honeypot. Browser JavaScript
+must never contain `API_KEY`.
 
 Also add a `twilio` field to the business config in `config.js`:
 ```js

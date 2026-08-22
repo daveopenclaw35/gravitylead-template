@@ -71,8 +71,11 @@
   - `BRAND.domain` → their domain
 - [ ] Update page `<title>` and `<meta name="description">` in `index.html`
 - [ ] Update the lead form `FORM_ENDPOINT` to their Formspree form ID
-- [ ] Update `LEAD_SERVER_ENDPOINT` to `https://YOUR_SERVER/api/lead`
-- [ ] Add `X-Api-Key` header to the lead form fetch call (inject via config or env — do NOT hardcode in client HTML)
+- [ ] Add the client's exact `https://...` site origin to `PUBLIC_LEAD_ORIGINS` in the server environment
+- [ ] Update `LEAD_SERVER_ENDPOINT` to `https://YOUR_SERVER/api/public/lead`
+- [ ] Add a required checkbox with `id="glSmsConsent"` explaining automated SMS, message frequency, rates, and STOP opt-out
+- [ ] Add a visually hidden honeypot input with `id="glWebsiteConfirm"` and `name="website_confirm"`
+- [ ] Keep `API_KEY` server-side only. Never put it in client HTML or browser JavaScript.
 
 **Local test before deploying:**
 - [ ] Open `index.html` in browser → verify business name, phone, trade copy all correct
@@ -154,12 +157,14 @@
 
 Run every test below from a **real phone** on a **real mobile network** (not WiFi or your dev machine).
 
-- [ ] **Missed call text-back**: Call the Twilio number, let it ring through (don't answer) → confirm owner's phone gets the text-back SMS within 5 seconds ✅
+- [ ] **Missed call text-back**: Call the Twilio number, let it ring through (don't answer) → confirm the calling phone gets the text-back SMS within 5 seconds ✅
 - [ ] **AI chat**: Open the live site on your phone → open chat widget → send a message → confirm bot responds ✅
 - [ ] **Lead form**: Submit the form on the live site → confirm:
   - Formspree confirmation email received ✅
   - Owner gets "New lead!" SMS from Twilio ✅
 - [ ] **STOP opt-out**: Text STOP to the Twilio number → confirm no further messages sent (check DB: `opted_out = 1`) ✅
+- [ ] **Durable opt-out**: Call again after STOP → confirm no new text-back or follow-up is created ✅
+- [ ] **Owner reply routing**: Reply from the owner's phone using `#<lead-id> <message>` → confirm the correct customer receives it ✅
 - [ ] **After-hours simulation** (optional but recommended): Note what time the AI chat responds at — if it's after 9 PM, screenshot it with timestamp. That's your first proof asset.
 - [ ] Check server logs for any errors: `pm2 logs gravitylead --lines 50`
 - [ ] Confirm GA4 Realtime shows activity from your test session ✅
@@ -226,7 +231,8 @@ Run every test below from a **real phone** on a **real mobile network** (not WiF
 **Lead form submits but owner gets no SMS**
 → Check `clients.json` has the correct Twilio number as the key (E.164, exact match).  
 → Check server logs for `[api/lead] Failed to notify owner`.  
-→ Confirm the `X-Api-Key` header is being sent from the form handler and matches `API_KEY` in `.env`.
+→ Confirm the client's exact origin is present in `PUBLIC_LEAD_ORIGINS` and the form posts to `/api/public/lead`.
+→ Confirm the SMS-consent checkbox is checked and `sms_consent: true` is present in the request.
 
 **Site live but GA4 shows no data**
 → Confirm `ANALYTICS_ID` in `config.js` is set to the real `G-XXXXXXXXXX`, not the placeholder.  

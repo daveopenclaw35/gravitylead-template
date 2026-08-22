@@ -6,7 +6,7 @@
 const { DatabaseSync } = require("node:sqlite");
 const path = require("path");
 
-const DB_PATH = path.join(__dirname, "gravitylead.db");
+const DB_PATH = process.env.GRAVITYLEAD_DB_PATH || path.join(__dirname, "gravitylead.db");
 const db = new DatabaseSync(DB_PATH);
 
 /* -- Pragmas --------------------------------------------------------------- */
@@ -94,6 +94,10 @@ const findRecentLeadByPhone = db.prepare(`
   WHERE phone = ? AND business_key = ? AND opted_out = 0
     AND created_at > datetime('now', '-30 days')
   ORDER BY created_at DESC LIMIT 1
+`);
+
+const getLeadByIdStmt = db.prepare(`
+  SELECT * FROM leads WHERE id = ?
 `);
 
 const optOutByPhone = db.prepare(`
@@ -291,6 +295,10 @@ module.exports = {
 
   findLead(phone, business_key) {
     return findLeadByPhone.get(phone, business_key);
+  },
+
+  getLeadById(id) {
+    return getLeadByIdStmt.get(id) || null;
   },
 
   findRecentLead(phone, business_key) {

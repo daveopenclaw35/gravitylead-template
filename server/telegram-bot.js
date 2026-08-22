@@ -33,6 +33,7 @@ const fs   = require("fs");
 const path = require("path");
 const db   = require("./db");
 const demo = require("./demo-builder");
+const { isAuthorizedOwner } = require("./telegram-auth");
 
 /* ── Config / state ────────────────────────────────────────────────────────── */
 const TOKEN    = process.env.TELEGRAM_BOT_TOKEN || "";
@@ -310,7 +311,7 @@ async function handle(msg) {
   if (!chatId || !text.startsWith("/")) return;
 
   // Authorization: only the configured owner id may use the bot.
-  if (OWNER_ID && from !== OWNER_ID) {
+  if (!isAuthorizedOwner(from, OWNER_ID)) {
     return send(chatId, "⛔ This bot is private.");
   }
 
@@ -381,7 +382,8 @@ function start() {
     return;
   }
   if (!OWNER_ID) {
-    console.warn("[bot] TELEGRAM_OWNER_ID not set — bot will refuse all messages until configured.");
+    console.error("[bot] TELEGRAM_OWNER_ID is required when TELEGRAM_BOT_TOKEN is set — bot disabled.");
+    return;
   }
   _running = true;
   registerCommands();

@@ -20,6 +20,7 @@
 
 const { Router } = require("express");
 const crypto     = require("crypto");
+const rateLimit  = require("express-rate-limit");
 const auth       = require("./auth");
 const db         = require("./db");
 
@@ -95,13 +96,21 @@ function buildPayload() {
 
 /* ── Router ─────────────────────────────────────────────────────────────────── */
 const router = Router();
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  skipSuccessfulRequests: true,
+  message: "Too many login attempts. Please wait 15 minutes and try again.",
+});
 
 router.get("/login", (req, res) => {
   if (auth.okToken(auth.parseCookies(req)[auth.COOKIE])) return res.redirect("/dashboard");
   res.type("text/html").send(loginHtml());
 });
 
-router.post("/login", (req, res) => {
+router.post("/login", loginLimiter, (req, res) => {
   const DASHBOARD_PW = process.env.DASHBOARD_PASSWORD ?? "";
   if (!DASHBOARD_PW)
     return res.status(503).type("text/html").send(loginHtml("DASHBOARD_PASSWORD not set in .env"));

@@ -206,16 +206,27 @@
   /* Set FORM_ENDPOINT to a real URL (Formspree, Cloudflare Worker, etc.) to
      POST captured leads. When empty, leads log to console only. */
   const FORM_ENDPOINT = "https://formspree.io/f/xdaqyezr";
-  /* Optional: GravityLead server endpoint for lead tracking + SMS follow-ups.
-     Set to your server URL (e.g., "https://your-server.com/api/lead") to enroll
-     form leads in the 3/7/30-day follow-up sequence. */
-  const LEAD_SERVER_ENDPOINT = "";  // e.g., "https://your-server.com/api/lead"
+  /* Optional public, browser-safe endpoint for lead tracking + SMS follow-ups.
+     The private /api/lead endpoint is server-to-server only and must never have
+     its API key embedded in browser JavaScript. */
+  const LEAD_SERVER_ENDPOINT = S.leadServerEndpoint || "";
 
   const glForm = document.getElementById("glLeadForm");
   const glSuccess = document.getElementById("glFormSuccess");
   if (glForm) {
     glForm.addEventListener("submit", async function (e) {
       e.preventDefault();
+      const consent = document.getElementById("glSmsConsent");
+      if (LEAD_SERVER_ENDPOINT && (!consent || !consent.checked)) {
+        if (consent) {
+          consent.setCustomValidity("Please agree to receive automated text messages before submitting.");
+          consent.reportValidity();
+          consent.setCustomValidity("");
+        } else {
+          console.error("[GravityLead] glSmsConsent checkbox is required when lead intake is enabled.");
+        }
+        return;
+      }
       const data = {
         name: document.getElementById("glName").value.trim(),
         business: document.getElementById("glBiz").value.trim(),
@@ -224,21 +235,25 @@
         submitted: new Date().toISOString(),
         source: window.location.href,
       };
+      let formDelivered = !FORM_ENDPOINT;
+      let leadDelivered = !LEAD_SERVER_ENDPOINT;
       if (FORM_ENDPOINT) {
         try {
-          await fetch(FORM_ENDPOINT, {
+          const response = await fetch(FORM_ENDPOINT, {
             method: "POST",
             headers: { "Accept": "application/json", "Content-Type": "application/json" },
             body: JSON.stringify(data),
           });
+          if (!response.ok) throw new Error(`Form endpoint returned ${response.status}`);
+          formDelivered = true;
         } catch (err) {
-          console.warn("[GravityLead] Form POST failed, lead captured locally:", err);
+          console.warn("[GravityLead] Form POST failed:", err);
         }
       }
       /* Enroll in SMS follow-up sequence via GravityLead server */
       if (LEAD_SERVER_ENDPOINT) {
         try {
-          await fetch(LEAD_SERVER_ENDPOINT, {
+          const response = await fetch(LEAD_SERVER_ENDPOINT, {
             method: "POST",
             headers: { "Accept": "application/json", "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -248,11 +263,22 @@
               trade: data.trade,
               twilio_number: S.business.twilio || "",
               source: "form",
+              sms_consent: true,
+              website_confirm: document.getElementById("glWebsiteConfirm")?.value || "",
             }),
           });
+          if (!response.ok) {
+            const detail = await response.json().catch(() => ({}));
+            throw new Error(detail.error || `Lead server returned ${response.status}`);
+          }
+          leadDelivered = true;
         } catch (err) {
           console.warn("[GravityLead] Lead server POST failed:", err);
         }
+      }
+      if (!formDelivered && !leadDelivered) {
+        window.alert(`We couldn't send your request. Please call ${S.business.phone} instead.`);
+        return;
       }
       console.log("[GravityLead] Lead captured:", data);
       glForm.style.display = "none";

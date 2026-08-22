@@ -20,6 +20,8 @@
 
 const fs   = require("fs");
 const path = require("path");
+const dns  = require("dns").promises;
+const net  = require("net");
 
 const OUT_DIR = path.join(__dirname, "..", "public", "demos");
 let _baseUrl = "";
@@ -57,19 +59,66 @@ function guessTrade(text) {
 }
 
 /* ── HTML fetch + extraction ───────────────────────────────────────────────── */
+function isPrivateAddress(address) {
+  if (net.isIP(address) === 4) {
+    const [a, b] = address.split(".").map(Number);
+    return a === 0 || a === 10 || a === 127 || a >= 224 ||
+      (a === 100 && b >= 64 && b <= 127) ||
+      (a === 169 && b === 254) ||
+      (a === 172 && b >= 16 && b <= 31) ||
+      (a === 192 && b === 168) ||
+      (a === 198 && (b === 18 || b === 19));
+  }
+  if (net.isIP(address) === 6) {
+    const value = address.toLowerCase();
+    return value === "::" || value === "::1" || value.startsWith("fc") ||
+      value.startsWith("fd") || /^fe[89ab]/.test(value) || value.startsWith("::ffff:");
+  }
+  return true;
+}
+
+async function assertSafePublicUrl(value) {
+  const parsed = new URL(value);
+  if (!["http:", "https:"].includes(parsed.protocol) || parsed.username || parsed.password) {
+    throw new Error("Only public http/https URLs without embedded credentials are allowed");
+  }
+  const hostname = parsed.hostname.toLowerCase();
+  if (hostname === "localhost" || hostname.endsWith(".local")) {
+    throw new Error("Local or private network URLs are not allowed");
+  }
+  const addresses = await dns.lookup(hostname, { all: true });
+  if (!addresses.length || addresses.some(({ address }) => isPrivateAddress(address))) {
+    throw new Error("Local or private network URLs are not allowed");
+  }
+  return parsed;
+}
+
 async function fetchPage(url) {
-  const target = /^https?:\/\//i.test(url) ? url : `https://${url}`;
+  let target = /^https?:\/\//i.test(url) ? url : `https://${url}`;
   const ctrl = new AbortController();
   const tid = setTimeout(() => ctrl.abort(), 15000);
   try {
-    const r = await fetch(target, {
-      signal: ctrl.signal,
-      redirect: "follow",
-      headers: { "User-Agent": "Mozilla/5.0 (compatible; GravityLeadDemoBot/1.0)" },
-    });
-    if (!r.ok) throw new Error(`Site returned HTTP ${r.status}`);
-    const html = await r.text();
-    return { html, finalUrl: r.url || target };
+    for (let redirects = 0; redirects <= 5; redirects++) {
+      await assertSafePublicUrl(target);
+      const r = await fetch(target, {
+        signal: ctrl.signal,
+        redirect: "manual",
+        headers: { "User-Agent": "Mozilla/5.0 (compatible; GravityLeadDemoBot/1.0)" },
+      });
+      if ([301, 302, 303, 307, 308].includes(r.status)) {
+        const location = r.headers.get("location");
+        if (!location) throw new Error("Site returned a redirect without a destination");
+        target = new URL(location, target).toString();
+        continue;
+      }
+      if (!r.ok) throw new Error(`Site returned HTTP ${r.status}`);
+      const declaredSize = Number(r.headers.get("content-length") || 0);
+      if (declaredSize > 2_000_000) throw new Error("Site page is too large to build a demo");
+      const html = await r.text();
+      if (html.length > 2_000_000) throw new Error("Site page is too large to build a demo");
+      return { html, finalUrl: target };
+    }
+    throw new Error("Site redirected too many times");
   } finally { clearTimeout(tid); }
 }
 
@@ -199,7 +248,7 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:24px 0;color:var(--mut
   </div></section>
 </main>
 <footer><div class="container"><strong>${name}</strong> · Powered by <a href="${esc(home)}">GravityLead</a></div></footer>
-<button class="launcher" onclick="alert('👋 Hi! On the real site, I''m an AI assistant that answers questions and books jobs 24/7.')">💬</button>
+<button class="launcher" onclick="alert('👋 Hi! On the real site, I\\'m an AI assistant that answers questions and books jobs 24/7.')">💬</button>
 </body>
 </html>`;
 }
@@ -218,4 +267,4 @@ async function build(url) {
   return { link, slug, businessName: data.businessName, trade: (TRADE_META[data.trade] || {}).label || data.trade, phone: data.phone };
 }
 
-module.exports = { init, build, extract, guessTrade, renderDemo, _OUT_DIR: OUT_DIR };
+module.exports = { init, build, extract, guessTrade, renderDemo, isPrivateAddress, assertSafePublicUrl, _OUT_DIR: OUT_DIR };
