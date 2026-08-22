@@ -454,6 +454,18 @@ app.post("/twilio/sms", twilioAuth, asyncHandler(async (req, res) => {
   if (stopWords.includes(bodyLower)) {
     db.optOut(From);
     console.log(`[sms-in] Opted out: ${From}`);
+    const stopClient = clients[To];
+    const stopBizName = (stopClient && stopClient.business_name) ? stopClient.business_name : "GravityLead";
+    twiml.message(`${stopBizName}: You have been unsubscribed. No further messages will be sent. Reply START to resubscribe.`);
+    return res.type("text/xml").send(twiml.toString());
+  }
+
+  // HELP — support information (Twilio A2P requirement)
+  const helpWords = ["help", "info"];
+  if (helpWords.includes(bodyLower)) {
+    const helpClient = clients[To];
+    const helpBizName = (helpClient && helpClient.business_name) ? helpClient.business_name : "GravityLead";
+    twiml.message(`${helpBizName}: For assistance contact hello@getgravitylead.com. Reply STOP to opt out. Msg & data rates may apply.`);
     return res.type("text/xml").send(twiml.toString());
   }
 

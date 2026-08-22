@@ -167,9 +167,18 @@
     } else if (convo.stage === 2) {
       convo.data.urgency = text;
       await botSay(q[2]);
+      // Show SMS consent disclosure before phone entry (Twilio A2P requirement)
+      const consentEl = document.createElement("div");
+      consentEl.className = "msg consent-notice";
+      consentEl.textContent = "By sharing your number you agree to receive service-related texts about your request. Msg & data rates may apply. Reply STOP to opt out or HELP for help. Consent is not required for service.";
+      body.appendChild(consentEl);
+      body.scrollTop = body.scrollHeight;
       convo.stage = 3;
     } else if (convo.stage === 3) {
       convo.data.phone = text;
+      convo.data.sms_consent = true; // consent given by providing phone after disclosure
+      convo.data.sms_consent_timestamp = new Date().toISOString();
+      convo.data.sms_consent_source = "chat_widget";
       await botSay(c.capture, 900);
       console.log("[GravityLead DEMO] Captured lead:", convo.data);
       convo.stage = 4;
@@ -216,24 +225,20 @@
   if (glForm) {
     glForm.addEventListener("submit", async function (e) {
       e.preventDefault();
-      const consent = document.getElementById("glSmsConsent");
-      if (LEAD_SERVER_ENDPOINT && (!consent || !consent.checked)) {
-        if (consent) {
-          consent.setCustomValidity("Please agree to receive automated text messages before submitting.");
-          consent.reportValidity();
-          consent.setCustomValidity("");
-        } else {
-          console.error("[GravityLead] glSmsConsent checkbox is required when lead intake is enabled.");
-        }
-        return;
-      }
+      // SMS consent is optional — never block form submission on it.
+      // Automated SMS follow-up is only triggered when smsChecked === true.
+      const smsConsentEl = document.getElementById("glSmsConsent");
+      const smsChecked = smsConsentEl ? smsConsentEl.checked : false;
       const data = {
-        name: document.getElementById("glName").value.trim(),
-        business: document.getElementById("glBiz").value.trim(),
-        trade: document.getElementById("glTrade").value,
-        phone: document.getElementById("glPhone").value.trim(),
-        submitted: new Date().toISOString(),
-        source: window.location.href,
+        name:                   document.getElementById("glName").value.trim(),
+        business:               document.getElementById("glBiz").value.trim(),
+        trade:                  document.getElementById("glTrade").value,
+        phone:                  document.getElementById("glPhone").value.trim(),
+        sms_consent:            smsChecked,
+        sms_consent_timestamp:  smsChecked ? new Date().toISOString() : null,
+        sms_consent_source:     window.location.href,
+        submitted:              new Date().toISOString(),
+        source:                 window.location.href,
       };
       let formDelivered = !FORM_ENDPOINT;
       let leadDelivered = !LEAD_SERVER_ENDPOINT;
@@ -250,8 +255,8 @@
           console.warn("[GravityLead] Form POST failed:", err);
         }
       }
-      /* Enroll in SMS follow-up sequence via GravityLead server */
-      if (LEAD_SERVER_ENDPOINT) {
+      /* Enroll in SMS follow-up sequence via GravityLead server — only when consent given */
+      if (LEAD_SERVER_ENDPOINT && smsChecked) {
         try {
           const response = await fetch(LEAD_SERVER_ENDPOINT, {
             method: "POST",
@@ -263,7 +268,8 @@
               trade: data.trade,
               twilio_number: S.business.twilio || "",
               source: "form",
-              sms_consent: true,
+              sms_consent: smsChecked,
+              sms_consent_timestamp: smsChecked ? new Date().toISOString() : null,
               website_confirm: document.getElementById("glWebsiteConfirm")?.value || "",
             }),
           });

@@ -865,7 +865,15 @@
             <!-- Accessible inline error — shown only on network/server failure -->
             <div id="glAuditError" class="gl-form-error" role="alert" aria-live="assertive" style="display:none;"></div>
 
-            <p class="gl-consent">By submitting this form you agree to be contacted by Gravity Lead about your application. You can opt out at any time. See our <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.</p>
+            <!-- SMS consent (optional, unchecked by default — required by Twilio A2P) -->
+            <div class="gl-sms-consent">
+              <label>
+                <input type="checkbox" id="auditSmsConsent" name="sms_consent" value="yes" />
+                <span>I agree to receive service-related text messages from Gravity Lead regarding my request, including missed-call responses and follow-up. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help. Consent is not a condition of purchase or submitting this form. View our <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.</span>
+              </label>
+            </div>
+
+            <p class="gl-consent" style="margin-top:10px;">By submitting this form you agree to be contacted by Gravity Lead about your application. SMS consent above is optional and is not required to submit.</p>
             <button type="submit" class="btn btn-primary gl-submit" id="auditSubmit">Apply for a Founding Client Spot</button>
           </form>
 
@@ -1016,19 +1024,23 @@
       submitted = true;
       if (submit) { submit.disabled = true; submit.textContent = 'Sending…'; }
 
+      var smsChecked = document.getElementById("auditSmsConsent").checked;
       var data = {
-        name:            document.getElementById("auditName").value.trim(),
-        company:         document.getElementById("auditCompany").value.trim(),
-        email:           document.getElementById("auditEmail").value.trim(),
-        phone:           document.getElementById("auditPhone").value.trim(),
-        website:         document.getElementById("auditWebsite").value.trim(),
-        trade:           document.getElementById("auditTrade").value,
-        service_area:    document.getElementById("auditArea").value.trim(),
-        leads_per_month: document.getElementById("auditLeads").value,
-        challenge:       document.getElementById("auditChallenge").value,
-        submitted:       new Date().toISOString(),
-        source:          "homepage_founding_client_application",
-        form_type:       "founding_client_application",
+        name:                   document.getElementById("auditName").value.trim(),
+        company:                document.getElementById("auditCompany").value.trim(),
+        email:                  document.getElementById("auditEmail").value.trim(),
+        phone:                  document.getElementById("auditPhone").value.trim(),
+        website:                document.getElementById("auditWebsite").value.trim(),
+        trade:                  document.getElementById("auditTrade").value,
+        service_area:           document.getElementById("auditArea").value.trim(),
+        leads_per_month:        document.getElementById("auditLeads").value,
+        challenge:              document.getElementById("auditChallenge").value,
+        sms_consent:            smsChecked,
+        sms_consent_timestamp:  smsChecked ? new Date().toISOString() : null,
+        sms_consent_source:     "homepage_founding_client_application",
+        submitted:              new Date().toISOString(),
+        source:                 "homepage_founding_client_application",
+        form_type:              "founding_client_application",
       };
 
       try {

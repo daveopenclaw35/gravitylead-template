@@ -168,6 +168,58 @@ footer { border-top: 1px solid rgba(255,255,255,.07); padding: 30px 0; color: va
 .chat-input input:focus { border-color: var(--primary); }
 .chat-input button { background: var(--primary); border: none; color: #fff; width: 42px; border-radius: 50%; cursor: pointer; font-size: 17px; }
 
+/* ---- Calling disclosure bar (appears below header on demo pages) ---- */
+.gl-call-disclosure-bar {
+  background: rgba(0,0,0,.22);
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  text-align: center;
+  font-size: 11.5px;
+  color: var(--muted);
+  padding: 7px 20px;
+  line-height: 1.55;
+}
+
+/* ---- SMS consent checkbox (forms) ---- */
+.gl-sms-consent {
+  margin: 16px 0 4px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.gl-sms-consent label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.gl-sms-consent input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  margin-top: 2px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+.gl-sms-consent a { color: var(--accent); }
+
+/* ---- Chat consent notice ---- */
+.msg.consent-notice {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 96%;
+  align-self: flex-start;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-style: italic;
+}
+
 /* ---- GravityLead Sales Sections ---- */
 .gl-sales { padding: 56px 0; }
 
