@@ -7,6 +7,18 @@
   <meta name="description" content="See a Gravity Lead smart contractor website in action. Explore the design, try the AI receptionist and see how missed calls are handled automatically." />
   <meta name="robots" content="noindex,follow" />
   <link rel="stylesheet" href="../styles.css" />
+
+  <!-- Google Analytics 4 — Measurement ID: G-C14TX53N3H -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-C14TX53N3H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    function glTrack(event, params) {
+      if (typeof gtag === 'function') gtag('event', event, params || {});
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-C14TX53N3H');
+  </script>
 </head>
 <body>
 
@@ -136,6 +148,39 @@
 
   <script src="../config.js"></script>
   <script src="../app.js"></script>
+
+  <!-- GA4 event tracking for demo page -->
+  <script>
+  (function () {
+    // Track first AI chat open (fire once per page load, no PII)
+    var chatTracked = false;
+    function trackChatStart() {
+      if (chatTracked) return;
+      chatTracked = true;
+      glTrack('ai_chat_start', { location: 'demo_page' });
+    }
+    var launcher = document.getElementById('chatLauncher');
+    if (launcher) launcher.addEventListener('click', trackChatStart);
+    document.querySelectorAll('[data-open-chat]').forEach(function (el) {
+      el.addEventListener('click', trackChatStart);
+    });
+
+    // Track apply / book CTA clicks (no PII)
+    ['navCta', 'heroCta', 'heroCta2'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('click', function () {
+        glTrack('apply_cta_click', { location: id, page: 'demo' });
+      });
+    });
+
+    // Track "Apply for a Founding Client Spot" links in the Gravity Lead sales section
+    document.querySelectorAll('.gl-sales a[href*="get-started"]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        glTrack('apply_cta_click', { location: 'demo_sales_section', page: 'demo' });
+      });
+    });
+  })();
+  </script>
 
   <!-- Remove loader once app.js has finished populating the DOM -->
   <script>

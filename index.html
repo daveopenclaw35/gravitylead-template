@@ -24,11 +24,10 @@
 
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- Google Analytics 4 — replace G-XXXXXXXXXX with real GA4 Measurement ID to activate -->
+  <!-- Google Analytics 4 — Measurement ID: G-C14TX53N3H -->
   <script>
     (function () {
-      var GA_ID = 'G-XXXXXXXXXX';
-      if (!GA_ID || GA_ID === 'G-XXXXXXXXXX') return;
+      var GA_ID = 'G-C14TX53N3H';
       window.dataLayer = window.dataLayer || [];
       function gtag() { dataLayer.push(arguments); }
       window.gtag = gtag;
@@ -1053,6 +1052,7 @@
         if (resp.ok) {
           // ── SUCCESS ────────────────────────────────────────────────────
           glTrack('form_complete', { form: 'founding_client_application', trade: data.trade });
+          glTrack('generate_lead', { form: 'founding_client_application' });
           form.style.display = "none";
           success.classList.add("show");
           success.style.display = "block";
