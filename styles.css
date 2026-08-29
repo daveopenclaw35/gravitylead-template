@@ -178,6 +178,13 @@ footer { border-top: 1px solid rgba(255,255,255,.07); padding: 30px 0; color: va
   padding: 7px 20px;
   line-height: 1.55;
 }
+.gl-call-disclosure-bar a {
+  text-decoration: underline;
+  opacity: .8;
+}
+.gl-call-disclosure-bar a:hover {
+  opacity: 1;
+}
 
 /* ---- SMS consent checkbox (forms) ---- */
 .gl-sms-consent {
