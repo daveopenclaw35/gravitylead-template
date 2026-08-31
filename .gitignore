@@ -10,3 +10,5 @@ server/clients.json
 # Generated /newdemo pages are runtime artifacts (keep the dir, ignore contents)
 public/demos/*
 !public/demos/.gitkeep
+!public/demos/gravitylead-overview.mp4
+!public/demos/gravitylead-overview-poster.jpg

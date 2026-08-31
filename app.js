@@ -40,7 +40,8 @@
   $("heroSub").textContent = h.sub;
   $("heroCta").textContent = h.cta;
   $("heroCta2").textContent = h.cta2;
-  $("heroEmoji").textContent = h.image;
+  const heroEmoji = $("heroEmoji");
+  if (heroEmoji) heroEmoji.textContent = h.image;
 
   // Trust strip
   $("trustStrip").innerHTML = S.trust.map((x) => `<span>${x}</span>`).join("");

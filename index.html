@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Smart Contractor Websites with Automated Lead Follow-Up | Gravity Lead</title>
-  <meta name="description" content="Gravity Lead builds smart websites for contractors with an AI receptionist, missed-call text-back, lead capture and automated follow-up built in." />
+  <title>Contractor Lead Recovery &amp; Follow-Up System | Gravity Lead</title>
+  <meta name="description" content="Gravity Lead combines a conversion-focused contractor website with AI chat, missed-call text-back, lead capture and automated follow-up." />
   <link rel="canonical" href="https://getgravitylead.com/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Gravity Lead" />
   <meta property="og:url" content="https://getgravitylead.com/" />
-  <meta property="og:title" content="Smart Contractor Websites with Automated Lead Follow-Up" />
-  <meta property="og:description" content="Professional contractor websites with AI chat, missed-call text-back, lead capture and automated follow-up built in." />
+  <meta property="og:title" content="Contractor Lead Recovery &amp; Follow-Up System" />
+  <meta property="og:description" content="Turn more missed calls and website inquiries into booked jobs with faster automated lead response." />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Smart Contractor Websites | Gravity Lead" />
+  <meta name="twitter:title" content="Contractor Lead Recovery | Gravity Lead" />
   <meta name="twitter:description" content="Turn more contractor inquiries into booked jobs with faster automated lead response." />
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Organization","name":"Gravity Lead","url":"https://getgravitylead.com/","email":"hello@getgravitylead.com","description":"Smart contractor websites with AI chat, missed-call text-back and automated lead follow-up."}
+  {"@context":"https://schema.org","@type":"Organization","name":"Gravity Lead","url":"https://getgravitylead.com/","email":"hello@getgravitylead.com","description":"Contractor lead recovery and follow-up systems combining a conversion-focused website, AI chat and missed-call text-back."}
   </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -311,13 +311,49 @@
        DEMO SECTION
     ══════════════════════════════════ */
     .hp-demo { padding: 80px 0; text-align: center; }
-    .hp-demo-sequence { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; max-width: 900px; margin: 48px auto 44px; position: relative; }
-    .hp-demo-sequence::after { content: ""; position: absolute; top: 27px; left: calc(100% / 12); right: calc(100% / 12); height: 2px; background: linear-gradient(90deg, var(--primary), var(--accent)); z-index: 0; }
-    .hp-demo-step { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 6px; position: relative; z-index: 1; }
-    .hp-demo-step-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--surface); border: 2px solid rgba(108,71,255,.35); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 14px; box-shadow: 0 0 20px rgba(108,71,255,.15); }
-    .hp-demo-step h4 { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 4px; line-height: 1.3; }
-    .hp-demo-step p  { font-size: 11px; color: var(--muted); line-height: 1.4; }
-    @media (max-width: 640px) { .hp-demo-sequence { grid-template-columns: 1fr; gap: 20px; max-width: 320px; padding-left: 10px; } .hp-demo-sequence::after { display: none; } .hp-demo-step { flex-direction: row; align-items: flex-start; text-align: left; gap: 14px; } .hp-demo-step-icon { flex-shrink: 0; margin-bottom: 0; } }
+    .hp-demo-video-shell {
+      max-width: 960px; margin: 42px auto 26px; padding: 10px;
+      background: linear-gradient(145deg, rgba(108,71,255,.24), rgba(13,18,36,.96) 38%, rgba(155,123,255,.12));
+      border: 1px solid rgba(155,123,255,.30); border-radius: 22px;
+      box-shadow: 0 28px 80px rgba(0,0,0,.48), 0 0 70px rgba(108,71,255,.10);
+    }
+    .hp-demo-video-label {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 3px 8px 12px; color: var(--muted); font-size: 12px; font-weight: 700;
+      letter-spacing: .7px; text-transform: uppercase;
+    }
+    .hp-demo-video-label span:first-child { display: inline-flex; align-items: center; gap: 8px; }
+    .hp-demo-video-label span:first-child::before {
+      content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--primary);
+      box-shadow: 0 0 0 4px rgba(108,71,255,.16), 0 0 16px rgba(108,71,255,.55);
+    }
+    .hp-demo-video {
+      width: 100%; aspect-ratio: 16 / 9; display: block; object-fit: cover;
+      background: #080d19; border-radius: 14px; border: 1px solid rgba(255,255,255,.08);
+    }
+    .hp-demo-video:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+    .hp-demo-proof {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+      max-width: 900px; margin: 0 auto 34px;
+    }
+    .hp-demo-proof-item {
+      display: flex; align-items: flex-start; gap: 12px; text-align: left;
+      padding: 18px; background: rgba(13,18,36,.72); border: 1px solid rgba(255,255,255,.07);
+      border-radius: 13px;
+    }
+    .hp-demo-proof-mark {
+      width: 28px; height: 28px; flex: 0 0 28px; display: inline-flex; align-items: center; justify-content: center;
+      border-radius: 50%; background: rgba(108,71,255,.16); border: 1px solid rgba(155,123,255,.34);
+      color: var(--accent); font-size: 13px; font-weight: 900;
+    }
+    .hp-demo-proof-item strong { display: block; color: var(--text); font-size: 14px; margin-bottom: 4px; }
+    .hp-demo-proof-item p { color: var(--muted); font-size: 12.5px; line-height: 1.45; }
+    @media (max-width: 700px) {
+      .hp-demo-video-shell { padding: 6px; border-radius: 16px; margin-top: 30px; }
+      .hp-demo-video { border-radius: 10px; }
+      .hp-demo-video-label { font-size: 10px; padding: 4px 6px 10px; }
+      .hp-demo-proof { grid-template-columns: 1fr; max-width: 440px; }
+    }
 
     /* ══════════════════════════════════
        RESULTS / WHAT WE'LL MEASURE
@@ -433,12 +469,12 @@
       </a>
       <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">☰</button>
       <nav class="nav-links" id="navLinks" aria-label="Main navigation">
-        <a href="#smart-websites">Smart Websites</a>
+        <a href="#smart-websites">What You Get</a>
         <a href="#how-it-works">How It Works</a>
         <a href="#features">Features</a>
         <a href="#for-contractors">Built for Contractors</a>
         <a href="#pricing">Pricing</a>
-        <a href="demo/">Demo</a>
+        <a href="#demo">Video Demo</a>
         <a href="#get-started" class="nav-cta">Apply for a Founding Client Spot</a>
       </nav>
     </div>
@@ -449,12 +485,12 @@
     <!-- ══════════ HERO ══════════ -->
     <section class="hp-hero" id="hero">
       <div class="container">
-        <div class="hp-badge">Smart Websites for Contractors</div>
-        <h1>A contractor website that helps turn more inquiries into <span class="accent">booked jobs.</span></h1>
-        <p class="hp-sub">Gravity Lead designs, builds and hosts your website—with an AI chat receptionist, missed-call text-back, lead capture and automatic follow-up built in.</p>
+        <div class="hp-badge">Lead Recovery &amp; Follow-Up for Contractors</div>
+        <h1>Turn more missed calls and website inquiries into <span class="accent">booked jobs.</span></h1>
+        <p class="hp-sub">Gravity Lead combines a conversion-focused contractor website with AI chat, missed-call text-back and automated follow-up—managed for you.</p>
         <div class="btn-row">
           <a class="btn btn-primary" href="#get-started" id="heroApplyBtn">Apply for a Founding Client Spot</a>
-          <a class="btn btn-ghost" href="demo/" id="heroDemoBtn">See the Demo</a>
+          <a class="btn btn-ghost" href="#demo" id="heroDemoBtn">Watch the 70-Second Demo</a>
         </div>
         <p class="hp-hero-tagline"><strong>Built for contractors.</strong> Managed for you. Working 24/7.</p>
 
@@ -691,39 +727,38 @@
     <section class="hp-demo" id="demo">
       <div class="container">
         <div class="hp-section-intro">
-          <h2>See a Gravity Lead contractor website in action.</h2>
-          <p style="color:var(--muted);font-size:17px;line-height:1.65;max-width:560px;margin:0 auto;">Explore the website, try the AI receptionist and see what happens when a customer requests service or a call is missed.</p>
+          <h2>See how Gravity Lead keeps a good lead moving.</h2>
+          <p style="color:var(--muted);font-size:17px;line-height:1.65;max-width:600px;margin:0 auto;">Watch the complete system in 70 seconds—from the contractor website and AI receptionist to missed-call text-back and automated follow-up.</p>
         </div>
 
-        <div class="hp-demo-sequence">
-          <div class="hp-demo-step">
-            <div class="hp-demo-step-icon">🌐</div>
-            <div><h4>Visit the website</h4><p>Customer finds your site on their phone</p></div>
+        <div class="hp-demo-video-shell">
+          <div class="hp-demo-video-label">
+            <span>Gravity Lead overview</span>
+            <span>1:10</span>
           </div>
-          <div class="hp-demo-step">
-            <div class="hp-demo-step-icon">🤖</div>
-            <div><h4>AI answers</h4><p>Receptionist greets them, answers questions</p></div>
+          <video class="hp-demo-video" id="gravityLeadVideo" controls preload="metadata" playsinline poster="public/demos/gravitylead-overview-poster.jpg" aria-label="Gravity Lead lead recovery and follow-up overview">
+            <source src="public/demos/gravitylead-overview.mp4" type="video/mp4" />
+            Your browser does not support embedded video. <a href="public/demos/gravitylead-overview.mp4">Download the Gravity Lead overview</a>.
+          </video>
+        </div>
+
+        <div class="hp-demo-proof" aria-label="What Gravity Lead handles">
+          <div class="hp-demo-proof-item">
+            <span class="hp-demo-proof-mark">01</span>
+            <div><strong>Qualifies the inquiry</strong><p>AI chat captures the service need, urgency and contact details.</p></div>
           </div>
-          <div class="hp-demo-step">
-            <div class="hp-demo-step-icon">📋</div>
-            <div><h4>Lead captured</h4><p>Service request collected and organized</p></div>
+          <div class="hp-demo-proof-item">
+            <span class="hp-demo-proof-mark">02</span>
+            <div><strong>Responds to missed calls</strong><p>The caller receives a service-related text within seconds.</p></div>
           </div>
-          <div class="hp-demo-step">
-            <div class="hp-demo-step-icon">📞</div>
-            <div><h4>Call missed</h4><p>Contractor unavailable — out on a job</p></div>
-          </div>
-          <div class="hp-demo-step">
-            <div class="hp-demo-step-icon">💬</div>
-            <div><h4>Instant text-back</h4><p>Caller receives a response within seconds</p></div>
-          </div>
-          <div class="hp-demo-step">
-            <div class="hp-demo-step-icon">🔁</div>
-            <div><h4>Follow-up continues</h4><p>Automated sequences keep the conversation alive</p></div>
+          <div class="hp-demo-proof-item">
+            <span class="hp-demo-proof-mark">03</span>
+            <div><strong>Keeps following up</strong><p>Automated sequences help prevent valuable leads from going cold.</p></div>
           </div>
         </div>
 
         <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
-          <a class="btn btn-ghost" href="demo/" id="demoViewBtn">View the Website Demo</a>
+          <a class="btn btn-ghost" href="demo/" id="demoViewBtn">Try the Interactive Demo</a>
           <a class="btn btn-primary" href="#get-started" id="demoApplyBtn">Apply for a Founding Client Spot</a>
         </div>
       </div>
@@ -1089,6 +1124,19 @@
         glTrack(trackMap[id], { location: id });
       });
     });
+
+    var overviewVideo = document.getElementById('gravityLeadVideo');
+    if (overviewVideo) {
+      var videoStarted = false;
+      overviewVideo.addEventListener('play', function () {
+        if (videoStarted) return;
+        videoStarted = true;
+        glTrack('video_start', { video: 'gravitylead_overview', location: 'homepage_demo' });
+      });
+      overviewVideo.addEventListener('ended', function () {
+        glTrack('video_complete', { video: 'gravitylead_overview', location: 'homepage_demo' });
+      });
+    }
 
   })();
   </script>

@@ -29,15 +29,11 @@
     <style>@keyframes glp{0%,100%{opacity:.25;transform:scaleX(.4)}50%{opacity:1;transform:scaleX(1)}}</style>
   </div>
 
-  <!-- Demo banner -->
-  <div class="demo-banner" id="demoBanner">
-    🔴 LIVE DEMO — You're viewing a sample Gravity Lead smart contractor website. Try the AI receptionist ↗ then <a href="/#get-started" style="color:#fff;text-decoration:underline;">apply for a founding client spot</a>. · <a href="/" style="color:#fff;text-decoration:underline;">getgravitylead.com</a>
-  </div>
-
   <header>
     <div class="container nav">
-      <div class="logo"><span class="dot"></span><span id="bizName">Business</span></div>
-      <div style="display:flex;align-items:center;">
+      <div class="logo"><span class="dot"></span><span id="bizName">Business</span><span class="demo-mode-pill" id="demoBanner">Interactive demo</span></div>
+      <div class="demo-nav-actions">
+        <a class="demo-back" href="/">Gravity Lead ↗</a>
         <a class="nav-phone" id="navPhone" href="tel:+16079008059">(607) 900-8059</a>
         <a class="nav-cta" href="#get-started" id="navCta">Book Now</a>
       </div>
@@ -65,8 +61,22 @@
           </div>
           <div class="trust" id="trustStrip"></div>
         </div>
-        <div style="text-align:center;">
-          <div class="hero-emoji" id="heroEmoji"></div>
+        <div class="hero-proof" aria-label="Example of a captured service inquiry">
+          <div class="hero-proof-head">
+            <span><span class="hero-live-dot"></span>Lead response active</span>
+            <span class="hero-proof-badge">24/7</span>
+          </div>
+          <div class="hero-lead-card">
+            <span class="hero-lead-check">✓</span>
+            <div>
+              <small>New qualified lead</small>
+              <strong>AC repair request</strong>
+              <span>43215 · No cooling · Urgent</span>
+            </div>
+          </div>
+          <div class="hero-response-row"><span>Customer response</span><strong>Within seconds</strong></div>
+          <div class="hero-response-row"><span>Contractor alerted</span><strong>Instantly</strong></div>
+          <button class="hero-proof-cta" data-open-chat>Try the AI receptionist</button>
         </div>
       </div>
     </section>
@@ -98,12 +108,12 @@
           <div class="gl-divider-line"></div>
         </div>
         <div class="gl-intro">
-          <h2 class="gl-headline">👆 Everything above? That's a <span class="highlight">Gravity Lead</span> smart contractor website.</h2>
-          <p class="gl-sub">Your customers see a professional site with an AI receptionist that captures their info 24/7 — even when you're on a job. You get the leads texted straight to your phone.</p>
-          <ul style="list-style:none;margin:28px auto 0;max-width:520px;text-align:left;display:inline-block;">
-            <li style="padding:7px 0;font-size:15px;">📲 Missed-call text-back within seconds</li>
-            <li style="padding:7px 0;font-size:15px;">🔁 Automated follow-up sequences</li>
-            <li style="padding:7px 0;font-size:15px;">🚫 Automated STOP opt-out handling</li>
+          <h2 class="gl-headline">Everything above is a <span class="highlight">Gravity Lead</span> lead-recovery website.</h2>
+          <p class="gl-sub">Your customers see a professional contractor site. Behind it, Gravity Lead captures inquiries, responds when you cannot and keeps the conversation moving.</p>
+          <ul class="gl-benefit-list">
+            <li><span>✓</span>Missed-call text-back within seconds</li>
+            <li><span>✓</span>Automated follow-up sequences</li>
+            <li><span>✓</span>Compliant STOP opt-out handling</li>
           </ul>
           <div class="btn-row" style="justify-content:center; margin-top:28px;">
             <a class="btn btn-primary" href="/#get-started">Apply for a Founding Client Spot</a>
