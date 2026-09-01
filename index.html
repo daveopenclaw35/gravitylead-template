@@ -392,7 +392,20 @@
     .gl-field label { display: block; font-size: 11px; font-weight: 700; margin-bottom: 5px; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; }
     .gl-field input, .gl-field select { width: 100%; padding: 12px 14px; font-size: 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,.12); background: var(--bg); color: var(--text); outline: none; transition: border-color .15s, box-shadow .15s; font-family: inherit; }
     .gl-field input:focus, .gl-field select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(108,71,255,.15); }
-    .gl-field select { appearance: none; cursor: pointer; }
+    .gl-field select {
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      padding-right: 42px;
+      background-image:
+        linear-gradient(45deg, transparent 50%, var(--accent) 50%),
+        linear-gradient(135deg, var(--accent) 50%, transparent 50%);
+      background-position:
+        calc(100% - 18px) 50%,
+        calc(100% - 13px) 50%;
+      background-size: 5px 5px, 5px 5px;
+      background-repeat: no-repeat;
+    }
     .gl-submit { width: 100%; margin-top: 20px; font-size: 16px; padding: 16px; }
     .gl-consent { font-size: 12px; color: var(--muted); margin-top: 16px; line-height: 1.55; }
     .gl-consent a { color: var(--accent); }
