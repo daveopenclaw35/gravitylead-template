@@ -393,4 +393,19 @@ function start() {
 
 function stop() { _running = false; }
 
-module.exports = { init, start, stop, handle, _cmds: { cmdStatus, cmdClients, cmdLeads, cmdRevenue, cmdReport, cmdNewDemo, cmdProspects, cmdFrank, cmdHelp } };
+/**
+ * Send an alert to the owner's Telegram chat.
+ * Safe to call before init() — uses module-level TOKEN/OWNER_ID env vars.
+ * Silently no-ops if the bot is not configured.
+ * @param {string} text  Plain text or HTML message body.
+ */
+async function alert(text) {
+  if (!API || !OWNER_ID) return;
+  try {
+    await send(OWNER_ID, `\u{1F514} <b>GravityLead Alert</b>\n\n${text}`);
+  } catch (err) {
+    console.error("[bot] Failed to deliver alert:", err.message);
+  }
+}
+
+module.exports = { init, start, stop, handle, alert, _cmds: { cmdStatus, cmdClients, cmdLeads, cmdRevenue, cmdReport, cmdNewDemo, cmdProspects, cmdFrank, cmdHelp } };

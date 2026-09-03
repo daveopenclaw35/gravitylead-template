@@ -460,19 +460,23 @@ app.post("/twilio/sms", twilioAuth, asyncHandler(async (req, res) => {
     return res.type("text/xml").send(twiml.toString());
   }
 
+  // ── Pause automated follow-ups when a known lead replies ─────────────────
+  // Any non-STOP reply shows the lead is engaged; we pause their pending
+  // sequence so they don't get automated messages while a conversation is live.
+  // The lead is NOT opted-out — the owner can still reply manually via #<id>.
+  if (lead) {
+    const paused = db.pauseFollowupsForLead(lead.id);
+    if (paused > 0) {
+      console.log(`[sms-in] Lead #${lead.id} (${From}) replied — ${paused} follow-up(s) paused`);
+    }
+  }
+
   // HELP — support information (Twilio A2P requirement)
   const helpWords = ["help", "info"];
   if (helpWords.includes(bodyLower)) {
     const helpClient = clients[To];
     const helpBizName = (helpClient && helpClient.business_name) ? helpClient.business_name : "GravityLead";
     twiml.message(`${helpBizName}: For assistance contact hello@getgravitylead.com. Reply STOP to opt out. Msg & data rates may apply.`);
-    return res.type("text/xml").send(twiml.toString());
-  }
-
-  if (bodyLower === "help") {
-    const businessName = client?.business_name || "this business";
-    const contact = client?.owner_phone ? ` Call ${client.owner_phone} for assistance.` : "";
-    twiml.message(`${businessName}: Reply STOP to opt out.${contact}`);
     return res.type("text/xml").send(twiml.toString());
   }
 
@@ -868,5 +872,6 @@ app.listen(PORT, () => {
   followup.startScheduler();
   review.startScheduler();
   reports.startScheduler();
+  db.startBackupScheduler();
   telegramBot.start();
 });

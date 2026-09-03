@@ -4,9 +4,12 @@
  * Also exposes processDueFollowups() for on-demand runs.
  * ========================================================================== */
 
-const cron = require("node-cron");
-const db = require("./db");
+const cron        = require("node-cron");
+const db          = require("./db");
 const { renderTemplate } = require("./templates");
+const telegramBot = require("./telegram-bot");
+
+const esc = s => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 let twilioClient = null;
 let clientConfig = {};
@@ -109,6 +112,16 @@ async function processDueFollowups() {
       db.markFailed(f.id, err.message);
       failed++;
       console.error(`[followup] Failed day-${f.day} to ${f.phone}: ${err.message}`);
+
+      // Notify the owner via Telegram so failed messages don't go unnoticed.
+      telegramBot.alert(
+        `\u274C <b>SMS Send Failed</b>\n\n` +
+        `Lead: #${f.lead_id} \u00B7 <code>${esc(f.phone)}</code>\n` +
+        `Sequence: Day ${f.day} follow-up\n` +
+        `Client: ${esc(client.business_name)}\n` +
+        `Error: ${esc(err.message)}\n\n` +
+        `Check Twilio console for details.`
+      ).catch(() => {});
     }
   }
 

@@ -5,6 +5,7 @@
 
 const { DatabaseSync } = require("node:sqlite");
 const path = require("path");
+const fs   = require("fs");
 
 const DB_PATH = process.env.GRAVITYLEAD_DB_PATH || path.join(__dirname, "gravitylead.db");
 const db = new DatabaseSync(DB_PATH);
@@ -134,6 +135,11 @@ const markFollowupSent = db.prepare(`
 const markFollowupFailed = db.prepare(`
   UPDATE followups SET status = 'failed', error = ?
   WHERE id = ?
+`);
+
+const pauseFollowupsForLeadStmt = db.prepare(`
+  UPDATE followups SET status = 'paused', error = 'lead replied'
+  WHERE lead_id = ? AND status = 'pending'
 `);
 
 const insertSmsLog = db.prepare(`
@@ -331,6 +337,66 @@ module.exports = {
 
   markFailed(followupId, error) {
     markFollowupFailed.run(String(error), followupId);
+  },
+
+  /**
+   * Pause all pending follow-ups for a specific lead (e.g. when they reply).
+   * The lead remains active and not opted-out; the owner can still reply manually.
+   * @param {number} leadId
+   * @returns {number} Number of follow-ups paused.
+   */
+  pauseFollowupsForLead(leadId) {
+    return pauseFollowupsForLeadStmt.run(leadId).changes;
+  },
+
+  /**
+   * Create an atomic, WAL-safe backup copy of the database at destPath.
+   * VACUUM INTO requires the destination NOT to exist; callers must pre-remove it.
+   * @param {string} destPath  Absolute path for the backup file.
+   */
+  backup(destPath) {
+    db.exec(`VACUUM INTO '${String(destPath).replace(/'/g, "''")}'`);
+  },
+
+  /**
+   * Start a daily backup scheduler (3 AM server time, keeps last 3 backups).
+   * Call once from server startup after the DB is open.
+   */
+  startBackupScheduler() {
+    const nodeCron  = require("node-cron");
+    const backupDir = path.dirname(DB_PATH);
+
+    nodeCron.schedule("0 3 * * *", () => {
+      const stamp = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+      const dest  = path.join(backupDir, `gravitylead-backup-${stamp}.db`);
+
+      // VACUUM INTO fails if destination exists — remove first
+      try { fs.unlinkSync(dest); } catch { /* ok if missing */ }
+
+      try {
+        db.exec(`VACUUM INTO '${dest.replace(/'/g, "''")}'`);
+        console.log(`[db] Daily backup created: ${dest}`);
+      } catch (err) {
+        console.error("[db] Daily backup FAILED:", err.message);
+        return;
+      }
+
+      // Keep only the 3 most recent backup files
+      try {
+        const backups = fs.readdirSync(backupDir)
+          .filter(f => f.startsWith("gravitylead-backup-") && f.endsWith(".db"))
+          .sort()    // lexicographic = chronological (YYYY-MM-DD)
+          .reverse() // newest first
+        for (const old of backups.slice(3)) {
+          fs.unlinkSync(path.join(backupDir, old));
+          console.log(`[db] Removed old backup: ${old}`);
+        }
+      } catch (err) {
+        console.warn("[db] Backup cleanup warning:", err.message);
+      }
+    });
+
+    console.log("[db] Daily backup scheduler started (3 AM)");
   },
 
   logSms({ lead_id, direction, from_number, to_number, body, message_sid, status }) {
