@@ -253,7 +253,20 @@ app.use((_req, res, next) => {
   next();
 });
 
-// Apply general rate limit to all routes
+/* ══════════════════════════════════════════════════════════════════════════
+ * GET /health — Health check (unauthenticated, safe to expose publicly)
+ * Registered BEFORE generalLimiter so uptime monitors never get rate-limited.
+ * ══════════════════════════════════════════════════════════════════════════ */
+app.get("/health", (req, res) => {
+  res.json({
+    status:    "ok",
+    uptime:    process.uptime(),
+    clients:   clientNumbers.size,
+    timestamp: new Date().toISOString(),
+  });
+});
+
+// Apply general rate limit to all routes except /health (registered above)
 app.use(generalLimiter);
 
 /* ── Owner dashboard (mounted before API so it gets its own rate-limit context) */
@@ -850,17 +863,7 @@ app.post("/api/report/send", requireApiKey, async (req, res) => {
   }
 });
 
-/* ══════════════════════════════════════════════════════════════════════════
- * GET /health — Health check (unauthenticated, safe to expose publicly)
- * ══════════════════════════════════════════════════════════════════════════ */
-app.get("/health", (req, res) => {
-  res.json({
-    status:    "ok",
-    uptime:    process.uptime(),
-    clients:   clientNumbers.size,
-    timestamp: new Date().toISOString(),
-  });
-});
+/* /health is registered earlier, before generalLimiter — see above */
 
 /* ── Start ───────────────────────────────────────────────────────────────── */
 app.listen(PORT, () => {
