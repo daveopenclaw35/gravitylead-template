@@ -401,6 +401,39 @@ app.post("/twilio/voice/status", twilioAuth, async (req, res) => {
     console.error(`[text-back] Failed to send to ${From}:`, err.message);
   }
 
+  // ── Owner alert ──────────────────────────────────────────────────────────
+  // Fire-and-forget: response is sent immediately after this block.
+  // The promise must have an attached rejection handler to prevent unhandled
+  // rejection crashes; errors are logged but never surface to the caller.
+  if (!client.owner_phone) {
+    console.warn(
+      `[owner-alert] owner_phone not configured for client "${client.business_name}" — skipping alert for lead #${leadId}`
+    );
+  } else {
+    const alertBody =
+      `⚡ New GravityLead: Missed call from ${From}. ` +
+      `The lead received an automatic response. ` +
+      `Call or text ${From} directly to follow up.`;
+    void Promise.resolve()
+      .then(() =>
+        twilioClient.messages.create({
+          to: client.owner_phone,
+          from: To,
+          body: alertBody,
+        })
+      )
+      .then((alertMsg) => {
+        console.log(
+          `[owner-alert] Queued for lead #${leadId} | SID: ${alertMsg.sid}`
+        );
+      })
+      .catch((err) => {
+        console.error(
+          `[owner-alert] Delivery failed for lead #${leadId} | code: ${err?.code ?? "unknown_error"}`
+        );
+      });
+  }
+
   res.type("text/xml").send(twiml.toString());
 });
 
