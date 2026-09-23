@@ -371,6 +371,7 @@ app.post("/twilio/voice/status", twilioAuth, async (req, res) => {
     `[voice-status] Created lead #${leadId} for ${From} → ${client.business_name}. Scheduling text-back.`
   );
 
+  let customerAcknowledged = false;
   try {
     const body = renderTemplate(0, {
       business_name:  client.business_name,
@@ -380,6 +381,7 @@ app.post("/twilio/voice/status", twilioAuth, async (req, res) => {
     });
 
     const msg = await twilioClient.messages.create({ to: From, from: To, body });
+    customerAcknowledged = true;
 
     const dueNow = db.getDueFollowups().find(
       f => f.lead_id === Number(leadId) && f.day === 0
@@ -405,19 +407,23 @@ app.post("/twilio/voice/status", twilioAuth, async (req, res) => {
   // Fire-and-forget: response is sent immediately after this block.
   // The promise must have an attached rejection handler to prevent unhandled
   // rejection crashes; errors are logged but never surface to the caller.
-  if (!client.owner_phone) {
+  const ownerPhone = normalizePhone(client.owner_phone);
+  if (!ownerPhone) {
     console.warn(
-      `[owner-alert] owner_phone not configured for client "${client.business_name}" — skipping alert for lead #${leadId}`
+      `[owner-alert] valid owner_phone not configured for client "${client.business_name}" — skipping alert for lead #${leadId}`
     );
   } else {
+    const responseStatus = customerAcknowledged
+      ? "The lead received an automatic response."
+      : "The automatic response could not be delivered; contact the lead manually.";
     const alertBody =
       `⚡ New GravityLead: Missed call from ${From}. ` +
-      `The lead received an automatic response. ` +
+      `${responseStatus} ` +
       `Call or text ${From} directly to follow up.`;
     void Promise.resolve()
       .then(() =>
         twilioClient.messages.create({
-          to: client.owner_phone,
+          to: ownerPhone,
           from: To,
           body: alertBody,
         })
