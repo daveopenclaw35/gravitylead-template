@@ -109,6 +109,7 @@ let twilioCallLog           = [];
 let dbFindRecentLeadResult  = null;   // null → new lead, object → duplicate
 let ownerAlertShouldFail    = false;  // when true, owner send rejects (async throw)
 let ownerAlertSyncThrow     = false;  // when true, messages.create throws synchronously
+let customerAckShouldFail   = false;  // when true, customer acknowledgment rejects
 
 // ── Twilio stub ────────────────────────────────────────────────────────────
 // All messages.create calls are recorded; no real HTTP is made.
@@ -125,6 +126,9 @@ const twilioStub = function () {
         }
         if (ownerAlertShouldFail && opts.to === OWNER_PHONE) {
           return Promise.reject(new Error("Twilio stub error: owner number unreachable"));
+        }
+        if (customerAckShouldFail && opts.to === CALLER) {
+          return Promise.reject(new Error("Twilio stub error: customer number unreachable"));
         }
         return Promise.resolve({ sid: `SMstub${twilioCallLog.length}`, status: "queued" });
       },
@@ -420,4 +424,39 @@ test("5. Missing owner_phone → no crash, no alert attempt, customer still noti
     // Exactly one Twilio call total (customer message only)
     assert.equal(twilioCallLog.length, 1, "Exactly 1 Twilio send (customer only)");
   });
+});
+
+test("7. Customer acknowledgment failure is reported accurately to the owner", async () => {
+  twilioCallLog          = [];
+  dbFindRecentLeadResult = null;
+  ownerAlertShouldFail   = false;
+  ownerAlertSyncThrow    = false;
+  customerAckShouldFail = true;
+
+  try {
+    await withServer(async (server) => {
+      const res = await postVoiceStatus(server, {
+        DialCallStatus: "no-answer",
+        From:           CALLER,
+        To:             CLIENT_NUMBER,
+        CallSid:        "CA_test_customer_ack_fail",
+      });
+      await drainAsync();
+
+      assert.equal(res.status, 200, "HTTP 200 when customer acknowledgment fails");
+
+      const ownerMsg = twilioCallLog.find(m => m.to === OWNER_PHONE);
+      assert.ok(ownerMsg, "Owner is still notified when customer acknowledgment fails");
+      assert.ok(
+        ownerMsg.body.includes("could not be delivered"),
+        "Owner alert reports the failed automatic response"
+      );
+      assert.ok(
+        !ownerMsg.body.includes("received an automatic response"),
+        "Owner alert does not falsely claim successful delivery"
+      );
+    });
+  } finally {
+    customerAckShouldFail = false;
+  }
 });
