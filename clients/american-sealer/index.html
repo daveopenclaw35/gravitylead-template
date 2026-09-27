@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Driveway Sealing - American Sealer</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="description" content="Communication is Key: We take great pride in our work and our mission is to help and serve others through Driveway Sealing. Schedule a free quote today." />
+
+  <!-- ── Review Preview notice (subtle, separated from customer-facing design) ── -->
+  <style>
+    .gl-review-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      background: rgba(0,0,0,0.82);
+      border-top: 1px solid rgba(255,255,255,0.12);
+      text-align: center;
+      padding: 6px 16px;
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+      color: #888;
+      letter-spacing: 0.5px;
+    }
+    .gl-review-bar strong { color: #bbb; }
+  </style>
+
+  <!-- Fonts matching the real site -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Adamina&family=Cinzel&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ════════════════════════════════════════════════
+       BASE — matches americansealer.com's actual palette
+       Background: #161616 (dark near-black)
+       Text: #e2e2e2 / #f1f1f1
+       Headings: Cinzel serif, white
+       Body copy: Poppins, light gray
+       Accent line: white HR under headings
+    ════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: #161616;
+      color: #e2e2e2;
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Nav / Header ── */
+    .site-header {
+      background-color: #000;
+      padding: 40px 24px;
+    }
+    .header-inner {
+      max-width: 984px;
+      margin: 0 auto;
+    }
+
+    /* Desktop nav */
+    .nav-desktop {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 0 4px 0;
+    }
+    .nav-links {
+      display: flex;
+      gap: 0;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.143em;
+      text-transform: uppercase;
+      color: #e2e2e2;
+      padding: 6px 12px;
+      display: block;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a.active {
+      border-top: 2px solid #fff;
+      padding-top: 11px;
+      margin-top: -13px;
+    }
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      color: #303030;
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.143em;
+      text-transform: uppercase;
+      padding: 8px 32px;
+      min-height: 56px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+    .nav-cta:hover { background: #f0f0f0; }
+
+    /* Mobile hamburger */
+    .hamburger-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #e2e2e2;
+    }
+
+    /* Hero section */
+    .hero-section {
+      background-color: #111;
+      padding: 0 24px;
+    }
+    .hero-inner {
+      max-width: 984px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      padding: 64px 0 24px;
+    }
+    .hero-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .hero-logo-text {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 32px;
+      color: #f1f1f1;
+      letter-spacing: 2px;
+      line-height: 1.2;
+    }
+    .hero-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      color: #303030;
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.143em;
+      text-transform: uppercase;
+      padding: 8px 32px;
+      min-height: 56px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .hero-cta-btn:hover { background: #f0f0f0; }
+
+    .hero-right {
+      flex: 1;
+      max-width: 60%;
+    }
+    .hero-right img {
+      width: 100%;
+      height: auto;
+      display: block;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+    }
+
+    /* About section */
+    .about-section {
+      background-color: #111;
+      padding: 40px 24px;
+    }
+    .about-inner {
+      max-width: 984px;
+      margin: 0 auto;
+    }
+    .section-heading {
+      font-family: 'Adamina', serif;
+      font-size: 25px;
+      font-weight: 400;
+      color: #f7f7f7;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      line-height: 1.4;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .section-heading hr {
+      border: none;
+      border-top: 2px solid #fff;
+      width: 90px;
+      margin: 16px auto 0;
+    }
+
+    .about-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-bottom: -24px;
+    }
+    .about-card {
+      flex: 1;
+      min-width: 240px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .about-card h4 {
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: #f7f7f7;
+      line-height: 1.25;
+    }
+    .about-card p {
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 16px;
+      color: #a4a4a4;
+      line-height: 1.5;
+    }
+
+    /* Gallery section */
+    .gallery-section {
+      background-color: #000;
+      padding: 40px 24px;
+    }
+    .gallery-inner {
+      max-width: 984px;
+      margin: 0 auto;
+    }
+    .section-heading-white hr {
+      border-color: #fff;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .gallery-grid-row2 {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .gallery-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-caption {
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #a4a4a4;
+      margin-top: 8px;
+      margin-bottom: 24px;
+    }
+
+    /* Contact section */
+    .contact-section {
+      background-color: #111;
+      padding: 40px 24px 56px;
+    }
+    .contact-inner {
+      max-width: 984px;
+      margin: 0 auto;
+    }
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 32px;
+    }
+    .contact-left {
+      flex: 2;
+      min-width: 280px;
+    }
+    .contact-right {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .contact-intro {
+      font-size: 16px;
+      color: #a4a4a4;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .contact-right h4 {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 22px;
+      color: #f1f1f1;
+      margin-bottom: 16px;
+    }
+    .hours-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: #f7f7f7;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+    .hours-line {
+      font-size: 14px;
+      color: #a4a4a4;
+      margin-bottom: 4px;
+    }
+
+    /* Quote form */
+    .quote-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .form-field {
+      position: relative;
+    }
+    .form-field input,
+    .form-field textarea,
+    .form-field select {
+      width: 100%;
+      background-color: #2a2a2a;
+      border: 1px solid rgba(76,76,76,0.5);
+      border-radius: 0;
+      color: #bfbfbf;
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 16px;
+      padding: 23px 16px 8px;
+      outline: none;
+      resize: vertical;
+    }
+    .form-field input:focus,
+    .form-field textarea:focus {
+      box-shadow: inset 0 0 0 1px currentColor;
+    }
+    .form-field label {
+      position: absolute;
+      top: 30%;
+      left: 16px;
+      color: #7f8080;
+      font-size: 16px;
+      font-family: 'Poppins', Arial, sans-serif;
+      pointer-events: none;
+      transition: all 0.15s ease;
+    }
+    .form-field input:focus + label,
+    .form-field input:not([value=""]) + label,
+    .form-field textarea:focus + label {
+      font-size: 12px;
+      top: 8px;
+      color: #7f8080;
+    }
+    .form-field textarea { min-height: 100px; padding-top: 16px; }
+    .form-field textarea + label { top: 12px; font-size: 12px; }
+
+    /* SMS Consent — GravityLead addition */
+    .sms-consent-block {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 4px;
+      padding: 14px 16px;
+      margin-top: 4px;
+    }
+    .sms-consent-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+    }
+    .sms-consent-label input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      margin-top: 3px;
+      flex-shrink: 0;
+      cursor: pointer;
+      accent-color: #fff;
+    }
+    .sms-consent-text {
+      font-size: 13px;
+      color: #999;
+      line-height: 1.5;
+    }
+    .sms-disclosure {
+      font-size: 11px;
+      color: #666;
+      line-height: 1.5;
+      margin-top: 10px;
+    }
+    .sms-disclosure a { color: #888; text-decoration: underline; }
+    .sms-disclosure a:hover { color: #bbb; }
+
+    .submit-btn {
+      background: #fff;
+      color: #303030;
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.143em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      min-height: 56px;
+      transition: all 0.3s;
+      align-self: flex-start;
+    }
+    .submit-btn:hover { background: #e8e8e8; }
+
+    /* Facebook link */
+    .fb-link {
+      font-size: 14px;
+      color: #757575;
+      margin-top: 16px;
+    }
+    .fb-link a { color: #757575; }
+    .fb-link a:hover { color: #ababab; }
+
+    /* Footer */
+    .site-footer {
+      background-color: #111;
+      border-top: 1px solid rgba(76,76,76,0.3);
+      padding: 24px;
+      text-align: center;
+    }
+    .footer-inner {
+      max-width: 984px;
+      margin: 0 auto;
+      font-size: 12px;
+      color: #757575;
+    }
+    .footer-inner a { color: #757575; text-decoration: underline; }
+    .footer-inner a:hover { color: #ababab; }
+
+    /* ── Mobile nav drawer ── */
+    .nav-drawer {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #161616;
+      z-index: 10002;
+      overflow-y: auto;
+      padding: 56px 24px 24px;
+      flex-direction: column;
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer-close {
+      position: absolute;
+      top: 15px; right: 15px;
+      background: none;
+      border: none;
+      color: #f7f7f7;
+      font-size: 28px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .nav-drawer ul {
+      list-style: none;
+    }
+    .nav-drawer li {
+      border-bottom: 1px solid rgba(76,76,76,0.5);
+      padding: 0;
+    }
+    .nav-drawer li:last-child { border-bottom: none; }
+    .nav-drawer a {
+      display: flex;
+      align-items: center;
+      padding: 16px 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: #f7f7f7;
+    }
+    .nav-drawer a:hover { color: #bfbfbf; }
+
+    /* ════════════════════════════════════════════════
+       GRAVITYLEAD CHAT WIDGET — preview-only
+       Black-and-white to match American Sealer branding.
+       No orange. No purple.
+    ════════════════════════════════════════════════ */
+
+    /* Bubble button */
+    #glChatBtn {
+      position: fixed;
+      bottom: 48px; /* clear of review bar */
+      right: 20px;
+      z-index: 9990;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #fff;
+      color: #111;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      transition: background 0.2s, transform 0.2s;
+    }
+    #glChatBtn:hover { background: #e8e8e8; transform: scale(1.06); }
+    #glChatBtn:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 3px;
+    }
+
+    /* Chat panel */
+    #glChatPanel {
+      display: none;
+      flex-direction: column;
+      position: fixed;
+      bottom: 108px; /* above button + review bar */
+      right: 16px;
+      z-index: 9991;
+      width: 340px;
+      max-width: calc(100vw - 32px);
+      max-height: calc(100vh - 128px);
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+      overflow: hidden;
+    }
+
+    /* Header */
+    #glChatHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      color: #111;
+      padding: 12px 14px;
+      flex-shrink: 0;
+    }
+    #glChatHeader span {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+    #glChatClose {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #333;
+      display: flex;
+      align-items: center;
+      padding: 2px;
+      border-radius: 4px;
+    }
+    #glChatClose:hover { color: #000; }
+    #glChatClose:focus-visible { outline: 2px solid #333; outline-offset: 2px; }
+
+    /* Body scroll area */
+    #glChatBody {
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 14px;
+      gap: 12px;
+    }
+
+    /* Messages */
+    #glChatMessages { display: flex; flex-direction: column; gap: 8px; }
+    .gl-msg {
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 13.5px;
+      line-height: 1.5;
+      border-radius: 10px;
+      padding: 10px 12px;
+      max-width: 90%;
+    }
+    .gl-msg-bot {
+      background: #2a2a2a;
+      color: #e2e2e2;
+      align-self: flex-start;
+      border-bottom-left-radius: 2px;
+    }
+
+    /* Form fields */
+    #glChatForm { display: flex; flex-direction: column; gap: 10px; }
+    .gl-field { display: flex; flex-direction: column; gap: 3px; }
+    .gl-field label {
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .gl-field input,
+    .gl-field textarea {
+      background: #2a2a2a;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px;
+      color: #e2e2e2;
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 13.5px;
+      padding: 8px 10px;
+      outline: none;
+      width: 100%;
+      resize: vertical;
+    }
+    .gl-field input:focus,
+    .gl-field textarea:focus {
+      border-color: rgba(255,255,255,0.4);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.2);
+    }
+    .gl-field input::placeholder,
+    .gl-field textarea::placeholder { color: #555; }
+
+    /* Validation errors */
+    .gl-error {
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 11px;
+      color: #f87171;
+      min-height: 14px;
+      display: block;
+    }
+
+    /* Consent */
+    .gl-consent-block {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 4px;
+      padding: 10px 12px;
+    }
+    .gl-consent-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .gl-consent-label input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+      margin-top: 3px;
+      flex-shrink: 0;
+      cursor: pointer;
+      accent-color: #fff;
+    }
+    .gl-consent-text {
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 11px;
+      color: #888;
+      line-height: 1.5;
+    }
+    .gl-consent-links {
+      font-size: 10px;
+      color: #555;
+      margin-top: 6px;
+    }
+    .gl-consent-links a { color: #777; text-decoration: underline; }
+    .gl-consent-links a:hover { color: #aaa; }
+
+    /* Submit button */
+    #glSubmitBtn {
+      background: #fff;
+      color: #111;
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+      align-self: stretch;
+    }
+    #glSubmitBtn:hover { background: #e8e8e8; }
+    #glSubmitBtn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+    /* Preview note inside widget */
+    .gl-preview-note {
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 10px;
+      color: #444;
+      text-align: center;
+      padding-top: 4px;
+      flex-shrink: 0;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 767px) {
+      .nav-desktop .nav-links,
+      .nav-desktop .nav-cta { display: none; }
+      .hamburger-btn { display: block; }
+
+      .hero-inner {
+        flex-direction: column;
+        padding: 32px 0 24px;
+        gap: 24px;
+      }
+      .hero-right { max-width: 100%; width: 100%; }
+      .hero-left { align-items: center; text-align: center; }
+
+      .gallery-grid,
+      .gallery-grid-row2 {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-grid { flex-direction: column; }
+
+      /* Chat widget mobile: full-width above button */
+      #glChatPanel {
+        right: 8px;
+        left: 8px;
+        width: auto;
+        max-width: 100%;
+        bottom: 100px;
+        max-height: calc(100dvh - 120px);
+      }
+      #glChatBtn {
+        right: 12px;
+        bottom: 44px;
+      }
+
+      .section-heading { font-size: 22px; }
+      .about-card h4 { font-size: 18px; }
+    }
+
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .hero-right { max-width: 50%; }
+    }
+
+    @media (min-width: 1024px) {
+      .header-inner,
+      .hero-inner,
+      .about-inner,
+      .gallery-inner,
+      .contact-inner,
+      .footer-inner { max-width: 984px; }
+      .hamburger-btn { display: none !important; }
+      .nav-links,
+      .nav-cta { display: flex !important; }
+    }
+    @media (min-width: 1280px) {
+      .header-inner,
+      .hero-inner,
+      .about-inner,
+      .gallery-inner,
+      .contact-inner,
+      .footer-inner { max-width: 1160px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       HEADER / NAV
+  ══════════════════════════════════════════ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <nav class="nav-desktop" role="navigation" aria-label="Main navigation">
+        <!-- Mobile hamburger -->
+        <button class="hamburger-btn" aria-label="Open navigation menu" onclick="document.getElementById('navDrawer').classList.add('open')">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><path fill-rule="evenodd" d="M19.248 7.5H4.752A.751.751 0 0 1 4 6.75c0-.414.337-.75.752-.75h14.496a.75.75 0 1 1 0 1.5m0 5.423H4.752a.75.75 0 0 1 0-1.5h14.496a.75.75 0 1 1 0 1.5m0 5.423H4.752a.75.75 0 1 1 0-1.5h14.496a.75.75 0 1 1 0 1.5"></path></svg>
+        </button>
+
+        <!-- Desktop nav links -->
+        <ul class="nav-links">
+          <li><a href="#" class="active">Home</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+        </ul>
+
+        <!-- CTA button -->
+        <a href="#contact" class="nav-cta">Contact Us</a>
+      </nav>
+
+      <!-- Hero area (logo text + image, inside header like the real site) -->
+      <div class="hero-inner">
+        <div class="hero-left">
+          <div class="hero-logo-text">American Sealer</div>
+          <a href="#contact" class="hero-cta-btn">Contact Us</a>
+        </div>
+        <div class="hero-right">
+          <img
+            src="https://img1.wsimg.com/isteam/ip/7b7c9904-1571-432f-aa8a-871ee4c55d74/198D4B4A-6B62-4D71-AF75-17EA01414CE8.jpeg/:/cr=t:3.73%25,l:0%25,w:92.53%25,h:92.53%25/rs=w:1333,h:1000,cg:true,m"
+            alt="American Sealer — Driveway Sealing"
+            width="1333"
+            height="1000"
+            style="width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;"
+          />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile nav drawer -->
+  <div id="navDrawer" class="nav-drawer" role="navigation" aria-label="Mobile navigation">
+    <button class="nav-drawer-close" aria-label="Close menu" onclick="document.getElementById('navDrawer').classList.remove('open')">✕</button>
+    <ul>
+      <li><a href="#" onclick="document.getElementById('navDrawer').classList.remove('open')">Home</a></li>
+      <li><a href="#gallery" onclick="document.getElementById('navDrawer').classList.remove('open')">Gallery</a></li>
+    </ul>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       ABOUT US
+  ══════════════════════════════════════════ -->
+  <section class="about-section" id="about">
+    <div class="about-inner">
+      <h1 class="section-heading">
+        About Us
+        <hr aria-hidden="true" />
+      </h1>
+      <div class="about-grid">
+        <div class="about-card">
+          <h4>Dependable Maintenance Experts</h4>
+          <p>When we first discussed what was important to the vision and goal of our company. The goal was simple how can our team help a community?</p>
+          <p>How can we use over 20 years of Construction Service to bring neighborhoods and people together?</p>
+          <p>The vision means more to us than a job, or paycheck. Its about having the opportunity to&nbsp;serve others and making your driveway feel and look bran new again.</p>
+        </div>
+        <div class="about-card">
+          <h4>We Care About the Details</h4>
+          <p>Attention to detail is an important part of the Driveway Sealing process. Your driveway should have a fresh look and bring new excitement to the outside of your home. If your looking to sell or move in todays market it should also help with the sale price of your home.</p>
+        </div>
+        <div class="about-card">
+          <h4>Communication is Key</h4>
+          <p>We take great pride in providing a long lasting relationship with our customers. Coordination within the crews not only shows the dedication of our work but also helps you build trust with our company.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       GALLERY
+  ══════════════════════════════════════════ -->
+  <section class="gallery-section" id="gallery">
+    <div class="gallery-inner">
+      <h2 class="section-heading" style="color:#fff;">
+        American Sealer/ Driveway Sealing
+        <hr aria-hidden="true" />
+      </h2>
+
+      <!-- Row 1: large left, small right -->
+      <div class="gallery-grid">
+        <div>
+          <img
+            class="gallery-img"
+            src="https://img1.wsimg.com/isteam/ip/7b7c9904-1571-432f-aa8a-871ee4c55d74/IMG_4496.jpeg/:/cr=t:0%25,l:0%25,w:88.89%25,h:88.89%25/rs=w:1023,cg:true,m"
+            alt="Its the Details that matter"
+          />
+          <p class="gallery-caption">Its the Details that makes a difference</p>
+        </div>
+        <div>
+          <img
+            class="gallery-img"
+            src="https://img1.wsimg.com/isteam/ip/7b7c9904-1571-432f-aa8a-871ee4c55d74/IMG_4497.jpeg/:/rs=w:1023,cg:true,m"
+            alt="Teamwork makes the Dream Work"
+            onerror="this.style.background='#222';this.alt='[Photo placeholder]'"
+          />
+        </div>
+      </div>
+
+      <!-- Row 2: reversed — small left, large right -->
+      <div class="gallery-grid-row2">
+        <div>
+          <img
+            class="gallery-img"
+            src="https://img1.wsimg.com/isteam/ip/7b7c9904-1571-432f-aa8a-871ee4c55d74/IMG_4498.jpeg/:/rs=w:1023,cg:true,m"
+            alt="Sealing crew at work"
+            onerror="this.style.background='#222';this.alt='[Photo placeholder]'"
+          />
+          <p class="gallery-caption">Teamwork makes the Dream Work.</p>
+        </div>
+        <div>
+          <img
+            class="gallery-img"
+            src="https://img1.wsimg.com/isteam/ip/7b7c9904-1571-432f-aa8a-871ee4c55d74/IMG_4499.jpeg/:/rs=w:1023,cg:true,m"
+            alt="Ashley showing off her sealing skills"
+            onerror="this.style.background='#222';this.alt='[Photo placeholder]'"
+          />
+          <p class="gallery-caption">Not only is Ashley a great wife and brought the crew lunch. But she also brought a smile and had fun showing off her sealing skills.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       CONTACT / QUOTE FORM
+  ══════════════════════════════════════════ -->
+  <section class="contact-section" id="contact">
+    <div class="contact-inner">
+      <h2 class="section-heading" style="color:#fff;">
+        Contact Us
+        <hr aria-hidden="true" />
+      </h2>
+
+      <div class="contact-grid">
+        <!-- Left: form -->
+        <div class="contact-left">
+          <p class="contact-intro">Send us a message, or call us for a quote. Use our contact form to tell us more about your project, and we will connect you with the services to fit your needs.</p>
+
+          <form class="quote-form" onsubmit="event.preventDefault(); alert('This form is a preview only — not connected to any live system.');">
+            <div class="form-field">
+              <input type="text" id="name" name="name" value="" autocomplete="name" />
+              <label for="name">Name</label>
+            </div>
+            <div class="form-field">
+              <input type="email" id="email" name="email" value="" autocomplete="email" />
+              <label for="email">Email</label>
+            </div>
+            <div class="form-field">
+              <input type="tel" id="phone" name="phone" value="" autocomplete="tel" />
+              <label for="phone">Phone</label>
+            </div>
+            <div class="form-field">
+              <textarea id="message" name="message" rows="4"></textarea>
+              <label for="message">Message</label>
+            </div>
+
+            <!-- ── GravityLead SMS Consent (added only here; no visual dominance) ── -->
+            <div class="sms-consent-block">
+              <label class="sms-consent-label">
+                <input type="checkbox" id="smsConsent" name="smsConsent" />
+                <span class="sms-consent-text">
+                  I agree to receive text messages from American Sealer about my quote request and appointment reminders. Message frequency varies. Reply STOP to opt out.
+                </span>
+              </label>
+              <p class="sms-disclosure">
+                Message &amp; data rates may apply. Reply HELP for help, STOP to cancel.
+                By checking this box you agree to our
+                <a href="#" onclick="return false;">Privacy Policy</a>
+                and
+                <a href="#" onclick="return false;">Terms of Service</a>.
+                <!-- Future integration point: on form submission, qualified leads will be sent to the GravityLead backend when this site goes live. The form is non-functional in this preview. -->
+              </p>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit</button>
+          </form>
+        </div>
+
+        <!-- Right: hours + info -->
+        <div class="contact-right">
+          <h4>American Sealer</h4>
+
+          <p class="hours-label">Hours</p>
+          <p class="hours-line">Monday – Friday: 9am – 7pm</p>
+          <p class="hours-line">Saturday – Sunday: By Appointment</p>
+
+          <p class="fb-link" style="margin-top:24px;">
+            <a href="https://www.facebook.com" target="_blank" rel="noopener">Click the Link below and Like our Page.</a><br />
+            <span style="font-size:12px;color:#555;">[Facebook URL — placeholder; Scott to provide]</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>© American Sealer · All rights reserved</p>
+      <p style="margin-top:6px;">
+        <a href="#" onclick="return false;">Privacy Policy</a> ·
+        <a href="#" onclick="return false;">Terms of Service</a>
+      </p>
+      <p style="margin-top:6px;font-size:11px;color:#444;">This website uses cookies. We use cookies to analyze website traffic and optimize your website experience.</p>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════
+       GRAVITYLEAD CHAT WIDGET (preview-only)
+       Styled to American Sealer black-and-white branding.
+       No API calls. No SMS. No storage. No production integration.
+  ══════════════════════════════════════════ -->
+
+  <!-- Chat bubble trigger -->
+  <button
+    id="glChatBtn"
+    aria-label="Open chat"
+    aria-expanded="false"
+    aria-controls="glChatPanel"
+  >
+    <svg id="glChatIcon" viewBox="0 0 24 24" fill="currentColor" width="26" height="26" aria-hidden="true">
+      <path d="M12 2C6.477 2 2 6.254 2 11.5c0 2.38.87 4.56 2.3 6.25L3 21.5l4.1-1.3A10.1 10.1 0 0 0 12 21c5.523 0 10-4.254 10-9.5S17.523 2 12 2z"/>
+    </svg>
+    <svg id="glCloseIcon" viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true" style="display:none;">
+      <path fill-rule="evenodd" d="M19.219 5.22a.75.75 0 0 0-1.061 0l-5.939 5.939-5.939-5.94a.75.75 0 1 0-1.061 1.062l5.939 5.939-5.939 5.939a.752.752 0 0 0 1.061 1.06l5.939-5.938 5.939 5.939a.75.75 0 1 0 1.061-1.061l-5.939-5.94 5.939-5.938a.75.75 0 0 0 0-1.061"/>
+    </svg>
+  </button>
+
+  <!-- Chat panel -->
+  <div
+    id="glChatPanel"
+    role="dialog"
+    aria-modal="true"
+    aria-label="American Sealer chat — preview"
+    aria-hidden="true"
+  >
+    <div id="glChatHeader">
+      <span>American Sealer</span>
+      <button id="glChatClose" aria-label="Close chat">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true">
+          <path fill-rule="evenodd" d="M19.219 5.22a.75.75 0 0 0-1.061 0l-5.939 5.939-5.939-5.94a.75.75 0 1 0-1.061 1.062l5.939 5.939-5.939 5.939a.752.752 0 0 0 1.061 1.06l5.939-5.938 5.939 5.939a.75.75 0 1 0 1.061-1.061l-5.939-5.94 5.939-5.938a.75.75 0 0 0 0-1.061"/>
+        </svg>
+      </button>
+    </div>
+
+    <div id="glChatBody">
+      <!-- Opening message -->
+      <div id="glChatMessages">
+        <div class="gl-msg gl-msg-bot">
+          Hi! Need a driveway-sealing quote? Tell us a little about your property and American Sealer will follow up.
+        </div>
+      </div>
+
+      <!-- Form -->
+      <form id="glChatForm" novalidate>
+        <div class="gl-field">
+          <label for="glName">Name <span aria-hidden="true">*</span></label>
+          <input type="text" id="glName" name="glName" autocomplete="name" required placeholder="Your name" />
+          <span class="gl-error" id="glNameErr" role="alert"></span>
+        </div>
+        <div class="gl-field">
+          <label for="glPhone">Phone <span aria-hidden="true">*</span></label>
+          <input type="tel" id="glPhone" name="glPhone" autocomplete="tel" required placeholder="(555) 555-5555" />
+          <span class="gl-error" id="glPhoneErr" role="alert"></span>
+        </div>
+        <div class="gl-field">
+          <label for="glLocation">Property address or city/ZIP <span aria-hidden="true">*</span></label>
+          <input type="text" id="glLocation" name="glLocation" required placeholder="City or ZIP code" />
+          <span class="gl-error" id="glLocationErr" role="alert"></span>
+        </div>
+        <div class="gl-field">
+          <label for="glDetails">Project details</label>
+          <textarea id="glDetails" name="glDetails" rows="3" placeholder="Driveway size, condition, questions…"></textarea>
+        </div>
+
+        <!-- SMS consent -->
+        <div class="gl-consent-block">
+          <label class="gl-consent-label">
+            <input type="checkbox" id="glSmsConsent" name="glSmsConsent" />
+            <span class="gl-consent-text">
+              By checking this box, you agree to receive service-related text messages from American Sealer regarding your quote request. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help. Consent is not a condition of purchase.
+            </span>
+          </label>
+          <span class="gl-error" id="glConsentErr" role="alert"></span>
+          <p class="gl-consent-links">
+            <a href="#" onclick="return false;">Privacy Policy</a> &middot;
+            <a href="#" onclick="return false;">Terms of Service</a>
+          </p>
+        </div>
+
+        <button type="submit" id="glSubmitBtn">Send Request</button>
+      </form>
+
+      <!-- Success state -->
+      <div id="glChatSuccess" style="display:none;" role="status">
+        <div class="gl-msg gl-msg-bot">
+          Thanks! This is a preview. In the live version, American Sealer would receive your request immediately.
+        </div>
+      </div>
+
+      <!-- Preview badge inside widget -->
+      <p class="gl-preview-note">Preview only &mdash; no data is sent or stored</p>
+    </div>
+  </div>
+
+  <!-- ── Subtle review bar (pinned bottom, not part of customer-facing design) ── -->
+  <div class="gl-review-bar" role="status">
+    <strong>American Sealer — Review Preview</strong> · Private staging only · Not indexed · Not connected to any live system
+  </div>
+
+  <script>
+    /* ── Page form: floating labels ── */
+    document.querySelectorAll('.form-field input, .form-field textarea').forEach(function(el) {
+      function updateLabel() {
+        var lbl = el.nextElementSibling;
+        if (!lbl) return;
+        if (el.value !== '') {
+          lbl.style.fontSize = '12px'; lbl.style.top = '8px'; lbl.style.color = '#7f8080';
+        } else {
+          lbl.style.fontSize = ''; lbl.style.top = ''; lbl.style.color = '';
+        }
+      }
+      el.addEventListener('input', updateLabel);
+      el.addEventListener('blur', updateLabel);
+      updateLabel();
+    });
+
+    /* ══════════════════════════════════════
+       GRAVITYLEAD CHAT WIDGET — preview-only
+       No API calls. No SMS. No storage.
+    ══════════════════════════════════════ */
+    (function () {
+      var btn      = document.getElementById('glChatBtn');
+      var panel    = document.getElementById('glChatPanel');
+      var closeBtn = document.getElementById('glChatClose');
+      var chatIcon = document.getElementById('glChatIcon');
+      var closeIcon= document.getElementById('glCloseIcon');
+      var form     = document.getElementById('glChatForm');
+      var success  = document.getElementById('glChatSuccess');
+      var isOpen   = false;
+
+      function openChat() {
+        isOpen = true;
+        panel.setAttribute('aria-hidden', 'false');
+        panel.style.display = 'flex';
+        btn.setAttribute('aria-expanded', 'true');
+        chatIcon.style.display  = 'none';
+        closeIcon.style.display = 'block';
+        // Focus first field
+        var first = panel.querySelector('input, button');
+        if (first) setTimeout(function(){ first.focus(); }, 50);
+      }
+
+      function closeChat() {
+        isOpen = false;
+        panel.setAttribute('aria-hidden', 'true');
+        panel.style.display = 'none';
+        btn.setAttribute('aria-expanded', 'false');
+        chatIcon.style.display  = 'block';
+        closeIcon.style.display = 'none';
+        // Clear all fields on close (no data retained)
+        clearForm();
+        btn.focus();
+      }
+
+      function clearForm() {
+        form.reset();
+        form.style.display = 'block';
+        success.style.display = 'none';
+        clearErrors();
+      }
+
+      function clearErrors() {
+        ['glNameErr','glPhoneErr','glLocationErr','glConsentErr'].forEach(function(id){
+          var el = document.getElementById(id);
+          if (el) el.textContent = '';
+        });
+      }
+
+      btn.addEventListener('click', function() {
+        isOpen ? closeChat() : openChat();
+      });
+      closeBtn.addEventListener('click', closeChat);
+
+      // Keyboard: Escape closes
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && isOpen) closeChat();
+      });
+
+      // Trap focus within panel when open
+      panel.addEventListener('keydown', function(e) {
+        if (e.key !== 'Tab') return;
+        var focusable = panel.querySelectorAll(
+          'button, input, textarea, select, a[href], [tabindex]:not([tabindex="-1"])'
+        );
+        var first = focusable[0];
+        var last  = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault(); last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault(); first.focus();
+        }
+      });
+
+      /* Form validation & submission */
+      form.addEventListener('submit', function(e) {
+        // Explicitly block any network request
+        e.preventDefault();
+        e.stopPropagation();
+
+        clearErrors();
+        var valid = true;
+
+        var name    = document.getElementById('glName');
+        var phone   = document.getElementById('glPhone');
+        var loc     = document.getElementById('glLocation');
+        var consent = document.getElementById('glSmsConsent');
+
+        if (!name.value.trim()) {
+          document.getElementById('glNameErr').textContent = 'Please enter your name.';
+          valid = false;
+        }
+        var ph = phone.value.replace(/\D/g, '');
+        if (!ph || ph.length < 10) {
+          document.getElementById('glPhoneErr').textContent = 'Please enter a valid phone number.';
+          valid = false;
+        }
+        if (!loc.value.trim()) {
+          document.getElementById('glLocationErr').textContent = 'Please enter your address or city/ZIP.';
+          valid = false;
+        }
+        if (!consent.checked) {
+          document.getElementById('glConsentErr').textContent = 'Please check the consent box to continue.';
+          valid = false;
+        }
+
+        if (!valid) {
+          // Focus first error field
+          var firstErr = panel.querySelector('.gl-error:not(:empty)');
+          if (firstErr) {
+            var inp = firstErr.previousElementSibling;
+            if (inp && inp.focus) inp.focus();
+          }
+          return false;
+        }
+
+        // Valid — show success; no data stored, no network call
+        form.style.display = 'none';
+        success.style.display = 'block';
+
+        // Clear fields immediately so no data lingers
+        form.reset();
+        return false;
+      });
+
+      // Also clear on page unload
+      window.addEventListener('beforeunload', clearForm);
+    })();
+  </script>
+
+</body>
+</html>
