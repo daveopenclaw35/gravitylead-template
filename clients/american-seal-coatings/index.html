@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>American Seal Coatings – Concrete & Floor Coatings</title>
+  <meta name="description" content="Premium concrete and floor coatings for residential and commercial properties. Epoxy, polyaspartic, metallic, and more.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:wght@400;500;600&family=Anton&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --navy:    #0d1f4e;
+      --navy2:   #1a3a7a;
+      --blue:    #2b5cb8;
+      --red:     #cc1122;
+      --red2:    #e02030;
+      --silver:  #c8cdd6;
+      --chrome:  #e8ecf0;
+      --charcoal:#2a2d35;
+      --concrete:#3d3f45;
+      --dark:    #141720;
+      --white:   #ffffff;
+      --offwhite:#f2f4f7;
+      --text:    #1a1d24;
+      --muted:   #6b7280;
+    }
+
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Open Sans', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    ul { list-style: none; }
+
+    /* ===== UTILITY ===== */
+    .container { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+    .section { padding: 80px 0; }
+    .section-label { font-family: 'Oswald', sans-serif; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+    .section-title { font-family: 'Oswald', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--navy); line-height: 1.15; margin-bottom: 20px; }
+    .section-title span { color: var(--red); }
+    .section-sub { font-size: 1.05rem; color: var(--muted); max-width: 680px; line-height: 1.7; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; border-radius: 4px; font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; border: none; transition: all .2s; }
+    .btn-primary { background: var(--red); color: var(--white); }
+    .btn-primary:hover { background: var(--red2); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(204,17,34,.35); }
+    .btn-outline { background: transparent; color: var(--white); border: 2px solid var(--white); }
+    .btn-outline:hover { background: var(--white); color: var(--navy); }
+    .badge { display: inline-block; padding: 4px 12px; background: var(--red); color: var(--white); font-family: 'Oswald', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 2px; }
+    .awaiting { display: inline-block; background: #fff3cd; color: #856404; border: 1px dashed #f0a500; border-radius: 3px; padding: 2px 8px; font-size: 0.75rem; font-style: italic; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    @media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr 1fr; } .grid-4 { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 640px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } .section { padding: 56px 0; } }
+
+    /* ===== TOPBAR ===== */
+    .topbar { background: var(--navy); padding: 8px 0; }
+    .topbar .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .topbar-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--silver); }
+    .topbar-item a { color: var(--chrome); font-weight: 600; }
+    .topbar-item a:hover { color: var(--red2); }
+    .topbar-item .icon { font-size: 0.9rem; }
+
+    /* ===== NAV ===== */
+    .nav { background: var(--charcoal); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,.4); }
+    .nav .container { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; padding-bottom: 12px; }
+    .nav-logo { display: flex; align-items: center; gap: 14px; }
+    .nav-logo img { height: 56px; width: auto; border-radius: 50%; }
+    .nav-brand { display: flex; flex-direction: column; }
+    .nav-brand-name { font-family: 'Oswald', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--chrome); line-height: 1.1; }
+    .nav-brand-tag { font-size: 0.65rem; color: var(--silver); letter-spacing: 0.1em; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { font-family: 'Oswald', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--silver); transition: color .2s; }
+    .nav-links a:hover { color: var(--red2); }
+    .nav-cta { background: var(--red); color: var(--white); padding: 9px 20px; border-radius: 4px; font-family: 'Oswald', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; transition: background .2s; }
+    .nav-cta:hover { background: var(--red2); color: var(--white); }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; }
+    .nav-toggle span { display: block; width: 26px; height: 2px; background: var(--silver); border-radius: 2px; transition: all .3s; }
+    @media (max-width: 900px) {
+      .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--charcoal); flex-direction: column; padding: 20px; gap: 16px; border-top: 2px solid var(--red); }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: flex; }
+    }
+
+    /* ===== HERO ===== */
+    .hero { position: relative; min-height: 88vh; display: flex; align-items: center; overflow: hidden; background: var(--dark); }
+    .hero-bg { position: absolute; inset: 0; background:
+      linear-gradient(135deg, rgba(13,31,78,.95) 0%, rgba(26,58,122,.8) 50%, rgba(42,45,53,.9) 100%); z-index: 1; }
+    .hero-pattern { position: absolute; inset: 0; background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,.02) 40px, rgba(255,255,255,.02) 41px),
+      repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,.02) 40px, rgba(255,255,255,.02) 41px);
+      z-index: 0; }
+    .hero-concrete { position: absolute; bottom: 0; left: 0; right: 0; height: 220px;
+      background: linear-gradient(to top, rgba(61,63,69,.9) 0%, transparent 100%); z-index: 1; }
+    .hero .container { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; padding-top: 80px; padding-bottom: 80px; }
+    .hero-content { }
+    .hero-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .hero-eyebrow-line { width: 40px; height: 2px; background: var(--red); }
+    .hero-eyebrow-text { font-family: 'Oswald', sans-serif; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--silver); }
+    .hero h1 { font-family: 'Anton', sans-serif; font-size: clamp(2.4rem, 5vw, 4rem); color: var(--white); line-height: 1.05; margin-bottom: 24px; }
+    .hero h1 .accent { color: var(--red2); display: block; }
+    .hero-sub { font-size: 1.1rem; color: var(--silver); line-height: 1.7; margin-bottom: 36px; max-width: 520px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 48px; }
+    .hero-trust { display: flex; flex-wrap: wrap; gap: 24px; }
+    .hero-trust-item { display: flex; align-items: center; gap: 8px; }
+    .hero-trust-item .check { width: 20px; height: 20px; background: var(--red); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: white; flex-shrink: 0; }
+    .hero-trust-item span { font-size: 0.85rem; color: var(--silver); }
+    .hero-visual { display: flex; flex-direction: column; gap: 16px; }
+    .hero-logo-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 12px; padding: 32px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
+    .hero-logo-card img { max-height: 180px; width: auto; }
+    .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .stat-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 8px; padding: 20px 16px; text-align: center; }
+    .stat-num { font-family: 'Oswald', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--red2); line-height: 1; }
+    .stat-lbl { font-size: 0.72rem; color: var(--silver); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+    @media (max-width: 900px) { .hero .container { grid-template-columns: 1fr; } .hero-visual { order: -1; } .hero-stats { grid-template-columns: repeat(3,1fr); } }
+    @media (max-width: 480px) { .hero-stats { grid-template-columns: 1fr 1fr; } }
+
+    /* ===== SERVICES ===== */
+    .services { background: var(--offwhite); }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+    @media (max-width: 900px) { .services-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .services-grid { grid-template-columns: 1fr; } }
+    .service-card { background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.07); transition: transform .2s, box-shadow .2s; border-top: 4px solid var(--navy); }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,.12); }
+    .service-card-icon { background: var(--navy); padding: 28px 24px 20px; }
+    .service-card-icon .icon-big { font-size: 2.2rem; }
+    .service-card-body { padding: 24px; }
+    .service-card-body h3 { font-family: 'Oswald', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+    .service-card-body p { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
+    .service-card-footer { padding: 0 24px 24px; }
+    .service-link { font-family: 'Oswald', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--red); display: inline-flex; align-items: center; gap: 6px; }
+    .service-link:hover { color: var(--red2); }
+
+    /* ===== WHY US ===== */
+    .why { background: var(--white); }
+    .why-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    @media (max-width: 768px) { .why-inner { grid-template-columns: 1fr; } }
+    .why-list { margin-top: 32px; display: flex; flex-direction: column; gap: 24px; }
+    .why-item { display: flex; gap: 16px; }
+    .why-icon { width: 48px; height: 48px; background: var(--navy); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+    .why-text h4 { font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .why-text p { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
+    .why-visual { background: var(--charcoal); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; gap: 20px; }
+    .why-visual-title { font-family: 'Oswald', sans-serif; color: var(--chrome); font-size: 1.1rem; font-weight: 700; border-bottom: 2px solid var(--red); padding-bottom: 12px; margin-bottom: 4px; }
+    .warranty-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .warranty-item:last-child { border-bottom: none; }
+    .warranty-label { color: var(--silver); font-size: 0.9rem; }
+    .warranty-value { font-family: 'Oswald', sans-serif; color: var(--red2); font-size: 1rem; font-weight: 700; }
+
+    /* ===== APPLICATIONS ===== */
+    .applications { background: var(--navy); color: var(--white); }
+    .applications .section-title { color: var(--white); }
+    .applications .section-label { color: var(--red2); }
+    .applications .section-sub { color: var(--silver); }
+    .app-tabs { display: flex; gap: 8px; margin: 32px 0 24px; flex-wrap: wrap; }
+    .app-tab { padding: 10px 24px; border-radius: 4px; font-family: 'Oswald', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; cursor: pointer; border: 2px solid rgba(255,255,255,.2); color: var(--silver); background: transparent; transition: all .2s; }
+    .app-tab.active, .app-tab:hover { background: var(--red); border-color: var(--red); color: var(--white); }
+    .app-panel { display: none; }
+    .app-panel.active { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    @media (max-width: 640px) { .app-panel.active { grid-template-columns: 1fr; } }
+    .app-item { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 8px; padding: 20px; display: flex; align-items: flex-start; gap: 14px; }
+    .app-item-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .app-item-text h4 { font-family: 'Oswald', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--chrome); margin-bottom: 6px; }
+    .app-item-text p { font-size: 0.85rem; color: var(--silver); line-height: 1.6; }
+
+    /* ===== GALLERY ===== */
+    .gallery { background: var(--offwhite); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 220px); gap: 12px; margin-top: 48px; border-radius: 12px; overflow: hidden; }
+    @media (max-width: 640px) { .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; } }
+    .gallery-item { background: var(--concrete); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; border-radius: 6px; cursor: pointer; }
+    .gallery-item:first-child { grid-column: span 2; grid-row: span 2; border-radius: 8px; }
+    .gallery-item-inner { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--charcoal); }
+    .gallery-placeholder { font-size: 2.5rem; margin-bottom: 8px; opacity: .6; }
+    .gallery-label { font-family: 'Oswald', sans-serif; font-size: 0.75rem; color: var(--silver); letter-spacing: 0.12em; text-transform: uppercase; text-align: center; padding: 0 12px; }
+    .gallery-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(13,31,78,.8), transparent); display: flex; align-items: flex-end; padding: 16px; opacity: 0; transition: opacity .25s; }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay span { font-family: 'Oswald', sans-serif; font-size: 0.85rem; color: var(--white); letter-spacing: 0.05em; text-transform: uppercase; }
+    .gallery-note { text-align: center; margin-top: 20px; font-size: 0.85rem; color: var(--muted); }
+
+    /* ===== PROCESS ===== */
+    .process { background: var(--white); }
+    .process-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; margin-top: 48px; position: relative; }
+    .process-steps::before { content: ''; position: absolute; top: 36px; left: 10%; right: 10%; height: 2px; background: linear-gradient(to right, var(--navy), var(--red)); z-index: 0; }
+    @media (max-width: 900px) { .process-steps { grid-template-columns: 1fr 1fr; } .process-steps::before { display: none; } }
+    @media (max-width: 480px) { .process-steps { grid-template-columns: 1fr; } }
+    .process-step { text-align: center; position: relative; z-index: 1; }
+    .process-num { width: 72px; height: 72px; background: var(--navy); border: 4px solid var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-family: 'Anton', sans-serif; font-size: 1.5rem; color: var(--white); box-shadow: 0 4px 16px rgba(13,31,78,.3); }
+    .process-step.highlight .process-num { background: var(--red); }
+    .process-step h4 { font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .process-step p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+    /* ===== ABOUT ===== */
+    .about { background: var(--charcoal); color: var(--white); }
+    .about .section-title { color: var(--white); }
+    .about .section-label { color: var(--red2); }
+    .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    @media (max-width: 768px) { .about-inner { grid-template-columns: 1fr; } }
+    .about-text p { font-size: 0.95rem; color: var(--silver); line-height: 1.75; margin-bottom: 20px; }
+    .about-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .chip { padding: 8px 16px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); border-radius: 24px; font-size: 0.8rem; color: var(--chrome); }
+    .about-owner { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 36px; }
+    .owner-placeholder { width: 80px; height: 80px; background: var(--navy); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 20px; }
+    .owner-name { font-family: 'Oswald', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--chrome); }
+    .owner-title { font-size: 0.85rem; color: var(--red2); margin: 4px 0 16px; letter-spacing: 0.05em; }
+    .owner-bio { font-size: 0.9rem; color: var(--silver); line-height: 1.7; }
+
+    /* ===== REVIEWS ===== */
+    .reviews { background: var(--offwhite); }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+    @media (max-width: 768px) { .reviews-grid { grid-template-columns: 1fr; } }
+    .review-card { background: var(--white); border-radius: 10px; padding: 28px; box-shadow: 0 2px 12px rgba(0,0,0,.07); position: relative; border-left: 4px solid var(--navy); }
+    .review-stars { color: #f59e0b; font-size: 1rem; margin-bottom: 14px; letter-spacing: 2px; }
+    .review-text { font-size: 0.92rem; color: var(--text); line-height: 1.7; font-style: italic; margin-bottom: 20px; }
+    .review-author { display: flex; align-items: center; gap: 12px; }
+    .review-avatar { width: 40px; height: 40px; background: var(--navy); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Oswald', sans-serif; font-weight: 700; color: var(--white); font-size: 0.9rem; }
+    .review-meta h5 { font-family: 'Oswald', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--navy); }
+    .review-meta span { font-size: 0.78rem; color: var(--muted); }
+    .review-google { position: absolute; top: 20px; right: 20px; font-size: 0.75rem; color: var(--muted); background: var(--offwhite); padding: 2px 8px; border-radius: 3px; }
+
+    /* ===== SERVICE AREA ===== */
+    .service-area { background: var(--navy); color: var(--white); }
+    .service-area .section-title { color: var(--white); }
+    .service-area .section-label { color: var(--red2); }
+    .service-area .section-sub { color: var(--silver); }
+    .area-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+    .area-tag { padding: 10px 20px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); border-radius: 24px; font-family: 'Oswald', sans-serif; font-size: 0.85rem; color: var(--chrome); letter-spacing: 0.04em; }
+    .area-tag.primary { background: var(--red); border-color: var(--red); }
+    .area-map { margin-top: 48px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 60px; text-align: center; }
+    .area-map-icon { font-size: 3rem; margin-bottom: 12px; opacity: .6; }
+    .area-map p { color: var(--silver); font-size: 0.9rem; }
+
+    /* ===== FAQ ===== */
+    .faq { background: var(--white); }
+    .faq-list { margin-top: 48px; max-width: 800px; margin-left: auto; margin-right: auto; display: flex; flex-direction: column; gap: 12px; }
+    .faq-item { border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; }
+    .faq-q { width: 100%; text-align: left; background: var(--white); padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 600; color: var(--navy); cursor: pointer; border: none; transition: background .2s; gap: 12px; }
+    .faq-q:hover { background: var(--offwhite); }
+    .faq-q.open { background: var(--navy); color: var(--white); }
+    .faq-chevron { font-size: 0.85rem; transition: transform .3s; flex-shrink: 0; }
+    .faq-q.open .faq-chevron { transform: rotate(180deg); }
+    .faq-a { display: none; padding: 0 24px 20px; font-size: 0.92rem; color: var(--muted); line-height: 1.7; }
+    .faq-a.open { display: block; }
+
+    /* ===== ESTIMATE FORM ===== */
+    .estimate { background: var(--offwhite); }
+    .estimate-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 60px; align-items: start; }
+    @media (max-width: 768px) { .estimate-inner { grid-template-columns: 1fr; } }
+    .estimate-info { }
+    .estimate-info p { font-size: 0.95rem; color: var(--muted); line-height: 1.75; margin-bottom: 24px; }
+    .estimate-perks { display: flex; flex-direction: column; gap: 14px; margin-top: 28px; }
+    .estimate-perk { display: flex; align-items: flex-start; gap: 12px; }
+    .perk-dot { width: 10px; height: 10px; background: var(--red); border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+    .perk-text { font-size: 0.9rem; color: var(--text); }
+    .form-card { background: var(--white); border-radius: 12px; padding: 40px; box-shadow: 0 4px 24px rgba(0,0,0,.08); }
+    .form-card h3 { font-family: 'Oswald', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--navy); margin-bottom: 24px; padding-bottom: 16px; border-bottom: 2px solid var(--offwhite); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 6px; letter-spacing: 0.03em; text-transform: uppercase; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 16px; border: 1.5px solid #d1d5db; border-radius: 6px; font-size: 0.95rem; font-family: 'Open Sans', sans-serif; color: var(--text); background: var(--white); transition: border-color .2s; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--blue); }
+    .form-group textarea { height: 100px; resize: vertical; }
+    .form-notice { font-size: 0.78rem; color: var(--muted); text-align: center; margin-top: 12px; }
+    .form-submit { width: 100%; padding: 16px; background: var(--red); color: var(--white); border: none; border-radius: 6px; font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: background .2s, transform .2s; margin-top: 8px; }
+    .form-submit:hover { background: var(--red2); transform: translateY(-1px); }
+    .preview-notice { background: #fff3cd; border: 1px solid #f0a500; border-radius: 6px; padding: 12px 16px; margin-bottom: 20px; font-size: 0.82rem; color: #856404; display: flex; gap: 8px; align-items: flex-start; }
+
+    /* ===== GRAVITYLEAD CHAT ===== */
+    .chat-bubble { position: fixed; bottom: 28px; right: 28px; z-index: 200; }
+    .chat-btn { width: 64px; height: 64px; background: var(--navy); border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(13,31,78,.45); transition: transform .2s, box-shadow .2s; position: relative; }
+    .chat-btn:hover { transform: scale(1.07); box-shadow: 0 6px 28px rgba(13,31,78,.55); }
+    .chat-btn-icon { font-size: 1.6rem; }
+    .chat-badge { position: absolute; top: 2px; right: 2px; width: 16px; height: 16px; background: var(--red); border-radius: 50%; border: 2px solid var(--white); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{transform:scale(1);opacity:1;} 50%{transform:scale(1.2);opacity:.8;} }
+    .chat-panel { position: fixed; bottom: 110px; right: 28px; width: 340px; background: var(--white); border-radius: 16px; box-shadow: 0 8px 40px rgba(0,0,0,.18); display: none; flex-direction: column; overflow: hidden; z-index: 200; }
+    .chat-panel.open { display: flex; }
+    .chat-header { background: var(--navy); padding: 16px 20px; display: flex; align-items: center; gap: 12px; }
+    .chat-avatar { width: 40px; height: 40px; background: var(--red); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+    .chat-header-text h4 { font-family: 'Oswald', sans-serif; color: var(--white); font-size: 1rem; font-weight: 700; }
+    .chat-header-text p { font-size: 0.75rem; color: var(--silver); }
+    .chat-close { margin-left: auto; background: none; border: none; cursor: pointer; color: var(--silver); font-size: 1.1rem; }
+    .chat-messages { padding: 20px; min-height: 160px; display: flex; flex-direction: column; gap: 12px; }
+    .chat-msg { max-width: 85%; font-size: 0.88rem; padding: 10px 14px; border-radius: 12px; line-height: 1.55; }
+    .chat-msg.bot { background: var(--offwhite); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; }
+    .chat-msg.user { background: var(--navy); color: var(--white); align-self: flex-end; border-bottom-right-radius: 4px; }
+    .chat-input-row { display: flex; padding: 12px 16px; border-top: 1px solid #e5e7eb; gap: 10px; }
+    .chat-input { flex: 1; border: 1.5px solid #d1d5db; border-radius: 24px; padding: 9px 16px; font-size: 0.88rem; font-family: 'Open Sans', sans-serif; outline: none; }
+    .chat-input:focus { border-color: var(--blue); }
+    .chat-send { background: var(--red); color: var(--white); border: none; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .chat-preview-note { padding: 8px 16px; background: #fff3cd; font-size: 0.72rem; color: #856404; text-align: center; }
+    @media (max-width: 480px) { .chat-panel { width: calc(100vw - 40px); right: 20px; } }
+
+    /* ===== FOOTER ===== */
+    .footer { background: var(--dark); color: var(--silver); padding: 60px 0 24px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+    @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } }
+    .footer-brand img { height: 64px; width: auto; margin-bottom: 16px; border-radius: 50%; }
+    .footer-brand p { font-size: 0.88rem; line-height: 1.7; color: var(--muted); max-width: 280px; }
+    .footer-col h5 { font-family: 'Oswald', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--chrome); margin-bottom: 16px; }
+    .footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { font-size: 0.88rem; color: var(--muted); transition: color .2s; }
+    .footer-col ul a:hover { color: var(--red2); }
+    .footer-contact-item { display: flex; gap: 10px; margin-bottom: 12px; font-size: 0.88rem; color: var(--muted); align-items: flex-start; }
+    .footer-contact-item .icon { flex-shrink: 0; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom p { font-size: 0.8rem; color: var(--muted); }
+    .footer-legal { display: flex; gap: 20px; }
+    .footer-legal a { font-size: 0.8rem; color: var(--muted); transition: color .2s; }
+    .footer-legal a:hover { color: var(--chrome); }
+    .preview-banner { background: var(--red); color: var(--white); text-align: center; padding: 10px 20px; font-family: 'Oswald', sans-serif; font-size: 0.85rem; letter-spacing: 0.06em; position: sticky; top: 0; z-index: 999; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  </style>
+</head>
+<body>
+
+<!-- PREVIEW BANNER -->
+<div class="preview-banner">
+  🔒 PREVIEW ONLY — Not indexed, not live. Awaiting client approval. <span class="awaiting" style="background:rgba(255,255,255,.2);color:#fff;border-color:rgba(255,255,255,.4);margin-left:8px;">Draft</span>
+</div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="container">
+    <div style="display:flex;gap:24px;flex-wrap:wrap;">
+      <div class="topbar-item">
+        <span class="icon">📞</span>
+        <span>Call: <a href="tel:+10000000000" class="awaiting" style="font-style:italic">Awaiting Scott's number</a></span>
+      </div>
+      <div class="topbar-item">
+        <span class="icon">📧</span>
+        <span><a href="#" class="awaiting" style="font-style:italic">Awaiting email</a></span>
+      </div>
+    </div>
+    <div class="topbar-item">
+      <span>⭐ 5-Star Rated · Licensed & Insured · <span class="awaiting">Service area TBD</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="container">
+    <div class="nav-logo">
+      <img src="images/logo.jpg" alt="American Seal Coatings Logo">
+      <div class="nav-brand">
+        <span class="nav-brand-name">American Seal Coatings</span>
+        <span class="nav-brand-tag">Concrete &amp; Floor Coatings</span>
+      </div>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a href="#services">Services</a>
+      <a href="#applications">Residential / Commercial</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#process">Process</a>
+      <a href="#about">About</a>
+      <a href="#faq">FAQ</a>
+      <a href="#estimate" class="nav-cta">Free Estimate</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-concrete"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <span class="hero-eyebrow-text">Premium Concrete &amp; Floor Coatings</span>
+      </div>
+      <h1>
+        Transform Your<br>
+        <span class="accent">Floors. Forever.</span>
+      </h1>
+      <p class="hero-sub">
+        Industrial-grade epoxy, polyaspartic, and metallic floor coatings for garages, basements, warehouses, commercial spaces, and more. Built to last. Built American.
+      </p>
+      <div class="hero-actions">
+        <a href="#estimate" class="btn btn-primary">Get a Free Estimate →</a>
+        <a href="#gallery" class="btn btn-outline">View Our Work</a>
+      </div>
+      <div class="hero-trust">
+        <div class="hero-trust-item">
+          <div class="check">✓</div>
+          <span>Licensed &amp; Insured</span>
+        </div>
+        <div class="hero-trust-item">
+          <div class="check">✓</div>
+          <span>Written Warranty <span class="awaiting">terms TBD</span></span>
+        </div>
+        <div class="hero-trust-item">
+          <div class="check">✓</div>
+          <span>Free Estimates</span>
+        </div>
+        <div class="hero-trust-item">
+          <div class="check">✓</div>
+          <span>Residential &amp; Commercial</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-logo-card">
+        <img src="images/logo.jpg" alt="American Seal Coatings">
+      </div>
+      <div class="hero-stats">
+        <div class="stat-card">
+          <div class="stat-num"><span class="awaiting" style="font-size:.7rem">TBD</span></div>
+          <div class="stat-lbl">Years Experience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num"><span class="awaiting" style="font-size:.7rem">TBD</span></div>
+          <div class="stat-lbl">Projects Complete</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">5★</div>
+          <div class="stat-lbl">Google Rating</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services section" id="services">
+  <div class="container">
+    <div class="section-label">What We Do</div>
+    <h2 class="section-title">Our <span>Coating Services</span></h2>
+    <p class="section-sub">From garage floors to commercial warehouses, we deliver durable, high-performance coatings engineered for real-world conditions.</p>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-card-icon"><div class="icon-big">🏠</div></div>
+        <div class="service-card-body">
+          <h3>Epoxy Floor Coatings</h3>
+          <p>High-build epoxy systems for garages, basements, and utility spaces. Chemical-resistant, impact-tough, and stunning in appearance.</p>
+        </div>
+        <div class="service-card-footer"><a href="#estimate" class="service-link">Get Quote →</a></div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-card-icon"><div class="icon-big">⚡</div></div>
+        <div class="service-card-body">
+          <h3>Polyaspartic Coatings</h3>
+          <p>Fast-cure, UV-stable polyaspartic systems — back on your floor the same day. Ideal for high-traffic residential and light commercial applications.</p>
+        </div>
+        <div class="service-card-footer"><a href="#estimate" class="service-link">Get Quote →</a></div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-card-icon"><div class="icon-big">✨</div></div>
+        <div class="service-card-body">
+          <h3>Metallic Epoxy</h3>
+          <p>Stunning 3D metallic finishes that turn ordinary floors into showpieces. Perfect for showrooms, salons, restaurants, and upscale garages.</p>
+        </div>
+        <div class="service-card-footer"><a href="#estimate" class="service-link">Get Quote →</a></div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-card-icon"><div class="icon-big">🏭</div></div>
+        <div class="service-card-body">
+          <h3>Commercial &amp; Industrial</h3>
+          <p>Heavy-duty systems for warehouses, manufacturing floors, loading docks, and retail spaces. Forklift-rated, chemical-proof, OSHA-compliant options.</p>
+        </div>
+        <div class="service-card-footer"><a href="#estimate" class="service-link">Get Quote →</a></div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-card-icon"><div class="icon-big">🔷</div></div>
+        <div class="service-card-body">
+          <h3>Flake &amp; Chip Systems</h3>
+          <p>Full-broadcast vinyl flake coatings for texture, slip resistance, and color. A classic garage look with serious performance.</p>
+        </div>
+        <div class="service-card-footer"><a href="#estimate" class="service-link">Get Quote →</a></div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-card-icon"><div class="icon-big">🛡️</div></div>
+        <div class="service-card-body">
+          <h3>Concrete Sealing &amp; Prep</h3>
+          <p>Surface grinding, crack repair, moisture mitigation, and penetrating concrete sealers. The foundation every coating needs to last.</p>
+        </div>
+        <div class="service-card-footer"><a href="#estimate" class="service-link">Get Quote →</a></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why section" id="benefits">
+  <div class="container">
+    <div class="why-inner">
+      <div>
+        <div class="section-label">Why American Seal Coatings</div>
+        <h2 class="section-title">Industrial Grade.<br><span>Zero Compromise.</span></h2>
+        <div class="why-list">
+          <div class="why-item">
+            <div class="why-icon">🔬</div>
+            <div class="why-text">
+              <h4>Professional-Grade Products</h4>
+              <p>We use commercial-grade materials — not box-store epoxy kits. Our coatings bond deeper, cure harder, and last longer.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon">🏗️</div>
+            <div class="why-text">
+              <h4>Proper Surface Prep</h4>
+              <p>Every job starts with diamond grinding. No shortcuts. Adhesion depends on prep — we take it seriously so your coating doesn't fail.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon">📋</div>
+            <div class="why-text">
+              <h4>Written Warranty</h4>
+              <p>We stand behind our work with a written warranty on every installation. <span class="awaiting">Terms pending — confirming with Scott</span></p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon">🇺🇸</div>
+            <div class="why-text">
+              <h4>American-Owned &amp; Operated</h4>
+              <p>Locally owned, community-focused. When you call, you reach us — not a call center. We treat every floor like it's our own.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="why-visual">
+        <div class="why-visual-title">Warranty Coverage <span class="awaiting" style="font-size:.7rem;margin-left:8px;">Confirming with Scott</span></div>
+        <div class="warranty-item"><span class="warranty-label">Epoxy Garage Systems</span><span class="warranty-value awaiting">TBD Yrs</span></div>
+        <div class="warranty-item"><span class="warranty-label">Polyaspartic Coatings</span><span class="warranty-value awaiting">TBD Yrs</span></div>
+        <div class="warranty-item"><span class="warranty-label">Metallic Epoxy</span><span class="warranty-value awaiting">TBD Yrs</span></div>
+        <div class="warranty-item"><span class="warranty-label">Commercial Systems</span><span class="warranty-value awaiting">TBD Yrs</span></div>
+        <div class="warranty-item"><span class="warranty-label">Concrete Sealing</span><span class="warranty-value awaiting">TBD Yrs</span></div>
+        <div style="margin-top:20px;background:rgba(204,17,34,.15);border:1px solid rgba(204,17,34,.3);border-radius:6px;padding:14px;">
+          <p style="color:var(--red2);font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:700;margin-bottom:4px;">🛡️ Our Promise</p>
+          <p style="color:var(--silver);font-size:.82rem;line-height:1.6;">If it fails due to workmanship, we fix it. Period. <span class="awaiting">Full warranty terms TBD</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLICATIONS -->
+<section class="applications section" id="applications">
+  <div class="container">
+    <div class="section-label">Where We Work</div>
+    <h2 class="section-title">Residential &amp; <span style="color:var(--red2)">Commercial</span> Applications</h2>
+    <p class="section-sub">Whether it's your home garage or a 50,000 sq ft warehouse, we have the right system for the job.</p>
+
+    <div class="app-tabs">
+      <button class="app-tab active" onclick="switchTab('residential', this)">🏠 Residential</button>
+      <button class="app-tab" onclick="switchTab('commercial', this)">🏭 Commercial</button>
+    </div>
+
+    <div class="app-panel active" id="panel-residential">
+      <div class="app-item"><div class="app-item-icon">🚗</div><div class="app-item-text"><h4>Garage Floors</h4><p>The most popular application. Durable, easy-clean surfaces that resist oil, chemicals, and hot tire pickup.</p></div></div>
+      <div class="app-item"><div class="app-item-icon">🏠</div><div class="app-item-text"><h4>Basement Floors</h4><p>Moisture-resistant coatings that transform unfinished basements into livable, attractive spaces.</p></div></div>
+      <div class="app-item"><div class="app-item-icon">🏊</div><div class="app-item-text"><h4>Pool Decks &amp; Patios</h4><p>Slip-resistant, UV-stable finishes for outdoor concrete that stand up to weather and foot traffic.</p></div></div>
+      <div class="app-item"><div class="app-item-icon">🔧</div><div class="app-item-text"><h4>Workshop &amp; Utility Areas</h4><p>Tough coatings for home workshops, utility rooms, and mechanical areas that see heavy daily use.</p></div></div>
+    </div>
+
+    <div class="app-panel" id="panel-commercial">
+      <div class="app-item"><div class="app-item-icon">🏗️</div><div class="app-item-text"><h4>Warehouses &amp; Distribution</h4><p>Forklift-rated, heavy-duty systems with line striping and safety markings for large-scale operations.</p></div></div>
+      <div class="app-item"><div class="app-item-icon">🍽️</div><div class="app-item-text"><h4>Restaurants &amp; Kitchens</h4><p>Food-safe, chemical-resistant, non-porous coatings that meet health code and stand up to daily sanitizing.</p></div></div>
+      <div class="app-item"><div class="app-item-icon">🚙</div><div class="app-item-text"><h4>Auto Dealerships &amp; Shops</h4><p>Showroom-quality floors and service bay coatings that impress customers and hold up to vehicle loads.</p></div></div>
+      <div class="app-item"><div class="app-item-icon">🏪</div><div class="app-item-text"><h4>Retail &amp; Commercial Spaces</h4><p>High-traffic decorative coatings that combine aesthetics with industrial durability for customer-facing areas.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery section" id="gallery">
+  <div class="container">
+    <div class="section-label">Our Work</div>
+    <h2 class="section-title">Project <span>Gallery</span></h2>
+    <p class="section-sub">Real jobs. Real results. Photos from completed residential and commercial installations. <span class="awaiting">Actual project photos pending from Scott</span></p>
+
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <div class="gallery-item-inner">
+          <div class="gallery-placeholder">🏠</div>
+          <div class="gallery-label">Residential Garage — Epoxy Flake<br><span class="awaiting" style="font-size:.7rem">Photo pending</span></div>
+        </div>
+        <div class="gallery-overlay"><span>Garage Epoxy Flake System</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-inner">
+          <div class="gallery-placeholder">✨</div>
+          <div class="gallery-label">Metallic Epoxy<br><span class="awaiting" style="font-size:.7rem">Photo pending</span></div>
+        </div>
+        <div class="gallery-overlay"><span>Metallic Epoxy Showroom</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-inner">
+          <div class="gallery-placeholder">🏭</div>
+          <div class="gallery-label">Commercial Warehouse<br><span class="awaiting" style="font-size:.7rem">Photo pending</span></div>
+        </div>
+        <div class="gallery-overlay"><span>Commercial Warehouse Floor</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-inner">
+          <div class="gallery-placeholder">🔷</div>
+          <div class="gallery-label">Polyaspartic System<br><span class="awaiting" style="font-size:.7rem">Photo pending</span></div>
+        </div>
+        <div class="gallery-overlay"><span>Polyaspartic Fast-Cure</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-inner">
+          <div class="gallery-placeholder">🏊</div>
+          <div class="gallery-label">Pool Deck<br><span class="awaiting" style="font-size:.7rem">Photo pending</span></div>
+        </div>
+        <div class="gallery-overlay"><span>Pool Deck Coating</span></div>
+      </div>
+    </div>
+    <p class="gallery-note">📸 Gallery will be populated with Scott's actual project photos before launch.</p>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process section" id="process">
+  <div class="container">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">Our <span>5-Step Process</span></h2>
+    <p class="section-sub">We've refined our installation process to deliver consistent, long-lasting results on every job.</p>
+
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="process-num">1</div>
+        <h4>Free Estimate</h4>
+        <p>We inspect your floor, discuss options, and provide a detailed written quote — no pressure, no surprise fees.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">2</div>
+        <h4>Surface Prep</h4>
+        <p>Diamond grinding, crack repair, and moisture testing. Proper prep is what separates a 2-year floor from a 20-year floor.</p>
+      </div>
+      <div class="process-step highlight">
+        <div class="process-num">3</div>
+        <h4>Primer Coat</h4>
+        <p>Deep-penetrating primer that bonds to the concrete and seals against moisture vapor transmission.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">4</div>
+        <h4>Base &amp; Broadcast</h4>
+        <p>Color coat applied, decorative flake or metallic pigment broadcast to full saturation for complete coverage.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">5</div>
+        <h4>Topcoat &amp; Cure</h4>
+        <p>Polyaspartic or urethane topcoat applied for UV stability, abrasion resistance, and that showroom shine.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about section" id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div>
+        <div class="section-label">Who We Are</div>
+        <h2 class="section-title">American-Owned.<br><span style="color:var(--red2)">Built on Quality.</span></h2>
+        <div class="about-text">
+          <p>American Seal Coatings was founded on a simple principle: every floor deserves professional-grade craftsmanship and materials. We're not a franchise. We're not a national chain. We're local specialists who take personal pride in every square foot we coat.</p>
+          <p>We invest in the best equipment — industrial diamond grinders, commercial-grade coating systems — because cutting corners on equipment means cutting corners on your floor. <span class="awaiting">Additional company history pending from Scott</span></p>
+        </div>
+        <div class="about-chips">
+          <span class="chip">🛡️ Licensed &amp; Insured</span>
+          <span class="chip">🇺🇸 American-Owned</span>
+          <span class="chip">⭐ 5-Star Service</span>
+          <span class="chip">📋 Written Warranty</span>
+          <span class="chip">🔬 Commercial-Grade Materials</span>
+        </div>
+      </div>
+      <div class="about-owner">
+        <div class="owner-placeholder">👤</div>
+        <div class="owner-name">Scott <span class="awaiting" style="font-size:.8rem">Last name TBD</span></div>
+        <div class="owner-title">Owner &amp; Lead Installer</div>
+        <p class="owner-bio"><span class="awaiting">Owner bio pending from Scott — years of experience, background, what drives the business, service territory focus.</span></p>
+        <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="#estimate" class="btn btn-primary" style="padding:10px 20px;font-size:.85rem;">Get a Free Estimate</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews section" id="reviews">
+  <div class="container">
+    <div class="section-label">What Customers Say</div>
+    <h2 class="section-title">5-Star <span>Reviews</span></h2>
+    <p class="section-sub">Don't take our word for it. <span class="awaiting">Real customer reviews pending from Scott / Google Business profile</span></p>
+
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Placeholder review — awaiting real customer testimonials from Scott. This section will feature authentic 5-star Google reviews."</p>
+        <div class="review-author">
+          <div class="review-avatar">?</div>
+          <div class="review-meta">
+            <h5><span class="awaiting">Customer name TBD</span></h5>
+            <span>Residential Garage · <span class="awaiting">City TBD</span></span>
+          </div>
+        </div>
+        <div class="review-google">Google ⭐</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Placeholder review — awaiting real customer testimonials from Scott. This section will feature authentic 5-star Google reviews."</p>
+        <div class="review-author">
+          <div class="review-avatar">?</div>
+          <div class="review-meta">
+            <h5><span class="awaiting">Customer name TBD</span></h5>
+            <span>Commercial Warehouse · <span class="awaiting">City TBD</span></span>
+          </div>
+        </div>
+        <div class="review-google">Google ⭐</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Placeholder review — awaiting real customer testimonials from Scott. This section will feature authentic 5-star Google reviews."</p>
+        <div class="review-author">
+          <div class="review-avatar">?</div>
+          <div class="review-meta">
+            <h5><span class="awaiting">Customer name TBD</span></h5>
+            <span>Metallic Epoxy · <span class="awaiting">City TBD</span></span>
+          </div>
+        </div>
+        <div class="review-google">Google ⭐</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE AREA -->
+<section class="service-area section" id="service-area">
+  <div class="container">
+    <div class="section-label">Where We Serve</div>
+    <h2 class="section-title">Service <span style="color:var(--red2)">Area</span></h2>
+    <p class="section-sub">We serve residential and commercial clients throughout the region. <span class="awaiting" style="background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.8);">Exact service territory pending from Scott</span></p>
+
+    <div class="area-grid">
+      <div class="area-tag primary"><span class="awaiting" style="background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.4);color:#fff;">Primary City TBD</span></div>
+      <div class="area-tag"><span class="awaiting" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:var(--silver);">City 2 TBD</span></div>
+      <div class="area-tag"><span class="awaiting" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:var(--silver);">City 3 TBD</span></div>
+      <div class="area-tag"><span class="awaiting" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:var(--silver);">City 4 TBD</span></div>
+      <div class="area-tag"><span class="awaiting" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:var(--silver);">County TBD</span></div>
+      <div class="area-tag"><span class="awaiting" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:var(--silver);">+ Surrounding Areas</span></div>
+    </div>
+    <div class="area-map">
+      <div class="area-map-icon">🗺️</div>
+      <p>Interactive service area map will be added with Scott's confirmed territory.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq section" id="faq">
+  <div class="container">
+    <div class="section-label">Common Questions</div>
+    <h2 class="section-title">Frequently Asked <span>Questions</span></h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How long does a floor coating installation take? <span class="faq-chevron">▼</span></button>
+        <div class="faq-a">Most residential garage floors can be completed in 1–2 days depending on the system. Polyaspartic systems cure faster — often same-day. Epoxy systems typically require 24–48 hours before light foot traffic and 72 hours before vehicle traffic. We'll give you exact timing during your estimate.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How long will the coating last? <span class="faq-chevron">▼</span></button>
+        <div class="faq-a">With professional installation and proper prep, our coatings are built to last 15–25+ years. Longevity depends on the system chosen, traffic levels, and how the floor is maintained. We back our work with a written warranty. <span class="awaiting">Specific warranty terms pending from Scott</span></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Do you repair cracks before coating? <span class="faq-chevron">▼</span></button>
+        <div class="faq-a">Yes. Crack repair and joint filling are standard parts of our surface prep process. We grind, fill, and level the concrete before any coating goes down — because a great coating on a poorly prepped floor won't last.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Will the coating peel or chip? <span class="faq-chevron">▼</span></button>
+        <div class="faq-a">Not when installed correctly. The #1 cause of epoxy failure is inadequate surface prep and cheap materials. We use industrial diamond grinders and commercial-grade coatings — not DIY kits. That's why our floors don't peel.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is epoxy slippery when wet? <span class="faq-chevron">▼</span></button>
+        <div class="faq-a">Standard epoxy can be slippery when wet, which is why we always recommend adding anti-slip additives to topcoats for garages, pool decks, and commercial applications. We'll discuss the right finish for your needs during consultation.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What's the difference between epoxy and polyaspartic? <span class="faq-chevron">▼</span></button>
+        <div class="faq-a">Epoxy is a two-part system that builds thickness and provides excellent chemical resistance — great as a base coat. Polyaspartic is a fast-cure UV-stable topcoat that's typically applied over epoxy. Polyaspartic-only systems cure in hours instead of days and offer superior UV resistance. We'll recommend the right system for your application and budget.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How do I get a price? <span class="faq-chevron">▼</span></button>
+        <div class="faq-a">Fill out our free estimate form below or call us directly. We'll schedule a site visit, measure the area, assess the floor condition, and provide a detailed written quote. No pressure, no obligation.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ESTIMATE FORM -->
+<section class="estimate section" id="estimate">
+  <div class="container">
+    <div class="estimate-inner">
+      <div class="estimate-info">
+        <div class="section-label">Get Started</div>
+        <h2 class="section-title">Free <span>Estimate</span></h2>
+        <p>Tell us about your project and we'll get back to you within 1 business day with a detailed quote. No pushy sales — just honest pricing.</p>
+        <div class="estimate-perks">
+          <div class="estimate-perk"><div class="perk-dot"></div><div class="perk-text"><strong>Free, no-obligation estimate</strong> — we come to you</div></div>
+          <div class="estimate-perk"><div class="perk-dot"></div><div class="perk-text"><strong>Fast response</strong> — typically within 24 hours</div></div>
+          <div class="estimate-perk"><div class="perk-dot"></div><div class="perk-text"><strong>Transparent pricing</strong> — itemized written quotes</div></div>
+          <div class="estimate-perk"><div class="perk-dot"></div><div class="perk-text"><strong>Expert advice</strong> — we'll recommend the right system</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="form-card">
+          <h3>📋 Request a Free Estimate</h3>
+          <div class="preview-notice">⚠️ <strong>Preview mode:</strong> Form is display-only. No submissions are processed. Live form + GravityLead integration enabled at launch.</div>
+          <form onsubmit="return false;">
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name *</label>
+                <input type="text" placeholder="John" disabled>
+              </div>
+              <div class="form-group">
+                <label>Last Name *</label>
+                <input type="text" placeholder="Smith" disabled>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Phone *</label>
+                <input type="tel" placeholder="(555) 000-0000" disabled>
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" placeholder="john@example.com" disabled>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Project Type *</label>
+              <select disabled>
+                <option value="">Select a service...</option>
+                <option>Epoxy Floor Coating</option>
+                <option>Polyaspartic Coating</option>
+                <option>Metallic Epoxy</option>
+                <option>Commercial / Industrial</option>
+                <option>Concrete Sealing</option>
+                <option>Not Sure — Need Advice</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Approx. Square Footage</label>
+                <input type="text" placeholder="e.g. 500 sq ft" disabled>
+              </div>
+              <div class="form-group">
+                <label>Property Type</label>
+                <select disabled>
+                  <option value="">Residential / Commercial?</option>
+                  <option>Residential</option>
+                  <option>Commercial</option>
+                  <option>Industrial</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Tell Us About Your Project</label>
+              <textarea placeholder="Describe your floor, current condition, goals, timeline..." disabled></textarea>
+            </div>
+            <button type="submit" class="form-submit" disabled>🔒 Preview Only — Submit Disabled</button>
+            <p class="form-notice">Your info is never sold. We'll contact you within 1 business day.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo.jpg" alt="American Seal Coatings">
+        <p>Premium concrete and floor coatings for residential and commercial properties. Industrial-grade materials. Craftsman-level installation. Built to last.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#services">Epoxy Coatings</a></li>
+          <li><a href="#services">Polyaspartic</a></li>
+          <li><a href="#services">Metallic Epoxy</a></li>
+          <li><a href="#services">Commercial Floors</a></li>
+          <li><a href="#services">Concrete Sealing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#process">Our Process</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <div class="footer-contact-item"><span class="icon">📞</span><span><span class="awaiting">Phone TBD</span></span></div>
+        <div class="footer-contact-item"><span class="icon">📧</span><span><span class="awaiting">Email TBD</span></span></div>
+        <div class="footer-contact-item"><span class="icon">📍</span><span><span class="awaiting">Location TBD</span></span></div>
+        <div class="footer-contact-item"><span class="icon">🕒</span><span><span class="awaiting">Hours TBD</span></span></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 American Seal Coatings. All rights reserved. · <strong style="color:var(--red);">PREVIEW ONLY — NOT LIVE</strong></p>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- GRAVITYLEAD CHAT WIDGET (Preview) -->
+<div class="chat-bubble">
+  <button class="chat-btn" onclick="toggleChat()" id="chatBtn" aria-label="Open chat">
+    <span class="chat-btn-icon">💬</span>
+    <span class="chat-badge"></span>
+  </button>
+</div>
+
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-header">
+    <div class="chat-avatar">🛡️</div>
+    <div class="chat-header-text">
+      <h4>American Seal Coatings</h4>
+      <p>GravityLead AI · Typically replies instantly</p>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="chat-msg bot">👋 Hey! I'm the American Seal Coatings AI assistant. Looking for a quote on epoxy, polyaspartic, or metallic floor coatings?</div>
+    <div class="chat-msg bot">I can help you figure out the right system for your space and get a free estimate scheduled. What kind of project are you working on?</div>
+  </div>
+  <div class="chat-input-row">
+    <input class="chat-input" placeholder="Type a message..." id="chatInput" onkeydown="if(event.key==='Enter') sendChat()">
+    <button class="chat-send" onclick="sendChat()">➤</button>
+  </div>
+  <div class="chat-preview-note">⚠️ Preview demo — GravityLead AI connected at launch</div>
+</div>
+
+<script>
+  // Nav toggle
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+
+  // FAQ
+  function toggleFaq(btn) {
+    const isOpen = btn.classList.contains('open');
+    document.querySelectorAll('.faq-q').forEach(q => { q.classList.remove('open'); q.nextElementSibling.classList.remove('open'); });
+    if (!isOpen) { btn.classList.add('open'); btn.nextElementSibling.classList.add('open'); }
+  }
+
+  // Application tabs
+  function switchTab(tab, btn) {
+    document.querySelectorAll('.app-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.app-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + tab).classList.add('active');
+  }
+
+  // Chat
+  function toggleChat() {
+    const panel = document.getElementById('chatPanel');
+    panel.classList.toggle('open');
+    if (panel.classList.contains('open')) {
+      document.querySelector('.chat-badge').style.display = 'none';
+    }
+  }
+
+  const chatResponses = [
+    "Great question! I'd love to help you get a free estimate. Can you tell me roughly how many square feet you're looking to coat?",
+    "Got it! And is this for a residential space (garage, basement) or a commercial property?",
+    "Perfect. The best next step is a free site visit — we can assess the floor condition and give you an exact quote. What's a good time this week?",
+    "Sounds good! I'll get Scott to reach out to confirm. Can I grab your name and best phone number?",
+  ];
+  let chatStep = 0;
+
+  function sendChat() {
+    const input = document.getElementById('chatInput');
+    const messages = document.getElementById('chatMessages');
+    if (!input.value.trim()) return;
+
+    const userMsg = document.createElement('div');
+    userMsg.className = 'chat-msg user';
+    userMsg.textContent = input.value;
+    messages.appendChild(userMsg);
+    input.value = '';
+    messages.scrollTop = messages.scrollHeight;
+
+    setTimeout(() => {
+      const botMsg = document.createElement('div');
+      botMsg.className = 'chat-msg bot';
+      botMsg.textContent = chatResponses[chatStep % chatResponses.length];
+      chatStep++;
+      messages.appendChild(botMsg);
+      messages.scrollTop = messages.scrollHeight;
+    }, 900);
+  }
+</script>
+</body>
+</html>

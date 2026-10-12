@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /
+
+# This is a private preview. Do not index.
